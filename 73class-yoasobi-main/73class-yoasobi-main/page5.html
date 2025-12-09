@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoasobi</title>
+    <!-- 自訂 CSS -->
+    <link rel="stylesheet" href="page5.css">
+    
+    <!--字體1-->
+    <link href="https://fonts.googleapis.com/css2?family=Konkhmer+Sleokchher&display=swap" rel="stylesheet">
+    <!--字體2-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BBH+Sans+Hegarty&display=swap" rel="stylesheet">
+
+    
+  <!--favicon-->
+  <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
+  <link rel="shortcut icon" href="favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="favicon/site.webmanifest" />
+</head>
+<body>
+    <!--header-->
+    <header>
+    <img src="icon/yoa.png" class="icon" alt="Yoasobi Logo">
+        <nav>
+            <ul class="nav-list">
+            <li class="nav-item"><a href="index.html" class="nav-link">HOME</a></li>
+                <li class="nav-item"><a href="page2.html" class="nav-link">MUSIC</a></li>
+                <li class="nav-item"><a href="page3.html" class="nav-link">MEMBER</a></li>
+                <li class="nav-item"><a href="page5.html" class="nav-link" id="login">LOGIN</a></li>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="line"></div>
+        <p class="login">LOGIN</p>
+        <div class="line"></div>
+    </div>
+    
+    <div>
+       <form class="form">
+            <label for="username" class="label" id = "label1">USERNAME</label>
+            <input type="text" id="username" name="username" class="input">
+
+            <label for="password" class="label">PASSWORD</label>
+            <input type="password" id="password" name="password" class="input">
+
+            <button type="submit" class="button">LOGIN</button>
+            <br>
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1" class="forget">FORGET PASSWORD ?</a>
+        </form>
+
+    </div>
+
+
+    <!-- 登入成功提示 -->
+    <div id="successPopup" class="popup">Successful login</div>
+
+    <script>
+    document.querySelector(".form").addEventListener("submit", function(event) {
+        event.preventDefault(); // 防止頁面重新載入
+
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        if (username && password) {
+        const popup = document.getElementById("successPopup");
+        popup.style.display = "block";
+        popup.classList.add("show");
+
+        // setInterval(函式, 間隔時間毫秒);
+        setTimeout(() => {
+            popup.classList.remove("show");
+            popup.style.display = "none";
+        }, 2000);
+        } else {
+        alert("⚠️ 請輸入帳號與密碼！");
+        }
+    });
+    </script>
+
+  
+</body>
+</html>

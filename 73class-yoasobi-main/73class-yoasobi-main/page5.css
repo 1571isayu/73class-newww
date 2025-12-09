@@ -1,0 +1,195 @@
+
+/*CSS*/
+body {
+    margin: 0;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background-color: #312C2C;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    z-index: 1050;
+    box-sizing: border-box; /* 加上這行防止 padding 導致寬度超出 */
+
+}
+
+.icon {
+    width: 117px;
+    height: 34px;
+}
+
+/*nav bar*/
+.nav-list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    margin-left: 30px;
+}
+
+.nav-link {
+    color: #F2285A;
+    text-decoration: none;
+  font-family: "Konkhmer Sleokchher";
+    font-weight: 400;
+    font-style: normal;
+    font-size: 24px;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: #FFFFFF;
+}
+
+#login {
+    color: #FFFFFF;
+    background-color: #F2285A;
+    display: inline-block;
+    text-align: center;
+    width: 105px;
+    height: 45px;
+    line-height: 45px;
+    border-radius: 6px; 
+    font-size: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#login:hover {
+    background-color: #ffffff;
+    color: #F2285A;
+}
+
+/*Login*/
+.container {
+  display: flex;
+  justify-content: center;  
+  align-items: center;    
+  gap: 23px;              
+  padding-top: 100px;
+}
+
+.line {
+  width: 189px;             
+  border-top: 2px solid #F2285A;
+}
+
+
+.login {
+  font-family: "Konkhmer Sleokchher";
+  font-size: 40px;
+  color: #F2285A;
+  text-align: center;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 36px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.form {
+  width: 522px;
+  height: auto;
+  background-color: #312C2C;
+  margin: 5px auto;
+  padding: 40px 30px;
+  border-radius: 20px; /* 圓角外框 */
+  text-align: center;  /* 讓整個區塊置中 */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+/* 第一個label 距離上方 */
+#label1 {
+      margin-top: 21px;
+}
+
+/* 登入系統 */
+.label {
+  display: block;
+  color: #FFFFFF;
+  font-family: "Konkhmer Sleokchher";
+  font-size: 23px;
+  margin-bottom: 20px;   /* label 與 input 間距 */
+  text-align: center;
+}
+
+.input {
+  width: 398px;
+  height: 52px;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 20px;  /* 與下一個元素間距 */
+  padding: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.button {
+  width: 199px;
+  height: 52px;
+  background-color: #F2285A;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  font-family: "Konkhmer Sleokchher";
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+}
+
+.button:hover {
+  background-color: #ffffff;
+  color: #F2285A;
+}
+
+.forget {
+  margin-top: 20px; 
+  color:lightblue;
+  font-size: 12px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.forget:hover {
+  text-decoration: underline;
+}
+
+/* 登入成功浮動提示框 */
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  background-color: #F2285A;
+  color:black;
+  padding: 20px 40px;
+  border-radius: 15px;
+  font-family: "Konkhmer Sleokchher";
+  font-size: 24px;
+  opacity: 0;
+  transition: all 0.4s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  z-index: 2000;
+}
+
+/* 顯示時的動畫 */
+.popup.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+
