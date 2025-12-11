@@ -26,7 +26,7 @@ $(document).ready(function () {
 
 });
 
-/**/ 
+/*滑鼠*/ 
 document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('cursorCanvas');
     const ctx = canvas.getContext('2d');
@@ -76,4 +76,61 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     drawCursor();
+});
+
+/*comment*/ document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("commentform");
+    const commentInput = document.getElementById("commentinput");
+    const commentList = document.getElementById("commentList");
+    const sendBtn = document.getElementById("sendBtn");
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const text = commentInput.value.trim();
+        if (!text) return;
+
+        // 飛機動畫
+        sendBtn.classList.add("fly");
+        setTimeout(() => sendBtn.classList.remove("fly"), 450);
+
+        // 建立留言
+        const commentItem = document.createElement("div");
+        commentItem.className = "comment-item";
+
+        // 左側頭像
+        const avatar = document.createElement("div");
+        avatar.className = "comment-avatar";
+        const avatarImg = document.createElement("img");
+        avatarImg.src = "musicimg/avatar.jpg"; // 改成你的頭像
+        avatar.appendChild(avatarImg);
+
+        // 留言文字
+        const commentText = document.createElement("div");
+        commentText.className = "comment-text";
+        commentText.innerText = text;
+
+        // 按讚區
+        const actions = document.createElement("div");
+        actions.className = "comment-actions";
+
+        const like = document.createElement("img");
+        like.src = "musicimg/like.png"; // 改成你的讚圖
+        like.addEventListener("click", () => like.classList.toggle("active"));
+
+        const dislike = document.createElement("img");
+        dislike.src = "musicimg/dislike.png"; // 改成你的倒讚圖
+        dislike.addEventListener("click", () => dislike.classList.toggle("active"));
+
+        actions.appendChild(like);
+        actions.appendChild(dislike);
+
+        commentItem.appendChild(avatar);
+        commentItem.appendChild(commentText);
+        commentItem.appendChild(actions);
+
+        commentList.appendChild(commentItem);
+
+        commentInput.value = ""; // 清空
+    });
 });

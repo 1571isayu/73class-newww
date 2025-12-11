@@ -38,20 +38,20 @@
             迅速在日本音樂榜單上取得佳績，並成為YOASOBI的代表作之一。</p>
     
             <div class="commentlist"></div>
-        </main>
+    </main>
+        <!-- 留言 -->
 
-    <!-- 留言 -->
-    <section class="comment">
-        <div>留言區</div>
-
-        <form class="comment-form">
-            <input type="text" id="name" placeholder="你的名字">
-            <textarea id="message" placeholder="留言內容"></textarea>
-            <button type="button" id="submitbtn">送出</button>
-        </form>
-
-        <div class="comment-list" id="commentlist"></div>
-    </section>
+    <div class="container">   
+        <hr>
+            <div class= "text">留言區</div>
+            <form id="commentform">
+                <textarea id="commentinput"></textarea>
+                <button type="submit" class="send-btn" id="sendBtn">
+                    <img src="musicimg/arrow.png" class="arrow" />
+                </button>         
+            </form>
+        <div id="commentList"></div>
+    </div>
 
 
     <!-- footer -->
