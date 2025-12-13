@@ -1,3 +1,4 @@
+/*login登入頁面*/
 $(document).ready(function () {
 
     $("#submitbtn").on("click", function () {
@@ -35,10 +36,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let mouseY = 0;
     let mouseDown = false;
 
+    //畫布的全部>all
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    // 監聽滑鼠位置
     window.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
@@ -48,11 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('mouseup', () => mouseDown = false);
 
     function drawCursor() {
+        //清空畫面
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         ctx.save();
         ctx.translate(mouseX, mouseY);
-        ctx.rotate(-Math.PI / 4); // 箭頭旋轉
+        ctx.rotate(-Math.PI / 4); // 箭頭旋轉45度
 
         ctx.fillStyle = mouseDown ? '#F3E9EB' : '#F2285A';
 
@@ -79,9 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// -------------------------
-// 1. Firebase 初始化
-// -------------------------
+//Firebase 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
 import { 
     getFirestore, collection, addDoc, serverTimestamp,
@@ -101,24 +101,19 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// -------------------------
-// 2. DOM elements
-// -------------------------
+// 抓 DOM elements
 const form = document.getElementById("commentform");
 const commentInput = document.getElementById("commentinput");
 const commentList = document.getElementById("commentList");
 const sendBtn = document.getElementById("sendBtn");
 
-// -------------------------
-// 3. Firestore：送出留言
-// -------------------------
+// Firestore：送出留言
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const text = commentInput.value.trim();
     if (!text) return;
 
-    // 飛機動畫
     sendBtn.classList.add("fly");
     setTimeout(() => sendBtn.classList.remove("fly"), 450);
 
@@ -127,13 +122,12 @@ form.addEventListener("submit", async (e) => {
         message: text,
         timestamp: serverTimestamp()
     });
-
+    // 清空輸入框
     commentInput.value = "";
 });
 
-// -------------------------
-// 4. Firestore：即時抓留言、顯示 UI
-// -------------------------
+// Firestore
+
 const q = query(collection(db, "comments"), orderBy("timestamp", "desc"));
 
 onSnapshot(q, (snapshot) => {
@@ -143,13 +137,11 @@ onSnapshot(q, (snapshot) => {
         const data = doc.data();
         const text = data.message;
 
-        // ------------------
-        // 建立你的留言 UI
-        // ------------------
+        // 留言 css
         const commentItem = document.createElement("div");
         commentItem.className = "comment-item";
 
-        // 左側頭像
+        // 左-頭像
         const avatar = document.createElement("div");
         avatar.className = "comment-avatar";
         const avatarImg = document.createElement("img");
@@ -161,7 +153,7 @@ onSnapshot(q, (snapshot) => {
         commentText.className = "comment-text";
         commentText.innerText = text;
 
-        // 讚 & 倒讚
+        // 右-讚 倒讚
         const actions = document.createElement("div");
         actions.className = "comment-actions";
 
@@ -176,7 +168,6 @@ onSnapshot(q, (snapshot) => {
         actions.appendChild(like);
         actions.appendChild(dislike);
 
-        // 組合
         commentItem.appendChild(avatar);
         commentItem.appendChild(commentText);
         commentItem.appendChild(actions);

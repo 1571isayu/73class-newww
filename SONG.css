@@ -155,33 +155,30 @@ main p {
     margin-left: 270px;;    
 }
 
-/* 表單排版（textarea + 按鈕在同一行） */
 #commentform {
     display: flex;
     align-items: center;
     gap: 35px;
 }
 
-/* 輸入框 */
 #commentinput {
     width: 883px;
     height: 52px;
     opacity: 1;
     font-size: 18px;
-    line-height: 3;     /* 行距更舒服 */
+    line-height: 3;     
     margin-left: 270px;
     margin-top: 43px;
     border-radius: 8px;
     border-width: 2px;
-    border: 2px solid #F2285A;       /* 粉紅色邊框（接近你 UI 樣式） */
+    border: 2px solid #F2285A;       
     outline: none;
 }
 
-/**/
 .send-btn {
     width: 45px;
     height: 45px;
-    background: #ff2f72;     /* 粉紅背景 */
+    background: #ff2f72;     
     border-radius: 50%;
     cursor: pointer;
     border: none;
@@ -198,12 +195,12 @@ main p {
 }
 
 .send-btn img.arrow {
-    width: 45px;       /* 可調整大小 */
+    width: 45px;      
     transition: transform 0.8s;
 }
 
 /* 飛機飛出去的動畫 */
-@keyframes flyOutImg {
+@keyframes fly {
     0% {
         transform: translate(0, 0) rotate(0);
         opacity: 1;
@@ -214,20 +211,20 @@ main p {
     }
 }
 
-/*.fly 時箭頭被動畫套用 */
 .send-btn.fly img.arrow {
-    animation: flyOutImg 0.45s ease-out forwards;
+    animation: fly 0.45s ease-out forwards;
 }
 
+/*ease-out：快>慢
+forwards：
+動畫結束後 停在最後一幀狀態（不會彈回來）*/
 
 
-/* --- 留言列表 --- */
+/* 留言列表 */
 #commentList {
     margin-top: 40px;
     margin-left: 270px;
     width: 997px;
-    margin-top: 400px;
-
 }
 
 .comment-item {
@@ -240,7 +237,7 @@ main p {
     color: #fff;
 } 
 
-/* 頭像改為圖片，取消原本紅色背景 */
+/*圖*/
 .comment-avatar {
     width: 40px;
     height: 40px;
@@ -252,10 +249,9 @@ main p {
 .comment-avatar img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* 保持比例填滿 */
+    object-fit: cover; 
 }
 
-/* 讚、倒讚按鈕改成圖片即可 */
 .comment-actions img {
     width: 40px;
     padding-left: 20px;
@@ -264,15 +260,10 @@ main p {
     transition: transform 0.3s, filter 0.3s;
 }
 
-/* 點擊讚或倒讚後變紅色 */
 .comment-actions img.active {
-    transform: scale(1.3);      /* 原本放大動畫保留 */
+    transform: scale(1.3);      
     filter: grayscale(0%) sepia(1) hue-rotate(-50deg) saturate(5);
 }
-
-
-
-
 
 /* FOOTER */
 footer {
