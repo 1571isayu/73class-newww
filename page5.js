@@ -1,26 +1,4 @@
-    document.querySelector(".form").addEventListener("submit", function(event) {
-        event.preventDefault(); // 防止頁面重新載入
 
-        const username = document.getElementById("username").value.trim();
-        const password = document.getElementById("password").value.trim();
-
-        if (username && password) {
-        const popup = document.getElementById("successPopup");
-        popup.style.display = "block";
-        popup.classList.add("show");
-
-        // setInterval(函式, 間隔時間毫秒);
-        setTimeout(() => {
-            popup.classList.remove("show");
-            popup.style.display = "none";
-        }, 2000);
-        } else {
-        alert("⚠️ 請輸入帳號與密碼！");
-        }
-    });
-    /**/ 
-    
-/**/
 const canvas = document.getElementById('cursorCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -74,4 +52,26 @@ window.addEventListener('resize', () => {
     canvas.height = window.innerHeight;
 });
 
-drawCursor();
+
+/*--------------------------------------------------------------------------------------------------------------------------*/
+
+     document.querySelector(".form").addEventListener("submit", function(event) {
+        event.preventDefault(); // 防止頁面重新載入
+
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        if (username && password) {
+        const popup = document.getElementById("successPopup");
+        popup.style.display = "block";
+        popup.classList.add("show");
+
+        // setInterval(函式, 間隔時間毫秒);
+        setTimeout(() => {
+            popup.classList.remove("show");
+            popup.style.display = "none";
+        }, 2000);
+        } else {
+        alert("⚠️ 請輸入帳號與密碼！");
+        }
+    }); 
