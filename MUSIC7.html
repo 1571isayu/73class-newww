@@ -31,12 +31,27 @@
         <div>怪物</div>
         <hr>
         <a href="https://www.youtube.com/watch?v=dy90tA3TT1c">
-            <img src="songimg/song7.jpg" alt="怪物">
+            <img src="songimg/song7.jpg" alt="怪物" class="dream">
         </a>
+        <br>
+        <img src = "musicimg/heart1.png" alt="heart" class="heart1">
         <p>改編自板垣巴留的小說《BEASTARS》，<br>
             描述角色路易和伊布奇的經歷，表達了人性與獸性之間的掙扎。<br>
             歌曲旋律強烈，歌詞富有張力。</p>
     </main>
+
+        <!-- 留言 -->
+    <div class="container">   
+        <hr>
+            <div class= "text">留言區</div>
+            <form id="commentform">
+                <textarea id="commentinput"></textarea>
+                <button type="submit" class="send-btn" id="sendBtn">
+                    <img src="musicimg/arrow.png" class="arrow" />
+                </button>         
+            </form>
+        <div id="commentList"></div>
+    </div>
 
     <!--FOOTER-->
     <footer>
@@ -56,6 +71,8 @@
         </div>
 
     </footer>
+        <script type="module" src="song.js"></script>
+
 </body>
 
 </html>

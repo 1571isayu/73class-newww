@@ -33,13 +33,27 @@
         </div>
         <hr>
         <a href="https://www.youtube.com/watch?v=wJQ9ig_d8yY">
-            <img src="songimg/song12.jpg" alt="大正浪漫
-">
+            <img src="songimg/song12.jpg" alt="大正浪漫" class="dream">
         </a>
+        <br>
+        <img src = "musicimg/heart1.png" alt="heart" class="heart1">
         <p>改編自 NATSUMI 的小說《大正浪漫》，<br>
             描述大正時代的愛情故事，表達了浪漫與懷舊的情感。<br>
             歌曲旋律優雅，歌詞充滿懷舊氛圍。</p>
     </main>
+
+        <!-- 留言 -->
+    <div class="container">   
+        <hr>
+            <div class= "text">留言區</div>
+            <form id="commentform">
+                <textarea id="commentinput"></textarea>
+                <button type="submit" class="send-btn" id="sendBtn">
+                    <img src="musicimg/arrow.png" class="arrow" />
+                </button>         
+            </form>
+        <div id="commentList"></div>
+    </div>
 
     <!--FOOTER-->
     <footer>
@@ -59,6 +73,8 @@
         </div>
 
     </footer>
+        <script type="module" src="song.js"></script>
+
 </body>
 
 </html>

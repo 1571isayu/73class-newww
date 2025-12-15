@@ -31,13 +31,28 @@
         <div>もう少しだけ</div>
         <hr>
         <a href="https://www.youtube.com/watch?v=K1Tz2yNmamI&list=RDK1Tz2yNmamI&start_radio=1">
-            <img src="songimg/song9.jpg" alt="もう少しだけ">
+            <img src="songimg/song9.jpg" alt="もう少しだけ" class="dream">
         </a>
+        <br>
+        <img src = "musicimg/heart1.png" alt="heart" class="heart1">
         <p>改編自千春的小說《もう少しだけ》，<br>
             描述一段戀情的最後時刻，表達了對愛情的留戀與不捨。<br>
             歌曲旋律哀傷，歌詞充滿情感。</p>
     </main>
 
+        <!-- 留言 -->
+    <div class="container">   
+        <hr>
+            <div class= "text">留言區</div>
+            <form id="commentform">
+                <textarea id="commentinput"></textarea>
+                <button type="submit" class="send-btn" id="sendBtn">
+                    <img src="musicimg/arrow.png" class="arrow" />
+                </button>         
+            </form>
+        <div id="commentList"></div>
+    </div>
+    
     <!--FOOTER-->
     <footer>
         <p class="word">Made by Isayu and Elaine</p>
@@ -56,6 +71,8 @@
         </div>
 
     </footer>
+        <script type="module" src="song.js"></script>
+
 </body>
 
 </html>

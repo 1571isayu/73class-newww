@@ -31,12 +31,26 @@
         <div>ラブレター</div>
         <hr>
         <a href="https://www.youtube.com/watch?v=mnta9Pp2LqA&list=RDmnta9Pp2LqA&start_radio=1">
-            <img src="songimg/song11.jpg" alt="ラブレター">
+            <img src="songimg/song11.jpg" alt="ラブレター" class="dream">
         </a>
+        <br>
+        <img src = "musicimg/heart1.png" alt="heart" class="heart1">
         <p>改編自はつねちゃん的小說《ラブレター》，<br>
             講述一封未寄出的情書，表達了對愛情的懷念與思念。<br>
             歌曲旋律柔美，歌詞細膩。</p>
     </main>
+    <!-- 留言 -->
+    <div class="container">   
+        <hr>
+            <div class= "text">留言區</div>
+            <form id="commentform">
+                <textarea id="commentinput"></textarea>
+                <button type="submit" class="send-btn" id="sendBtn">
+                    <img src="musicimg/arrow.png" class="arrow" />
+                </button>         
+            </form>
+        <div id="commentList"></div>
+    </div>
 
     <!--FOOTER-->
     <footer>
@@ -56,6 +70,8 @@
         </div>
 
     </footer>
+        <script type="module" src="song.js"></script>
+
 </body>
 
 </html>

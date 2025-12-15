@@ -93,7 +93,7 @@ onSnapshot(q, (snapshot) => {
         commentList.appendChild(commentItem);
     });
 });  
-
+/*滑鼠*/
 document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('cursorCanvas');
     const ctx = canvas.getContext('2d');
@@ -131,4 +131,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     drawCursor();
+});
+
+/*愛心*/
+const heart = document.querySelector('.heart1');
+
+heart.addEventListener('click', () => {
+    // 換成紅色愛心圖
+    heart.src = "musicimg/heart3.png"
+
+    // 觸發跳動動畫
+    heart.classList.remove('animate'); 
+    void heart.offsetWidth; // 重置動畫
+    heart.classList.add('animate');
 });

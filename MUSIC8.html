@@ -31,12 +31,27 @@
         <div>優しい彗星</div>
         <hr>
         <a href="https://www.youtube.com/watch?v=VyvhvlYvRnc&list=RDVyvhvlYvRnc&rco=1">
-            <img src="songimg/song8.jpg" alt="優しい彗星">
+            <img src="songimg/song8.jpg" alt="優しい彗星" class="dream">
         </a>
+        <br>
+        <img src = "musicimg/heart1.png" alt="heart" class="heart1">
         <p>改編自板垣巴留的小說《像獅子座流星雨一樣》，<br>
             講述角色路易和伊布奇的故事，表達了愛與犧牲的主題。<br>
             歌曲旋律柔和，歌詞感人。</p>
     </main>
+
+        <!-- 留言 -->
+    <div class="container">   
+        <hr>
+            <div class= "text">留言區</div>
+            <form id="commentform">
+                <textarea id="commentinput"></textarea>
+                <button type="submit" class="send-btn" id="sendBtn">
+                    <img src="musicimg/arrow.png" class="arrow" />
+                </button>         
+            </form>
+        <div id="commentList"></div>
+    </div>
 
     <!--FOOTER-->
     <footer>
@@ -56,6 +71,8 @@
         </div>
 
     </footer>
+        <script type="module" src="song.js"></script>
+
 </body>
 
 </html>

@@ -31,12 +31,27 @@
         <div>ハルカ</div>
         <hr>
         <a href="https://www.youtube.com/watch?v=vd3IlOjSUGQ">
-            <img src="songimg/song6.jpg" alt="ハルカ">
+            <img src="songimg/song6.jpg" alt="ハルカ" class="dream">
         </a>
+        <br>
+        <img src = "musicimg/heart1.png" alt="heart" class="heart1">
         <p>改編自鈴木おさむ的小說《ハルカ》，<br>
             講述一段跨越時間與空間的愛情故事，表達了對愛情的堅持與追求。<br>
             歌曲旋律動人，歌詞深刻。</p>
     </main>
+
+        <!-- 留言 -->
+    <div class="container">   
+        <hr>
+            <div class= "text">留言區</div>
+            <form id="commentform">
+                <textarea id="commentinput"></textarea>
+                <button type="submit" class="send-btn" id="sendBtn">
+                    <img src="musicimg/arrow.png" class="arrow" />
+                </button>         
+            </form>
+        <div id="commentList"></div>
+    </div>
 
     <!--FOOTER-->
     <footer>
@@ -56,6 +71,8 @@
         </div>
 
     </footer>
+        <script type="module" src="song.js"></script>
+
 </body>
 
 </html>

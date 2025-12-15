@@ -31,12 +31,27 @@
         <div>ハルジオン</div>
         <hr>
         <a href="https://www.youtube.com/watch?v=kzdJkT4kp-A">
-            <img src="songimg/song3.jpg" alt="ハルジオン">
+            <img src="songimg/song3.jpg" alt="ハルジオン" class="dream">
         </a>
+        <br>
+        <img src = "musicimg/heart1.png" alt="heart" class="heart1">
         <p>改編自橋爪駿輝的小說《即使如此，Happy End》，<br>
             描述一段青春戀曲中的分手與成長。<br>
             旋律溫暖，歌詞帶有慰藉感，表達了接受失去與向前看的正能量。</p>
     </main>
+
+        <!-- 留言 -->
+    <div class="container">   
+        <hr>
+            <div class= "text">留言區</div>
+            <form id="commentform">
+                <textarea id="commentinput"></textarea>
+                <button type="submit" class="send-btn" id="sendBtn">
+                    <img src="musicimg/arrow.png" class="arrow" />
+                </button>         
+            </form>
+        <div id="commentList"></div>
+    </div>
 
     <!--FOOTER-->
     <footer>
@@ -56,6 +71,8 @@
         </div>
 
     </footer>
+        <script type="module" src="song.js"></script>
+
 </body>
 
 </html>

@@ -32,12 +32,27 @@
         <div>あの夢をなぞって</div>
         <hr>
         <a href="https://www.youtube.com/watch?v=sAuEeM_6zpk">
-            <img src="songimg/song2.jpg" alt="あの夢をなぞって">
+            <img src="songimg/song2.jpg" alt="あの夢をなぞって" class="dream">
         </a>
+        <br>
+        <img src = "musicimg/heart1.png" alt="heart" class="heart1">
         <p>改編自星野舞夜的小說《タナトスの誘惑》，<br>
             描寫人們在夢境與現實之間尋找自我與愛情的過程。<br>
             歌曲旋律溫柔，歌詞細膩，帶有夢幻氛圍，呈現了對希望與回憶的迷戀感。</p>
     </main>
+
+        <!-- 留言 -->
+    <div class="container">   
+        <hr>
+            <div class= "text">留言區</div>
+            <form id="commentform">
+                <textarea id="commentinput"></textarea>
+                <button type="submit" class="send-btn" id="sendBtn">
+                    <img src="musicimg/arrow.png" class="arrow" />
+                </button>         
+            </form>
+        <div id="commentList"></div>
+    </div>
 
     <!--FOOTER-->
     <footer>
@@ -57,6 +72,8 @@
         </div>
 
     </footer>
+        <script type="module" src="song.js"></script>
+
 </body>
 
 </html>

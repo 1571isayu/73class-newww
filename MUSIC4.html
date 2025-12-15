@@ -31,12 +31,27 @@
         <div>たぶん</div>
         <hr>
         <a href="https://www.youtube.com/watch?v=8iuLXODzL04">
-            <img src="songimg/song4.jpg" alt="たぶん">
+            <img src="songimg/song4.jpg" alt="たぶん" class="dream">
         </a>
+        <br>
+        <img src = "musicimg/heart1.png" alt="heart" class="heart1">
         <p>取材自千春的小說《たぶん》，<br>
             講述青澀戀情中模糊的不確定感與期待。<br>
             歌曲旋律輕快，歌詞真摯，捕捉了年輕人面對感情的悸動與心跳感。</p>
     </main>
+
+        <!-- 留言 -->
+    <div class="container">   
+        <hr>
+            <div class= "text">留言區</div>
+            <form id="commentform">
+                <textarea id="commentinput"></textarea>
+                <button type="submit" class="send-btn" id="sendBtn">
+                    <img src="musicimg/arrow.png" class="arrow" />
+                </button>         
+            </form>
+        <div id="commentList"></div>
+    </div>
 
     <!--FOOTER-->
     <footer>
@@ -56,6 +71,8 @@
         </div>
 
     </footer>
+        <script type="module" src="song.js"></script>
+
 </body>
 
 </html>

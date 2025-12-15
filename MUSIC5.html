@@ -31,12 +31,27 @@
         <div>群青</div>
         <hr>
         <a href="http://youtube.com/watch?v=Y4nEEZwckuU&list=RDY4nEEZwckuU&start_radio=1">
-            <img src="songimg/song5.jpg" alt="群青">
+            <img src="songimg/song5.jpg" alt="群青" class="dream">
         </a>
+        <br>
+        <img src = "musicimg/heart1.png" alt="heart" class="heart1">
         <p>改編自乙月ななの小說《群青》，<br>
             以學生視角探討夢想與現實的衝突。歌曲旋律悠揚且富有張力，<br>
             歌詞充滿哲理感，呈現青春奮鬥與努力的情感。</p>
     </main>
+
+        <!-- 留言 -->
+    <div class="container">   
+        <hr>
+            <div class= "text">留言區</div>
+            <form id="commentform">
+                <textarea id="commentinput"></textarea>
+                <button type="submit" class="send-btn" id="sendBtn">
+                    <img src="musicimg/arrow.png" class="arrow" />
+                </button>         
+            </form>
+        <div id="commentList"></div>
+    </div>
 
     <!--FOOTER-->
  <footer>
@@ -56,6 +71,8 @@
         </div>
 
     </footer>
+        <script type="module" src="song.js"></script>
+
 </body>
 
 </html>

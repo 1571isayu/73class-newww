@@ -31,12 +31,27 @@
         <div>三原色</div>
         <hr>
         <a href="https://www.youtube.com/watch?v=BS5YyieaXgc">
-            <img src="songimg/song10.jpg" alt="三原色">
+            <img src="songimg/song10.jpg" alt="三原色" class="dream">
         </a>
+        <br>
+        <img src = "musicimg/heart1.png" alt="heart" class="heart1">
         <p>改編自乙月ななの小說《三原色》，<br>
             描述一段青春期的愛情故事，表達了成長與變化的主題。<br>
             歌曲旋律活潑，歌詞富有節奏感。</p>
     </main>
+
+        <!-- 留言 -->
+    <div class="container">   
+        <hr>
+            <div class= "text">留言區</div>
+            <form id="commentform">
+                <textarea id="commentinput"></textarea>
+                <button type="submit" class="send-btn" id="sendBtn">
+                    <img src="musicimg/arrow.png" class="arrow" />
+                </button>         
+            </form>
+        <div id="commentList"></div>
+    </div>
 
     <!--FOOTER-->
     <footer>
@@ -56,6 +71,8 @@
         </div>
 
     </footer>
+        <script type="module" src="song.js"></script>
+
 </body>
 
 </html>
