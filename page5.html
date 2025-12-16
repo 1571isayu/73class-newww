@@ -23,6 +23,12 @@
     <link rel="shortcut icon" href="favicon/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
     <link rel="manifest" href="favicon/site.webmanifest" />
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    </script>
+
 </head>
 <body>
         <canvas id="cursorCanvas"></canvas>
@@ -47,10 +53,10 @@
     
     <div>
        <form class="form">
-            <label for="username" class="label" id="label1">USERNAME</label>
+            <label for="username" class="label" id="label1">Username</label>
             <input type="text" id="username" name="username" class="input">
 
-            <label for="password" class="label">PASSWORD</label>
+            <label for="password" class="label">Password</label>
             <input type="password" id="password" name="password" class="input">
 
             <button type="submit" class="button">LOGIN</button>
