@@ -51,14 +51,10 @@ window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 });
-/**/// Firebase App
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-// Firebase Auth
 import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-// Firebase Analytics（可選）
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // Firebase config
 const firebaseConfig = {
@@ -71,32 +67,36 @@ const firebaseConfig = {
   measurementId: "G-JYK74LDJEY"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth(app); // <-- 這行很重要
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-document.querySelector(".form").addEventListener("submit", async function(event) {
+document.querySelector(".form").addEventListener("submit", async (event) => {
   event.preventDefault();
+
+  const usernameInput = document.getElementById("username").value.trim();
+  if (!usernameInput) {
+    alert("請輸入暱稱");
+    return;
+  }
 
   try {
     // 匿名登入
     const userCredential = await signInAnonymously(auth);
-    console.log("匿名登入成功：", userCredential.user.uid);
+    const uid = userCredential.user.uid;
 
-    // 顯示 popup
-    const popup = document.getElementById("successPopup");
-    popup.style.display = "block";
-    popup.classList.add("show");
+    // 將 username 存到 users collection
+    await setDoc(doc(db, "users", uid), {
+      username: usernameInput
+    });
 
-    setTimeout(() => {
-      popup.classList.remove("show");
-      popup.style.display = "none";
-      window.location.href = "index.html";
-    }, 2000);
+    console.log("匿名登入成功，暱稱已存:", usernameInput);
+
+    // 可選：顯示 popup 或跳轉
+    window.location.href = "page5.html"; // 留言板頁面
 
   } catch (error) {
     console.error("匿名登入錯誤：", error);
-    alert("匿名登入失敗，請查看 console");
+    alert("登入失敗，請查看 console");
   }
 });
