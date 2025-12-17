@@ -100,17 +100,19 @@ onSnapshot(q, (snapshot) => {
         item.className = "comment-item";
 
         item.innerHTML = `
-            <div class="comment-avatar">
-                <img src="${data.avatar}">
-            </div>
-            <div class="comment-body">
-                <div class="comment-header">
-                    <span class="comment-username">${data.username}</span>
-                    <span class="comment-time">
-                        ${data.timestamp ? data.timestamp.toDate().toLocaleString() : "剛剛"}
-                    </span>
+            <!-- 左側：頭像 + username + 留言 -->
+            <div class="comment-left">
+                <div class="comment-avatar">
+                    <img src="${data.avatar}">
                 </div>
-                <div class="comment-text">${data.message}</div>
+                <div class="comment-body">
+                    <div class="comment-username">${data.username}</div>
+                    <div class="comment-text">${data.message}</div>
+                </div>
+            </div>
+
+            <!-- 右側：讚 / 倒讚 -->
+            <div class="comment-right">
                 <div class="comment-actions">
                     <img src="musicimg/like.png" class="like">
                     <img src="musicimg/dislike.png" class="dislike">
@@ -118,7 +120,6 @@ onSnapshot(q, (snapshot) => {
             </div>
         `;
 
-        // 點擊讚/倒讚效果
         item.querySelector(".like").addEventListener("click", e => {
             e.target.classList.toggle("active");
         });
