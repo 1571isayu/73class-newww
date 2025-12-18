@@ -27,10 +27,10 @@ const auth = getAuth(app);
 // =======================
 // 每頁專屬 pageId
 // =======================
-const pageId = "music10"; // 每頁改成 music1 ~ music12
+const pageId = "music10";
 
 // =======================
-// DOM
+// DOM（先抓，不急著用）
 // =======================
 const form = document.getElementById("commentform");
 const commentInput = document.getElementById("commentinput");
@@ -46,104 +46,98 @@ onAuthStateChanged(auth, async (user) => {
     if (user) {
         currentUser = user;
 
-        // 從 users collection 拿暱稱
-        const userDoc = await getDoc(doc(db, "users", currentUser.uid));
-        if (userDoc.exists()) {
-            currentUser.username = userDoc.data().username;
-        } else {
-            currentUser.username = "匿名使用者";
-        }
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        currentUser.username = userDoc.exists()
+            ? userDoc.data().username
+            : "匿名使用者";
 
-        console.log("登入 UID:", currentUser.uid, "暱稱:", currentUser.username);
+        console.log("登入成功:", currentUser.username);
     } else {
-        window.location.href = "music10.html";
+        // ❗ 不要跳回自己
+        window.location.href = "page5.html"; // login 頁
     }
 });
 
 // =======================
-// 送出留言
+// 送出留言（安全）
 // =======================
-form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    if (!currentUser) return;
+if (form && commentInput && commentList) {
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (!currentUser) return;
 
-    const text = commentInput.value.trim();
-    if (!text) return;
+        const text = commentInput.value.trim();
+        if (!text) return;
 
-    sendBtn.classList.add("fly");
-    setTimeout(() => sendBtn.classList.remove("fly"), 450);
+        sendBtn?.classList.add("fly");
+        setTimeout(() => sendBtn?.classList.remove("fly"), 450);
 
-    await addDoc(collection(db, "comments"), {
-        pageId: pageId,
-        message: text,
-        timestamp: serverTimestamp(),
-        uid: currentUser.uid,
-        username: currentUser.username,  // 使用登入暱稱
-        avatar: "musicimg/avatar.png"
-    });
-
-    commentInput.value = "";
-});
-
-// =======================
-// 監聽留言
-// =======================
-const q = query(collection(db, "comments"), where("pageId", "==", pageId));
-
-onSnapshot(q, (snapshot) => {
-    commentList.innerHTML = "";
-
-    snapshot.docs.forEach((doc) => {
-        const data = doc.data();
-
-        const item = document.createElement("div");
-        item.className = "comment-item";
-
-        item.innerHTML = `
-            <div class="comment-avatar">
-                <img src="${data.avatar}">
-            </div>
-            <div class="comment-body">
-                <div class="comment-header">
-                    <span class="comment-username">${data.username}</span>
-                    <span class="comment-time">
-                        ${data.timestamp ? data.timestamp.toDate().toLocaleString() : "剛剛"}
-                    </span>
-                </div>
-                <div class="comment-text">${data.message}</div>
-                <div class="comment-actions">
-                    <img src="musicimg/like.png" class="like">
-                    <img src="musicimg/dislike.png" class="dislike">
-                </div>
-            </div>
-        `;
-
-        // 點擊讚/倒讚效果
-        item.querySelector(".like").addEventListener("click", e => {
-            e.target.classList.toggle("active");
-        });
-        item.querySelector(".dislike").addEventListener("click", e => {
-            e.target.classList.toggle("active");
+        await addDoc(collection(db, "comments"), {
+            pageId,
+            message: text,
+            timestamp: serverTimestamp(),
+            uid: currentUser.uid,
+            username: currentUser.username,
+            avatar: "musicimg/avatar.png"
         });
 
-        commentList.appendChild(item);
+        commentInput.value = "";
     });
-});
 
+    // =======================
+    // 監聽留言（安全）
+    // =======================
+    const q = query(collection(db, "comments"), where("pageId", "==", pageId));
+    onSnapshot(q, (snapshot) => {
+        commentList.innerHTML = "";
+        snapshot.forEach((doc) => {
+            const data = doc.data();
 
+            const item = document.createElement("div");
+            item.className = "comment-item";
+            item.innerHTML = `
+                <div class="comment-left">
+                    <div class="comment-avatar">
+                        <img src="${data.avatar}">
+                    </div>
+                    <div class="comment-body">
+                        <div class="comment-username">${data.username}</div>
+                        <div class="comment-text">${data.message}</div>
+                    </div>
+                </div>
+                <div class="comment-right">
+                    <div class="comment-actions">
+                        <img src="musicimg/like.png" class="like">
+                        <img src="musicimg/dislike.png" class="dislike">
+                    </div>
+                </div>
+            `;
+
+            item.querySelector(".like").onclick = e => e.target.classList.toggle("active");
+            item.querySelector(".dislike").onclick = e => e.target.classList.toggle("active");
+
+            commentList.appendChild(item);
+        });
+    });
+}
 
 // =======================
-// 自訂滑鼠游標
+// 自訂滑鼠游標（安全）
 // =======================
 document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('cursorCanvas');
-    const ctx = canvas.getContext('2d');
+    if (!canvas) return;
 
+    const ctx = canvas.getContext('2d');
     let mouseX = 0, mouseY = 0, mouseDown = false;
+
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    window.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+    window.addEventListener('mousemove', e => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
     window.addEventListener('mousedown', () => mouseDown = true);
     window.addEventListener('mouseup', () => mouseDown = false);
 
@@ -152,7 +146,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.save();
         ctx.translate(mouseX, mouseY);
         ctx.rotate(-Math.PI / 4);
-
         ctx.fillStyle = mouseDown ? '#F3E9EB' : '#F2285A';
         ctx.beginPath();
         ctx.moveTo(0, -15);
@@ -162,33 +155,21 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.closePath();
         ctx.fill();
         ctx.restore();
-
         requestAnimationFrame(drawCursor);
     }
-
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    });
-
     drawCursor();
 });
 
 // =======================
-// 愛心動畫
+// 愛心動畫（安全）
 // =======================
 const heart = document.querySelector('.heart1');
-
 if (heart) {
     heart.addEventListener('click', () => {
-        const isLiked = heart.src.includes('heart3.png');
-
-        heart.src = isLiked
-            ? "musicimg/heart1.png"
-            : "musicimg/heart3.png";
-
+        const liked = heart.src.includes('heart3.png');
+        heart.src = liked ? "musicimg/heart1.png" : "musicimg/heart3.png";
         heart.classList.remove('animate');
-        void heart.offsetWidth; // 強制 reflow
+        void heart.offsetWidth;
         heart.classList.add('animate');
     });
 }

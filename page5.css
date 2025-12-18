@@ -182,29 +182,3 @@ header {
   text-decoration: underline;
 }
 
-/* 登入成功浮動提示框 */
-.popup {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.8);
-  background-color: #F2285A;
-  color:black;
-  padding: 20px 40px;
-  border-radius: 15px;
-  font-family: "Konkhmer Sleokchher";
-  font-size: 24px;
-  opacity: 0;
-  transition: all 0.4s ease;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-  z-index: 2000;
-}
-
-/* 顯示時的動畫 */
-.popup.show {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-}
-
-
