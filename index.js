@@ -86,3 +86,15 @@ document.addEventListener('DOMContentLoaded', function () {
         hamburgerIcon.classList.remove('active');
     });
 });
+
+/*loading*/
+window.addEventListener('load', () => {
+    const loading = document.getElementById('loading');
+    const mainContent = document.getElementById('main-content');
+
+    // 延遲 2 秒再隱藏 loading
+    setTimeout(() => {
+        loading.style.display = 'none';
+        mainContent.style.display = 'block';
+    }, 2500); // 2000 毫秒 = 2 秒
+});
