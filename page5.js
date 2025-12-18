@@ -79,8 +79,7 @@ document.querySelector(".form").addEventListener("submit", async (event) => {
     alert("請輸入暱稱");
     return;
   }
-
-  try {
+try {
     // 匿名登入
     const userCredential = await signInAnonymously(auth);
     const uid = userCredential.user.uid;
@@ -92,30 +91,15 @@ document.querySelector(".form").addEventListener("submit", async (event) => {
 
     console.log("匿名登入成功，暱稱已存:", usernameInput);
 
-    // 可選：顯示 popup 或跳轉
-    window.location.href = "page5.html"; // 留言板頁面
+    // 用 alert 提示登入成功
+    alert(`登入成功！歡迎 ${usernameInput}`);
 
-  } catch (error) {
+    // 之後跳轉頁面
+    window.location.href = "page2.html"; // 登入後頁面
+
+} catch (error) {
     console.error("匿名登入錯誤：", error);
     alert("登入失敗，請查看 console");
-  }
-});
-//漢堡選單動畫
-document.addEventListener('DOMContentLoaded', function () {
-    // 1. 抓取元素
-    var offcanvasElement = document.getElementById('offcanvasNavbar');
-    var hamburgerIcon = document.querySelector('.hamburger-icon');
+}
 
-    // 如果找不到元素就不要執行，避免報錯
-    if (!offcanvasElement || !hamburgerIcon) return;
-
-    // 2. 當選單「開始顯示」時 -> 變成 X
-    offcanvasElement.addEventListener('show.bs.offcanvas', function () {
-        hamburgerIcon.classList.add('active');
-    });
-
-    // 3. 當選單「開始隱藏」時 -> 變回三條線
-    offcanvasElement.addEventListener('hide.bs.offcanvas', function () {
-        hamburgerIcon.classList.remove('active');
-    });
 });
