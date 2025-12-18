@@ -237,3 +237,149 @@ footer {
     width: 80px;
     height: 80px;
 }
+
+.main-header {
+  z-index: 1100 !important;;
+  pointer-events: none;
+}
+
+/* 1. 漢堡圖示容器 */
+.hamburger-icon {
+  width: 40px;
+  height: 30px;
+  position: relative;
+  cursor: pointer;
+}
+
+/* 2. 三條線的共同設定 */
+.hamburger-icon span {
+  display: block;
+  position: absolute;
+  height: 5px;
+  width: 100%;
+  background: #F2285A;
+  border-radius: 9px;/* 線條圓角 */
+  opacity: 1;/* 透明度 */
+  left: 0;/* 靠容器的左 */
+  transform: rotate(0deg);/* 旋轉角度 */
+  transition: 0.3s ease-in-out;/* 過渡動畫 */
+}
+
+/* 3. 線條初始位置 */
+.hamburger-icon span:nth-child(1) {
+  top: 0px;
+}
+
+.hamburger-icon span:nth-child(2) {
+  top: 15px;
+}
+
+.hamburger-icon span:nth-child(3) {
+  top: 30px;
+}
+
+/* 4. 變身成 X 的狀態 (白色) */
+.hamburger-icon.active span:nth-child(1) {
+  top: 10px;
+  background: #F3E9EB;
+  transform: rotate(135deg);
+}
+
+.hamburger-icon.active span:nth-child(2) {
+  opacity: 0;
+  left: 60px;
+  background: #F3E9EB;
+}
+
+.hamburger-icon.active span:nth-child(3) {
+  top: 10px;
+  background: #F3E9EB;
+  transform: rotate(-135deg);
+}
+/* =========================================
+   同步極速版：左上角軸心甩入
+   ========================================= */
+
+.slanted-menu {
+    /* --- 1. 基礎外觀 (保持不變) --- */
+    background-color: #000;
+    color: #fff;
+    border: none;
+    clip-path: polygon(60px 0, 100% 0, 100% 100%, 0% 100%);
+    width: 350px !important;
+
+    /* --- 2. 動畫設定 (修改這裡) --- */
+    
+    /* 軸心維持在左上角 */
+    transform-origin: top left;
+    
+    /* 預設狀態：
+       角度改成 -15deg (原本 -30deg)。
+       角度小一點，轉正的路徑就短一點，感覺會更俐落。
+    */
+    transform: translateX(100%) rotate(-15deg) !important;
+    
+    /* --- 3. 速度設定 (關鍵！) --- */
+    /* 時間改成 0.4s (原本 0.8s)。
+       這跟漢堡按鈕的 0.25s 很接近，加上選單面積大，視覺上會感覺是同步的。
+       Ease-out 代表「一開始很快，最後慢慢煞車」，符合點擊後的立即反應。
+    */
+    transition: transform 0.3s ease-out;
+    
+    visibility: hidden; 
+}
+
+/* --- 4. 打開時的狀態 --- */
+.offcanvas.show {
+    transform: translateX(0) rotate(0deg) !important;
+    visibility: visible;
+}
+
+/* --- 5. 手機版 (保持不變) --- */
+@media (max-width: 768px) {
+    .slanted-menu {
+        width: 85% !important;
+        clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%);
+    }
+}
+/* =========================================
+   修正後的選單與連結樣式
+   ========================================= */
+
+/* 1. 選單連結 (常態) */
+.full-menu-link {
+  font-family: 'Konkhmer Sleokchher', sans-serif !important;
+  font-size: 2.5rem !important;
+  font-weight: 900 !important;
+  color: #fff !important;
+  text-transform: uppercase;
+  padding: 10px 0;
+  transition: 0.3s !important; /* 動畫時間 */
+
+  /* 讓連結變成長條塊狀，並靠右對齊 */
+  display: block;    
+  text-align: right; 
+}
+
+/* 2. 選單連結 (滑鼠移上去時 :hover) */
+.full-menu-link:hover {
+  color: #ff004f !important; /* 變粉紅色 */
+  
+  /* 往左邊彈一下的效果 */
+  /* 因為是靠右對齊，增加右邊內距會把文字往左推 */
+  padding-right: 20px !important; 
+}
+
+/* 3. 選單容器 (Offcanvas Body) */
+/* 這裡控制整個選單內容離邊框多遠 */
+.offcanvas-body {
+    /* 強制把 Bootstrap 的 ps-5 (左邊留白) 歸零 */
+    padding-left: 0 !important; 
+    
+    /* 改成右邊留白 (數字越大，所有文字離右邊邊框越遠) */
+    padding-right: 4rem !important; 
+    
+    /* 確保內容垂直置中 */
+    display: flex;
+    align-items: center;
+}
