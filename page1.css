@@ -97,142 +97,80 @@ header {
   background-color: #F3E9EB;
   color: #F2285A;
 }
+/*動態大圖*/
 
-/*輪播*/
-.carousel-container {
-  padding-left: 246px;
-  padding-right: 246px;
-  padding-top: 120px;
-}
 
-.carousel-item img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
-/*-----Music-----*/
-
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 23px;
-  padding-top: 95px;
-}
-
-.line {
-  width: 296px;
-  border-top: 2px solid #F2285A;
+.neon-section {
+    width: 100%;
+    height: 690px;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;   /* ★ */
 }
 
 
-.music {
-  font-family: "Konkhmer Sleokchher";
-  font-size: 40px;
-  color: #F2285A;
-  text-align: center;
+.neon-text {
+    font-size: 9.5rem;              /* 再放大 */
+    font-weight: 500;               /* 明顯變瘦 */
+    
+    letter-spacing: 0;              /* 明確不留間距 */
+
+    color: transparent;
+    -webkit-text-stroke: 2px #F2285A;
+
+    position: relative;
+    overflow: hidden;
+
+    transform: scaleX(1.2);        /* ★ 明顯拉長（瘦長感核心） */
+    transform-origin: center;
+
+    animation: glow 2s ease-in-out infinite alternate;
 }
 
-/*Music 圖*/
-.music-img {
-  display: flex;
-  justify-content: center;
-  gap: 101px;
-  margin-top: 96px;
-  padding-left: 92px;
-  padding-right: 82px;
-  flex-wrap: wrap;
+
+@keyframes glow {
+    0% {
+        text-shadow:
+            0 0 10px #F2285A,
+            0 0 20px #F2285A,
+            0 0 30px #A18CD1,
+            0 0 40px #A18CD1;
+    }
+    100% {
+        text-shadow:
+            0 0 20px #F2285A,
+            0 0 40px #F2285A,
+            0 0 60px #ff9a9e,
+            0 0 80px #fbc2eb,
+            0 0 100px #F2285A;
+    }
 }
 
-.music-image {
-  border: 2px solid #F3E9EB;
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.neon-text::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      120deg,
+      transparent 0%,
+      rgba(255,255,255,0.6) 50%,
+      transparent 100%
+    );
+    animation: shine 3s infinite;
+    transform: skewX(-20deg);
 }
 
-.music-image:hover {
-  transform: translateY(-10px) scale(1.05);
-  box-shadow: 0 8px 20px rgba(242, 40, 90, 0.6);
+@keyframes shine {
+    0% { left: -150%; }
+    60% { left: 150%; }
+    100% { left: 150%; }
 }
 
-/*More按鈕*/
-.more {
-  font-family: "Konkhmer Sleokchher";
-  font-size: 24px;
-  color: #F3E9EB;
-  background-color: #F2285A;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 105px;
-  height: 45px;
-  margin-top: 100px;
-  margin-left: auto;
-  margin-right: auto;
-  text-decoration: none;
-  transition: background-color 0.3s, color 0.3s;
-  cursor: pointer;
-}
-
-.more:hover {
-  background-color: #FFFFFF;
-  border: 2px solid #F2285A;
-  color: #F2285A;
-}
-
-/*News*/
-.news {
-  display: flex;
-  align-items: flex-start;
-  margin-top: 150px;
-  margin-left: 246px;
-}
-
-.live-img {
-  width: 296px;
-  height: 217px;
-  border: 2px solid #F3E9EB;
-  ;
-  ;
-}
-
-.text {
-  display: flex;
-  flex-direction: column;
-  margin-left: 40px;
-  margin-top: 50px;
-  font-family: "Konkhmer Sleokchher";
-}
-
-.live-all {
-  display: flex;
-}
-
-.live {
-  font-size: 16px;
-  color: #F2285A;
-  border: 1px solid #F2285A;
-  width: fit-content;
-  padding: 2px 12px;
-  margin: 0 0 10px 0;
-}
-
-.date {
-  font-size: 16px;
-  color: #F3E9EB;
-  margin: 3px 0 8px 10px;
-}
-
-.title {
-  font-size: 18px;
-  font-weight: bold;
-  margin-left: 19px;
-  color: #F3E9EB;
-
-}
 
 /*Footer*/
 footer {

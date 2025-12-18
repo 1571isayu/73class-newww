@@ -244,21 +244,59 @@ forwards：
     margin-left: 270px;
     width: 997px;
 }
-
 .comment-item {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: flex-start;
     padding: 10px 15px;
     margin-bottom: 15px;
     border-radius: 8px;
     color: #fff;
-} 
+}
+
+/* 左側整體：頭像 + 文字 */
+.comment-left {
+    display: flex;
+    align-items: center;   /* 關鍵：垂直置中對齊頭像 */
+    gap: 12px;
+}
+
+/* 文字區塊（暱稱 + 留言） */
+.comment-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 讓文字群組本身置中 */
+}
+
+.comment-username {
+    font-size: 20px;      /* 暱稱大小 */
+    justify-content: center;
+    font-weight: 800;     /* 字稍微粗一點 */
+    margin-bottom: 4px;  /* 與留言的距離 */
+}
+
+.comment-text {
+    font-size: 17  px;      /* 留言文字大小 */
+    line-height: 1.6;    /* 行距，閱讀性很好 */
+    opacity: 0.95;       /* 稍微柔一點 */
+}
+
+
+.comment-right {
+    display: flex;
+    height: 100%;
+}
+
+
+.comment-actions {
+    display: flex;
+}
+
 
 /*圖*/
 .comment-avatar {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     overflow: hidden;
     margin-right: 15px;
@@ -271,8 +309,9 @@ forwards：
 }
 
 .comment-actions img {
-    width: 40px;
+    width: 35px;
     padding-left: 20px;
+    padding-top: 15px;
     cursor: pointer;
     filter: grayscale(100%);
     transition: transform 0.3s, filter 0.3s;
