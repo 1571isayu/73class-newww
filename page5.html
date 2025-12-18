@@ -32,20 +32,44 @@
 </head>
 <body>
         <canvas id="cursorCanvas"></canvas>
-    <!--header-->
-    <header>
-            <a href="index.html">
-                <img src="icon/yoa.png" class="icon" alt="Yoasobi Logo">
-            </a>        <nav>
-            <ul class="nav-list">
-            <li class="nav-item"><a href="index.html" class="nav-link">HOME</a></li>
-                <li class="nav-item"><a href="page2.html" class="nav-link">MUSIC</a></li>
-                <li class="nav-item"><a href="page3.html" class="nav-link">MEMBER</a></li>
-                <li class="nav-item"><a href="page5.html" class="nav-link" id="login">LOGIN</a></li>
-        </nav>
-    </header>
+   <!--header-->
+    <header class="d-flex justify-content-between align-items-center px-4 py-3 fixed-top main-header">
+        <a href="index.html" style="pointer-events: auto;">
+            <img src="icon/yoa.png" class="icon" alt="Logo" style="height: 50px; width: auto;">
+        </a>
+        <div class="header-actions">
+    <a href="page6.html" class="nav-icon" title="LIKE">
+        <img src="icon/愛心填色.png" class="custom-icon" alt="Like">
+    </a>
 
-    <div class="container">
+    <a href="page5.html" class="nav-icon" title="LOGIN">
+        <img src="icon/頭貼.png" class="custom-icon" alt="Login">
+    </a>
+
+    <button class="btn border-0 p-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+        id="hamburger-btn" style="z-index: 1060;">
+        <div class="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </button>
+</div>
+    </header>
+    <div class="offcanvas offcanvas-end slanted-menu bg-black text-white" tabindex="-1" id="offcanvasNavbar">
+        <div class="container py-5"></div>
+
+        <div class="offcanvas-body d-flex align-items-center ps-5">
+            <ul class="navbar-nav w-100">
+                <li class="nav-item full-menu-item"><a class="nav-link full-menu-link" href="index.html">HOME</a></li>
+                <li class="nav-item full-menu-item"><a class="nav-link full-menu-link" href="page2.html">MUSIC</a></li>
+                <li class="nav-item full-menu-item"><a class="nav-link full-menu-link" href="page3.html">MEMBER</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="login-title-container">
         <div class="line"></div>
         <p class="login">LOGIN</p>
         <div class="line"></div>
