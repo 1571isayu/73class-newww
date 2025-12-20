@@ -98,3 +98,40 @@ window.addEventListener('load', () => {
         mainContent.style.display = 'block';
     }, 2500); // 2000 毫秒 = 2 秒
 });
+
+/*文字滑動*/
+document.addEventListener("DOMContentLoaded", () => {
+  // 第二個畫面
+  const redImg = document.querySelector(".red-img");
+  const redText = document.querySelector(".red-text");
+
+  const redObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          redText.classList.add("show");
+          redObserver.unobserve(redImg);
+        }
+      });
+    },
+    { threshold: 0.6 }  // 圖片進畫面 60% 時觸發
+  );
+  redObserver.observe(redImg);
+
+  // 第三個畫面
+  const blackImg = document.querySelector(".black-img");
+  const blackText = document.querySelector(".black-text");
+
+  const blackObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          blackText.classList.add("show");
+          blackObserver.unobserve(blackImg);
+        }
+      });
+    },
+    { threshold: 0.6 }  // 圖片進畫面 60% 時觸發
+  );
+  blackObserver.observe(blackImg);
+});

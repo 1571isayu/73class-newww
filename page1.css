@@ -102,6 +102,7 @@ body {
 
 /* Loading 文字 */
 .loading-text {
+    margin-top: 15px;
     font-family: 'BBH Sans Hegarty', sans-serif;
     font-size: 2rem;
     color: #F2285A;
@@ -148,82 +149,63 @@ header {
   height: 34px;
 }
 
-/*nav bar*/
-.nav-list {
-  display: flex;
-  align-items: center;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
 
-.nav-item {
-  margin-left: 30px;
-}
-
-.nav-link {
-  color: #F2285A;
-  text-decoration: none;
-  font-family: "Konkhmer Sleokchher", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 24px;
-  transition: color 0.3s;
-}
-
-.nav-link:hover {
-  color: #F3E9EB;
-}
-
-#login {
-  color: #F3E9EB;
-  background-color: #F2285A;
-  display: inline-block;
-  text-align: center;
-  width: 105px;
-  height: 45px;
-  line-height: 45px;
-  border-radius: 6px;
-  font-size: 20px;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-#login:hover {
-  background-color: #F3E9EB;
-  color: #F2285A;
-}
 /*動態大圖*/
-
-
 .neon-section {
     width: 100%;
-    height: 690px;
+    height: 730px;
     background: #000;
+
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;   /* ★ */
 }
 
-
+/* 保持文字效果 */
 .neon-text {
-    font-size: 9.5rem;              /* 再放大 */
-    font-weight: 500;               /* 明顯變瘦 */
-    
-    letter-spacing: 0;              /* 明確不留間距 */
-
+    font-size: 9.5rem;
+    font-weight: 500;
+    letter-spacing: 0;
     color: transparent;
     -webkit-text-stroke: 2px #F2285A;
-
     position: relative;
-    overflow: hidden;
-
-    transform: scaleX(1.2);        /* ★ 明顯拉長（瘦長感核心） */
+    overflow: visible;        /* ★ 允許光暈超出文字 */
+    transform: scaleX(1.2);
     transform-origin: center;
-
     animation: glow 2s ease-in-out infinite alternate;
 }
 
+/* 光暈跨螢幕 */
+.neon-text::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300%;           /* 光暈寬度夠大 */
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(
+      120deg,
+      transparent 0%,
+      rgba(255,255,255,0.6) 50%,
+      transparent 100%
+    );
+    transform: skewX(-20deg) translateX(-100%);  /* ★ 起始位置 */
+    animation: shine 3s linear infinite;         /* ★ 使用 linear 平滑 */
+    z-index: 2;
+}
+
+@keyframes shine {
+    0% { transform: skewX(-20deg) translateX(-100%); }
+    100% { transform: skewX(-20deg) translateX(100%); }
+}
+
+@keyframes shine {
+    0% { left: -100%; }
+    60% { left: 100%; }
+    100% { left: 100%; }
+}
 
 @keyframes glow {
     0% {
@@ -265,6 +247,107 @@ header {
     60% { left: 150%; }
     100% { left: 150%; }
 }
+    
+/*第二個畫面*/
+.red {
+  width: 100%;
+  height: 777px;
+  position: relative;   /* ★ 建立圖層基準 */
+  display: flex;                 /* ★ 關鍵 */
+  align-items: center;           /* 垂直置中 */
+  padding-left: 330px;
+  gap: 120px;                    /* 圖片與文字間距 */
+}
+
+.red::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #F2285A;
+  opacity: 0.45;       /* ★ 只影響背景 */
+  z-index: 0;
+}
+
+.red-img {
+  width: 369px;
+  height: 454px;
+  object-fit: cover;
+  opacity: 1;
+    z-index: 1;          /* 圖片在下 */
+
+}
+
+.red-text {
+  font-family: "Kay Pho Du";
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.6;
+  color: #FFFFFF;
+  text-align: center;
+
+  position: relative;
+  z-index: 3;
+
+  opacity: 0;                    /* 一開始看不到 */
+  transform: translateX(100%);   /* 從右邊完全畫面外開始 */
+  transition: 
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.red-text.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+    
+/* 第三個畫面容器 */
+.black {
+  width: 100%;
+  height: 777px;
+  position: relative;
+  display: flex;              
+  align-items: center;        
+  justify-content: flex-start;   /* 文字+圖片從左開始排 */
+  gap: 80px;                     /* 控制文字和圖片間距 */
+  padding-left: 200px;           /* 整體右偏 */
+  background: #000000;
+  opacity: 0.65;
+}
+
+.black-text {
+  font-family: "Kay Pho Du";
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+  flex: 0 0 45%;                 /* 固定文字寬度 */
+  max-width: 45%;                
+  opacity: 0;
+  transform: translateX(-50px);   /* 從左滑入 */
+  transition: 
+    opacity 1.2s ease,
+    transform 1.2s ease;
+  color:#FFFFFF;
+}
+
+.black-text.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.black-img {
+  width: 100%;
+  height: 777px;
+  object-fit: cover;
+  position: relative;
+  z-index: 1;
+  margin-left: -150px;   /* 往左偏移 50px */
+}
+
 
 
 /*Footer*/

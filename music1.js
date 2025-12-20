@@ -162,17 +162,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // =======================
 // 愛心動畫（安全）
-// =======================
-const heart = document.querySelector('.heart1');
-if (heart) {
-    heart.addEventListener('click', () => {
-        const liked = heart.src.includes('heart3.png');
-        heart.src = liked ? "musicimg/heart1.png" : "musicimg/heart3.png";
-        heart.classList.remove('animate');
-        void heart.offsetWidth;
-        heart.classList.add('animate');
+const heart1 = document.querySelector('.heart1');
+
+if (heart1) {
+    heart1.addEventListener('click', async () => {
+        if (!currentUser) return alert("請先登入");
+
+        // 愛心動畫
+        const liked = heart1.src.includes('heart3.png');
+        heart1.src = liked ? "musicimg/heart1.png" : "musicimg/heart3.png";
+        heart1.classList.remove('animate');
+        void heart1.offsetWidth;
+        heart1.classList.add('animate');
+
+        // 切換 active 樣式
+        heart1.classList.toggle("active");
+
+        // Firestore 收藏資料
+        const favoriteId = "music1";  // 每首歌的唯一 ID
+        const favoriteData = {
+            name: "夜に駆ける",          // 歌名
+            image: "songimg/song1.png",  // 封面圖片
+            pageLink: "music1.html"      // 歌曲頁面
+        };
+
+        try {
+            const favoriteRef = doc(db, "users", currentUser.uid, "favorites", favoriteId);
+            if (liked) {
+                // 已經收藏過 → 取消收藏
+                await deleteDoc(favoriteRef);
+                console.log("已取消收藏");
+            } else {
+                // 尚未收藏 → 新增收藏
+                await setDoc(favoriteRef, favoriteData);
+                console.log("已加入收藏");
+            }
+        } catch (err) {
+            console.error("操作失敗:", err);
+        }
     });
 }
+
 
 //漢堡選單動畫
 document.addEventListener('DOMContentLoaded', function () {
@@ -193,3 +223,4 @@ document.addEventListener('DOMContentLoaded', function () {
         hamburgerIcon.classList.remove('active');
     });
 });
+
