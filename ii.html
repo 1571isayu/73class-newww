@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>Stage Effect</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: black;
+  overflow: hidden;
+}
+
+/* 整個舞台 */
+.stage {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #111 0%, #000 70%);
+}
+
+/* ===== 上方聚光燈 ===== */
+.spotlight {
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  width: 900px;
+  height: 1200px;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at top,
+    rgba(255, 80, 150, 0.35),
+    rgba(255, 80, 150, 0.15) 40%,
+    transparent 70%
+  );
+  filter: blur(30px);
+  clip-path: polygon(45% 0%, 55% 0%, 90% 100%, 10% 100%);
+  animation: lightMove 6s ease-in-out infinite;
+}
+
+@keyframes lightMove {
+  0%   { transform: translateX(-50%) rotate(-3deg); }
+  50%  { transform: translateX(-50%) rotate(3deg); }
+  100% { transform: translateX(-50%) rotate(-3deg); }
+}
+
+/* ===== 地面煙霧 ===== */
+#smokeCanvas {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 45%;
+  pointer-events: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="stage">
+  <div class="spotlight"></div>
+  <canvas id="smokeCanvas"></canvas>
+</div>
+<script>
+const canvas = document.getElementById("smokeCanvas");
+const ctx = canvas.getContext("2d");
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight * 0.45;
+}
+resize();
+window.addEventListener("resize", resize);
+
+let smokes = [];
+
+class Smoke {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = canvas.height + 80;
+    this.radius = Math.random() * 120 + 80;
+    this.vx = Math.random() * 0.6 - 0.3;   // 水平漂移（弧感）
+    this.vy = Math.random() * 0.25 + 0.1;
+    this.opacity = Math.random() * 0.08 + 0.03;
+  }
+
+  update() {
+    this.x += this.vx;
+    this.y -= this.vy;
+    this.opacity -= 0.00015;
+  }
+
+  draw() {
+    const gradient = ctx.createRadialGradient(
+      this.x, this.y, this.radius * 0.2,
+      this.x, this.y, this.radius
+    );
+
+    gradient.addColorStop(0, `rgba(255,255,255,${this.opacity})`);
+    gradient.addColorStop(1, `rgba(255,255,255,0)`);
+
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // 疊加模式讓煙霧融合
+  ctx.globalCompositeOperation = "lighter";
+
+  if (smokes.length < 80) {
+    smokes.push(new Smoke());
+  }
+
+  smokes.forEach((s, i) => {
+    s.update();
+    s.draw();
+    if (s.opacity <= 0) smokes.splice(i, 1);
+  });
+
+  ctx.globalCompositeOperation = "source-over";
+  requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+
+</body>
+</html>

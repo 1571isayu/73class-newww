@@ -23,104 +23,128 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   /* 背景固定 */
-
+  overflow-x: hidden;
 
 }
 
 /* loading 蓋滿全螢幕 */
 /* 霓虹圈圈 */
 .neon-spinner {
-    width: 100px;
-    height: 100px;
-    border: 6px solid rgba(255, 40, 90, 0.2);
-    border-top: 6px solid #F2285A;
-    border-radius: 50%;
-    /* 延長動畫時間，圈圈慢慢轉 + 光暈慢慢變化 */
-    animation: spin 3s linear infinite, glow 4s ease-in-out infinite alternate;
-    box-shadow: 0 0 10px #F2285A, 0 0 20px #F2285A, 0 0 30px #A18CD1, 0 0 40px #A18CD1;
-    margin-bottom: 20px;
+  width: 100px;
+  height: 100px;
+  border: 6px solid rgba(255, 40, 90, 0.2);
+  border-top: 6px solid #F2285A;
+  border-radius: 50%;
+  /* 延長動畫時間，圈圈慢慢轉 + 光暈慢慢變化 */
+  animation: spin 3s linear infinite, glow 4s ease-in-out infinite alternate;
+  box-shadow: 0 0 10px #F2285A, 0 0 20px #F2285A, 0 0 30px #A18CD1, 0 0 40px #A18CD1;
+  margin-bottom: 20px;
 }
 
 /* 旋轉動畫變慢 */
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* 光暈跳動慢一點 */
 @keyframes glow {
-    0% {
-        box-shadow: 0 0 10px #F2285A, 0 0 20px #F2285A, 0 0 30px #A18CD1, 0 0 40px #A18CD1;
-    }
-    100% {
-        box-shadow: 0 0 20px #F2285A, 0 0 40px #F2285A, 0 0 60px #ff9a9e, 0 0 80px #fbc2eb, 0 0 100px #F2285A;
-    }
+  0% {
+    box-shadow: 0 0 10px #F2285A, 0 0 20px #F2285A, 0 0 30px #A18CD1, 0 0 40px #A18CD1;
+  }
+
+  100% {
+    box-shadow: 0 0 20px #F2285A, 0 0 40px #F2285A, 0 0 60px #ff9a9e, 0 0 80px #fbc2eb, 0 0 100px #F2285A;
+  }
 }
 
-/* Loading 文字 *//* loading 蓋滿全螢幕 */
+/* Loading 文字 */
+/* loading 蓋滿全螢幕 */
 #loading {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #000;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 11000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 11000;
 }
 
 /* 霓虹圈圈 */
 .neon-spinner {
-    width: 100px;
-    height: 100px;
-    border: 6px solid rgba(255, 40, 90, 0.2);
-    border-top: 6px solid #F2285A;
-    border-radius: 50%;
-    animation: spin 1s linear infinite, glow 1.5s ease-in-out infinite alternate;
-    box-shadow: 0 0 10px #F2285A, 0 0 20px #F2285A, 0 0 30px #A18CD1, 0 0 40px #A18CD1;
-    margin-bottom: 20px;
+  width: 100px;
+  height: 100px;
+  border: 6px solid rgba(255, 40, 90, 0.2);
+  border-top: 6px solid #F2285A;
+  border-radius: 50%;
+  animation: spin 1s linear infinite, glow 1.5s ease-in-out infinite alternate;
+  box-shadow: 0 0 10px #F2285A, 0 0 20px #F2285A, 0 0 30px #A18CD1, 0 0 40px #A18CD1;
+  margin-bottom: 20px;
 }
 
 /* 旋轉動畫 */
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* 光暈跳動 */
 @keyframes glow {
-    0% {
-        box-shadow: 0 0 10px #F2285A, 0 0 20px #F2285A, 0 0 30px #A18CD1, 0 0 40px #A18CD1;
-    }
-    100% {
-        box-shadow: 0 0 20px #F2285A, 0 0 40px #F2285A, 0 0 60px #ff9a9e, 0 0 80px #fbc2eb, 0 0 100px #F2285A;
-    }
+  0% {
+    box-shadow: 0 0 10px #F2285A, 0 0 20px #F2285A, 0 0 30px #A18CD1, 0 0 40px #A18CD1;
+  }
+
+  100% {
+    box-shadow: 0 0 20px #F2285A, 0 0 40px #F2285A, 0 0 60px #ff9a9e, 0 0 80px #fbc2eb, 0 0 100px #F2285A;
+  }
 }
 
 /* Loading 文字 */
 .loading-text {
-    margin-top: 15px;
-    font-family: 'BBH Sans Hegarty', sans-serif;
-    font-size: 2rem;
-    color: #F2285A;
-    text-shadow: 0 0 5px #F2285A, 0 0 10px #A18CD1;
-    animation: textGlow 1.5s ease-in-out infinite alternate, floatUp 1s ease-in-out infinite alternate;
+  margin-top: 15px;
+  font-family: 'BBH Sans Hegarty', sans-serif;
+  font-size: 2rem;
+  color: #F2285A;
+  text-shadow: 0 0 5px #F2285A, 0 0 10px #A18CD1;
+  animation: textGlow 1.5s ease-in-out infinite alternate, floatUp 1s ease-in-out infinite alternate;
 }
 
 /* 文字光暈 */
 @keyframes textGlow {
-    0% { text-shadow: 0 0 5px #F2285A, 0 0 10px #A18CD1; }
-    100% { text-shadow: 0 0 10px #F2285A, 0 0 20px #ff9a9e, 0 0 30px #fbc2eb; }
+  0% {
+    text-shadow: 0 0 5px #F2285A, 0 0 10px #A18CD1;
+  }
+
+  100% {
+    text-shadow: 0 0 10px #F2285A, 0 0 20px #ff9a9e, 0 0 30px #fbc2eb;
+  }
 }
 
 /* 文字浮動 */
 @keyframes floatUp {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-10px); }
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-10px);
+  }
 }
+
 /*滑鼠*/
 canvas {
   position: fixed;
@@ -152,147 +176,221 @@ header {
 
 /*動態大圖*/
 .neon-section {
-    width: 100%;
-    height: 730px;
-    background: #000;
+  width: 100%;
+  height: 730px;
+  background: #000;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;   /* ★ */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  /* ★ */
 }
 
 /* 保持文字效果 */
 .neon-text {
-    font-size: 9.5rem;
-    font-weight: 500;
-    letter-spacing: 0;
-    color: transparent;
-    -webkit-text-stroke: 2px #F2285A;
-    position: relative;
-    overflow: visible;        /* ★ 允許光暈超出文字 */
-    transform: scaleX(1.2);
-    transform-origin: center;
-    animation: glow 2s ease-in-out infinite alternate;
+  font-size: 9.5rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: transparent;
+  -webkit-text-stroke: 2px #F2285A;
+  position: relative;
+  overflow: visible;
+  /* ★ 允許光暈超出文字 */
+  transform: scaleX(1.2);
+  transform-origin: center;
+  animation: glow 2s ease-in-out infinite alternate;
 }
 
 /* 光暈跨螢幕 */
 .neon-text::after {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 300%;           /* 光暈寬度夠大 */
-    height: 100%;
-    pointer-events: none;
-    background: linear-gradient(
-      120deg,
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300%;
+  /* 光暈寬度夠大 */
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(120deg,
       transparent 0%,
-      rgba(255,255,255,0.6) 50%,
-      transparent 100%
-    );
-    transform: skewX(-20deg) translateX(-100%);  /* ★ 起始位置 */
-    animation: shine 3s linear infinite;         /* ★ 使用 linear 平滑 */
-    z-index: 2;
+      rgba(255, 255, 255, 0.6) 50%,
+      transparent 100%);
+  transform: skewX(-20deg) translateX(-100%);
+  /* ★ 起始位置 */
+  animation: shine 3s linear infinite;
+  /* ★ 使用 linear 平滑 */
+  z-index: 2;
 }
 
 @keyframes shine {
-    0% { transform: skewX(-20deg) translateX(-100%); }
-    100% { transform: skewX(-20deg) translateX(100%); }
+  0% {
+    transform: skewX(-20deg) translateX(-100%);
+  }
+
+  100% {
+    transform: skewX(-20deg) translateX(100%);
+  }
 }
 
 @keyframes shine {
-    0% { left: -100%; }
-    60% { left: 100%; }
-    100% { left: 100%; }
+  0% {
+    left: -100%;
+  }
+
+  60% {
+    left: 100%;
+  }
+
+  100% {
+    left: 100%;
+  }
 }
 
 @keyframes glow {
-    0% {
-        text-shadow:
-            0 0 10px #F2285A,
-            0 0 20px #F2285A,
-            0 0 30px #A18CD1,
-            0 0 40px #A18CD1;
-    }
-    100% {
-        text-shadow:
-            0 0 20px #F2285A,
-            0 0 40px #F2285A,
-            0 0 60px #ff9a9e,
-            0 0 80px #fbc2eb,
-            0 0 100px #F2285A;
-    }
+  0% {
+    text-shadow:
+      0 0 10px #F2285A,
+      0 0 20px #F2285A,
+      0 0 30px #A18CD1,
+      0 0 40px #A18CD1;
+  }
+
+  100% {
+    text-shadow:
+      0 0 20px #F2285A,
+      0 0 40px #F2285A,
+      0 0 60px #ff9a9e,
+      0 0 80px #fbc2eb,
+      0 0 100px #F2285A;
+  }
 }
 
 .neon-text::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -150%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      120deg,
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg,
       transparent 0%,
-      rgba(255,255,255,0.6) 50%,
-      transparent 100%
-    );
-    animation: shine 3s infinite;
-    transform: skewX(-20deg);
+      rgba(255, 255, 255, 0.6) 50%,
+      transparent 100%);
+  animation: shine 3s infinite;
+  transform: skewX(-20deg);
 }
 
 @keyframes shine {
-    0% { left: -150%; }
-    60% { left: 150%; }
-    100% { left: 150%; }
-}
-    
-/*第二個畫面*/
-.red {
-  width: 100%;
-  height: 777px;
-  position: relative;   /* ★ 建立圖層基準 */
-  display: flex;                 /* ★ 關鍵 */
-  align-items: center;           /* 垂直置中 */
-  padding-left: 330px;
-  gap: 120px;                    /* 圖片與文字間距 */
+  0% {
+    left: -150%;
+  }
+
+  60% {
+    left: 150%;
+  }
+
+  100% {
+    left: 150%;
+  }
 }
 
-.red::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: #F2285A;
-  opacity: 0.45;       /* ★ 只影響背景 */
-  z-index: 0;
+/* 第二個畫面容器 */
+/* 移除原本的 .spotlight 樣式，並修改以下內容 */
+
+.red {
+  position: relative;
+  width: 100%;
+  height: 777px;
+  background: rgba(0, 0, 0, 1);
+  /* 確保背景全黑，霓虹燈才亮 */
+  display: flex;
+  align-items: center;
+  padding-left: 330px;
+  gap: 120px;
+  overflow: hidden;
+}
+
+/* 霓虹燈容器 */
+.neon-wrapper {
+  position: relative;
+  z-index: 3;
+  transition: all 0.4s ease;
+  /* 控制浮起速度 */
+  line-height: 0;
+  /* 防止圖片下方出現空隙 */
+  border-radius: 8px;
+  /* 稍微圓角比較自然 */
 }
 
 .red-img {
   width: 369px;
   height: 454px;
   object-fit: cover;
-  opacity: 1;
-    z-index: 1;          /* 圖片在下 */
+  border-radius: 8px;
+  display: block;
+}
 
+/* ★ 滑到照片的效果：浮起 + 白色霓虹燈 */
+.neon-wrapper:hover {
+  transform: translateY(-15px) scale(1.02);
+  /* 向上浮起並微放 */
+  /* 多層陰影堆疊出霓虹燈感：強光 -> 暈開 -> 遠處光暈 */
+  box-shadow:
+    0 0 5px #fff,
+    0 0 15px #fff,
+    0 0 30px #fff,
+    0 0 60px rgba(255, 255, 255, 0.5);
+}
+
+/* 確保文字不會變透明 */
+.red {
+  position: relative;
+  /* 確保 canvas 以此為基準 */
+  width: 100%;
+  height: 777px;
+  background: #000;
+  display: flex;
+  align-items: center;
+  padding-left: 220px;
+  gap: 120px;
+  overflow: hidden;
+}
+
+#smokeCanvas {
+  position: absolute;
+  bottom: 0;
+  /* 貼緊底部 */
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* 高度與父容器一致 */
+  z-index: 1;
+  pointer-events: none;
+  /* 顆粒要糊但不要消失，建議 blur 15px-25px */
+  filter: blur(20px);
+  opacity: 0.8;
 }
 
 .red-text {
-  font-family: "Kay Pho Du";
+  opacity: 0;
+  color: #fff;
+  z-index: 4;
+}
+
+/* 文字 */
+.red-text {
+  font-family: "Kay Pho Du", sans-serif;
   font-weight: 400;
   font-size: 24px;
   line-height: 1.6;
-  color: #FFFFFF;
+  color: #fff;
   text-align: center;
-
   position: relative;
-  z-index: 3;
-
-  opacity: 0;                    /* 一開始看不到 */
-  transform: translateX(100%);   /* 從右邊完全畫面外開始 */
-  transition: 
-    opacity 0.8s ease,
-    transform 0.8s ease;
+  z-index: 4;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 .red-text.show {
@@ -300,38 +398,69 @@ header {
   transform: translateX(0);
 }
 
-    
+/* 自訂游標 */
+#cursorCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 999;
+}
+
 /* 第三個畫面容器 */
 .black {
   width: 100%;
   height: 777px;
   position: relative;
-  display: flex;              
-  align-items: center;        
-  justify-content: flex-start;   /* 文字+圖片從左開始排 */
-  gap: 80px;                     /* 控制文字和圖片間距 */
-  padding-left: 200px;           /* 整體右偏 */
-  background: #000000;
-  opacity: 0.65;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 80px;
+  /* 文字與圖片間距 */
+  padding-left: 200px;
+  background: rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+
+}
+
+#volumeCanvas {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 777px;
+  /* 設定波動的高度範圍 */
+  z-index: 1;
+  /* 高於背景，低於圖片(z-index: 2) */
+  pointer-events: none;
+  opacity: 1;
+}
+
+#blackCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 1;
 }
 
 .black-text {
-  font-family: "Kay Pho Du";
+  font-family: "Kay Pho Du", sans-serif;
   font-weight: 400;
-  font-style: Regular;
   font-size: 24px;
   line-height: 100%;
-  letter-spacing: 0%;
   text-align: center;
-  vertical-align: middle;
-  flex: 0 0 45%;                 /* 固定文字寬度 */
-  max-width: 45%;                
+  flex: 0 0 45%;
+  max-width: 45%;
   opacity: 0;
-  transform: translateX(-50px);   /* 從左滑入 */
-  transition: 
-    opacity 1.2s ease,
-    transform 1.2s ease;
-  color:#FFFFFF;
+  transform: translateX(-150px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+  color: #fff;
+  z-index: 4;
+  opacity: 1;
 }
 
 .black-text.show {
@@ -340,19 +469,19 @@ header {
 }
 
 .black-img {
-  width: 100%;
+  width: 45%;
   height: 777px;
   object-fit: cover;
-  position: relative;
-  z-index: 1;
-  margin-left: -150px;   /* 往左偏移 50px */
+  z-index: 4;
+  cursor: pointer;
+  padding-right: 320px;
+  opacity: 1;
 }
-
 
 
 /*Footer*/
 footer {
-  margin-top: 161px;
+  background-color: #000;
   width: 100%;
   height: 80px;
   display: flex;
@@ -408,11 +537,16 @@ footer {
   height: 5px;
   width: 100%;
   background: #F2285A;
-  border-radius: 9px;/* 線條圓角 */
-  opacity: 1;/* 透明度 */
-  left: 0;/* 靠容器的左 */
-  transform: rotate(0deg);/* 旋轉角度 */
-  transition: 0.3s ease-in-out;/* 過渡動畫 */
+  border-radius: 9px;
+  /* 線條圓角 */
+  opacity: 1;
+  /* 透明度 */
+  left: 0;
+  /* 靠容器的左 */
+  transform: rotate(0deg);
+  /* 旋轉角度 */
+  transition: 0.3s ease-in-out;
+  /* 過渡動畫 */
 }
 
 /* 3. 線條初始位置 */
@@ -446,52 +580,54 @@ footer {
   background: #F3E9EB;
   transform: rotate(-135deg);
 }
+
 /* =========================================
    同步極速版：左上角軸心甩入
    ========================================= */
 
 .slanted-menu {
-    /* --- 1. 基礎外觀 (保持不變) --- */
-    background-color: #000;
-    color: #fff;
-    border: none;
-    clip-path: polygon(60px 0, 100% 0, 100% 100%, 0% 100%);
-    width: 350px !important;
+  /* --- 1. 基礎外觀 (保持不變) --- */
+  background-color: #000;
+  color: #fff;
+  border: none;
+  clip-path: polygon(60px 0, 100% 0, 100% 100%, 0% 100%);
+  width: 350px !important;
 
-    /* --- 2. 動畫設定 (修改這裡) --- */
-    
-    /* 軸心維持在左上角 */
-    transform-origin: top left;
-    
-    /* 預設狀態：
+  /* --- 2. 動畫設定 (修改這裡) --- */
+
+  /* 軸心維持在左上角 */
+  transform-origin: top left;
+
+  /* 預設狀態：
        角度改成 -15deg (原本 -30deg)。
        角度小一點，轉正的路徑就短一點，感覺會更俐落。
     */
-    transform: translateX(100%) rotate(-15deg) !important;
-    
-    /* --- 3. 速度設定 (關鍵！) --- */
-    /* 時間改成 0.4s (原本 0.8s)。
+  transform: translateX(100%) rotate(-15deg) !important;
+
+  /* --- 3. 速度設定 (關鍵！) --- */
+  /* 時間改成 0.4s (原本 0.8s)。
        這跟漢堡按鈕的 0.25s 很接近，加上選單面積大，視覺上會感覺是同步的。
        Ease-out 代表「一開始很快，最後慢慢煞車」，符合點擊後的立即反應。
     */
-    transition: transform 0.3s ease-out;
-    
-    visibility: hidden; 
+  transition: transform 0.3s ease-out;
+
+  visibility: hidden;
 }
 
 /* --- 4. 打開時的狀態 --- */
 .offcanvas.show {
-    transform: translateX(0) rotate(0deg) !important;
-    visibility: visible;
+  transform: translateX(0) rotate(0deg) !important;
+  visibility: visible;
 }
 
 /* --- 5. 手機版 (保持不變) --- */
 @media (max-width: 768px) {
-    .slanted-menu {
-        width: 85% !important;
-        clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%);
-    }
+  .slanted-menu {
+    width: 85% !important;
+    clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%);
+  }
 }
+
 /* =========================================
    修正後的選單與連結樣式
    ========================================= */
@@ -504,32 +640,34 @@ footer {
   color: #fff !important;
   text-transform: uppercase;
   padding: 10px 0;
-  transition: 0.3s; /* 動畫時間 */
+  transition: 0.3s;
+  /* 動畫時間 */
 
   /* 讓連結變成長條塊狀，並靠右對齊 */
-  display: block;    
-  text-align: right; 
+  display: block;
+  text-align: right;
 }
 
 /* 2. 選單連結 (滑鼠移上去時 :hover) */
 .full-menu-link:hover {
-  color: #ff004f !important; /* 變粉紅色 */
-  
+  color: #ff004f !important;
+  /* 變粉紅色 */
+
   /* 往左邊彈一下的效果 */
   /* 因為是靠右對齊，增加右邊內距會把文字往左推 */
-  padding-right: 20px; 
+  padding-right: 20px;
 }
 
 /* 3. 選單容器 (Offcanvas Body) */
 /* 這裡控制整個選單內容離邊框多遠 */
 .offcanvas-body {
-    /* 強制把 Bootstrap 的 ps-5 (左邊留白) 歸零 */
-    padding-left: 0 !important; 
-    
-    /* 改成右邊留白 (數字越大，所有文字離右邊邊框越遠) */
-    padding-right: 4rem !important; 
-    
-    /* 確保內容垂直置中 */
-    display: flex;
-    align-items: center;
+  /* 強制把 Bootstrap 的 ps-5 (左邊留白) 歸零 */
+  padding-left: 0 !important;
+
+  /* 改成右邊留白 (數字越大，所有文字離右邊邊框越遠) */
+  padding-right: 4rem !important;
+
+  /* 確保內容垂直置中 */
+  display: flex;
+  align-items: center;
 }
