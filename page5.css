@@ -328,3 +328,106 @@ header {
     display: flex;
     align-items: center;
 }
+/* =========================================
+   修正：標題容器對應 (解決 HTML 與 CSS Class 對不上的問題)
+   ========================================= */
+.login-title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 23px;
+    padding-top: 100px;
+    /* 確保在手機上不要因為 padding 太大而導致需要一直滑 */
+    margin-bottom: 20px; 
+}
+
+/* =========================================
+   RWD：平板尺寸 (螢幕寬度小於 1024px)
+   ========================================= */
+@media (max-width: 1024px) {
+    /* 1. 表單寬度調整 */
+    .form {
+        width: 80%; /* 改用百分比，不再固定 522px */
+        max-width: 522px; /* 但最大不要超過原本設定 */
+    }
+    
+    /* 2. 輸入框寬度跟隨表單 */
+    .input {
+        width: 100%; /* 讓輸入框填滿表單寬度 */
+    }
+}
+
+/* =========================================
+   RWD：手機尺寸 (螢幕寬度小於 768px)
+   ========================================= */
+@media (max-width: 768px) {
+    
+    /* 1. 標題區域調整 */
+    .login-title-container {
+        padding-top: 120px; /* 避開 Header */
+        gap: 10px; /* 縮小 LOGIN 字樣與線條的距離 */
+    }
+
+    /* 線條變短，不然手機會塞不下 "線 LOGIN 線" */
+    .line {
+        width: 60px; /* 原本 189px 太長了 */
+    }
+
+    .login {
+        font-size: 28px; /* LOGIN 字體稍微縮小 */
+    }
+
+    /* 2. 表單區域大調整 */
+    .form {
+        width: 90%; /* 手機版佔據 90% 寬度 */
+        padding: 30px 20px; /* 內距縮小一點，爭取空間 */
+        margin-top: 10px;
+    }
+
+    /* 輸入框與按鈕全寬 */
+    .input {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .button {
+        width: 100%; /* 按鈕也變成全寬比較好按 */
+        margin-top: 10px;
+    }
+
+    /* 3. Footer (如果有 Footer 的話，這頁目前沒看到，但以防萬一) */
+    footer {
+        flex-direction: column-reverse;
+        height: auto;
+        padding: 20px 0;
+    }
+    
+    /* 4. 漢堡選單修正 (同前幾頁) */
+    .slanted-menu {
+        width: 100% !important;
+        clip-path: none !important;
+    }
+    
+    .full-menu-link {
+        text-align: center;
+        padding-right: 0 !important;
+    }
+    
+    .offcanvas-body {
+        padding-right: 0 !important;
+        justify-content: center;
+    }
+}
+
+/* =========================================
+   針對超小手機 (如 iPhone SE, Fold 折疊機)
+   ========================================= */
+@media (max-width: 380px) {
+    .line {
+        width: 30px; /* 線條再縮短 */
+    }
+    
+    .login-title-container {
+         padding-top: 100px;
+    }
+}
