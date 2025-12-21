@@ -36,6 +36,7 @@
 </head>
 
 <body>
+    <!-- 滑鼠拖曳特效 -->
     <canvas id="cursorCanvas"></canvas>
 
     <!--header-->
@@ -67,20 +68,28 @@
             </button>
         </div>
     </header>
+
     <!--側邊滑出選單-->
-    <div class="offcanvas offcanvas-end slanted-menu bg-black text-white" tabindex="-1" id="offcanvasNavbar"><!-- 從右滑出 -->
+    <div class="offcanvas offcanvas-end slanted-menu bg-black text-white" tabindex="-1" id="offcanvasNavbar">
+        <!-- 從右滑出 -->
         <div class="container py-5"></div><!--留白-->
 
-        <div class="offcanvas-body d-flex align-items-center ps-5"><!--左側留白-->
-            <ul class="navbar-nav w-100"><!--寬度100-->
-                <li class="nav-item full-menu-item"><a class="nav-link full-menu-link" href="index.html">HOME</a>
-                </li>
-                <li class="nav-item full-menu-item"><a class="nav-link full-menu-link" href="page2.html">MUSIC</a>
-                </li>
-                <li class="nav-item full-menu-item"><a class="nav-link full-menu-link" href="page3.html">MEMBER</a>
-                </li>
-            </ul>
-        </div>
+        <div class="offcanvas-body d-flex align-items-center ps-0">
+    <ul class="navbar-nav w-100 mb-4">
+        <li class="nav-item full-menu-item"><a class="nav-link full-menu-link" href="index.html">HOME</a></li>
+        <li class="nav-item full-menu-item"><a class="nav-link full-menu-link" href="page2.html">MUSIC</a></li>
+        <li class="nav-item full-menu-item"><a class="nav-link full-menu-link" href="page3.html">MEMBER</a></li>
+    </ul>
+
+    <div class="mobile-menu-icons">
+        <a href="page6.html">
+            <img src="icon/愛心填色.png" alt="Like">
+        </a>
+        <a href="page5.html">
+            <img src="icon/頭貼.png" alt="Login">
+        </a>
+    </div>
+</div>
     </div>
 
     <!--BODY-->
@@ -94,51 +103,51 @@
 
         <!--12首歌曲-->
         <div class="music">
-            <!--1-->
-            <figure class="song fade-up">
-                <a href="MUSIC1.html">
-                    <img src="musicimg/1.jpg" alt="夜に駆ける">
-                </a>
+                <!--1-->
+                <figure class="song fade-up">
+                    <a href="MUSIC1.html">
+                        <img src="musicimg/1.jpg" alt="夜に駆ける">
+                    </a>
 
-                <figcaption>
-                    <div>夜に駆ける</div>
-                    <hr>
-                    <div>2019/12/15</div>
-                </figcaption>
-            </figure>
-            <!--2-->
-            <figure class="song fade-up">
-                <a href="MUSIC2.html">
-                    <img src="musicimg/2.jpg" alt="あの夢をなぞって">
-                </a>
-                <figcaption>
-                    <div>あの夢をなぞって</div>
-                    <hr>
-                    <div>2020/01/18</div>
-                </figcaption>
-            </figure>
-            <!--3-->
-            <figure class="song fade-up">
-                <a href="MUSIC3.html">
-                    <img src="musicimg/3.jpg" alt="ハルジオン">
-                </a>
-                <figcaption>
-                    <div>ハルジオン</div>
-                    <hr>
-                    <div>2020/03/25</div>
-                </figcaption>
-            </figure>
-            <!--4-->
-            <figure class="song fade-up">
-                <a href="MUSIC4.html">
-                    <img src="musicimg/4.jpg" alt="たぶん">
-                </a>
-                <figcaption>
-                    <div>たぶん</div>
-                    <hr>
-                    <div>2020/06/24</div>
-                </figcaption>
-            </figure>
+                    <figcaption>
+                        <div>夜に駆ける</div>
+                        <hr>
+                        <div>2019/12/15</div>
+                    </figcaption>
+                </figure>
+                <!--2-->
+                <figure class="song fade-up">
+                    <a href="MUSIC2.html">
+                        <img src="musicimg/2.jpg" alt="あの夢をなぞって">
+                    </a>
+                    <figcaption>
+                        <div>あの夢をなぞって</div>
+                        <hr>
+                        <div>2020/01/18</div>
+                    </figcaption>
+                </figure>
+                <!--3-->
+                <figure class="song fade-up">
+                    <a href="MUSIC3.html">
+                        <img src="musicimg/3.jpg" alt="ハルジオン">
+                    </a>
+                    <figcaption>
+                        <div>ハルジオン</div>
+                        <hr>
+                        <div>2020/03/25</div>
+                    </figcaption>
+                </figure>
+                <!--4-->
+                <figure class="song fade-up">
+                    <a href="MUSIC4.html">
+                        <img src="musicimg/4.jpg" alt="たぶん">
+                    </a>
+                    <figcaption>
+                        <div>たぶん</div>
+                        <hr>
+                        <div>2020/06/24</div>
+                    </figcaption>
+                </figure>
             <!--5-->
             <figure class="song fade-up">
                 <a href="MUSIC5.html">
@@ -247,9 +256,7 @@
                 <img src="icon/YT.png" alt="yt" class="yt">
             </a>
         </div>
-
     </footer>
-
 
 </body>
 

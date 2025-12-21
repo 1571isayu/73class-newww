@@ -212,10 +212,11 @@ main div {
 
 main hr {
     border: none;
-    height: 2px;
+    height: 2px !important;
     background-color: #F2285A;
     width: 297px;
-    margin: 0 auto;
+    opacity: 1 !important;
+    margin: 10px auto !important;
 }
 
 main .dream {
@@ -264,10 +265,10 @@ main p {
 }
 .container hr {
     border: none;
-    height: 2px;
+    height: 2px !important;
     background-color: #F2285A;
     width: 977px;
-    margin: 0 auto;
+    margin: 10px auto !important;
     opacity: 1; /* 修正 Bootstrap 讓線變淡的問題 */
 }
 .text {
@@ -478,4 +479,156 @@ footer {
 }
 .yt{
         margin-right: 20px;
+}
+/* =========================================
+   RWD：平板尺寸 (螢幕寬度小於 1024px)
+   設定：將固定寬度改為百分比，修正愛心位置
+   ========================================= */
+@media (max-width: 1024px) {
+    
+    /* 1. 主要內容圖片與分隔線 */
+    main .dream {
+        width: 90%; /* 圖片改為相對寬度 */
+        height: auto; /* 高度自動維持比例 */
+    }
+    
+    main hr {
+        width: 50%; /* 分隔線縮短 */
+    }
+
+    /* 2. 愛心按鈕位置修正 */
+    /* 原本 margin-left: 900px 會把愛心推到螢幕外，改為靠右對齊 */
+    main .heart1 {
+        display: block;
+        margin-left: auto; /* 左邊自動 */
+        margin-right: 5%;  /* 右邊留一點邊距 */
+        margin-top: 10px;
+    }
+
+    /* 3. 留言區塊寬度修正 */
+    .container hr,
+    .text,
+    #commentform,
+    #commentList {
+        width: 90%; /* 全部改為視窗的 90% */
+    }
+
+    /* 4. 輸入框自適應 */
+    #commentinput {
+        width: 100%; /* 讓輸入框填滿剩下的空間 */
+        flex: 1; /* 重要：在 flex 容器中自動伸展 */
+    }
+}
+
+/* =========================================
+   RWD：手機尺寸 (螢幕寬度小於 768px)
+   設定：文字大小調整、Footer 堆疊、留言版面優化
+   ========================================= */
+@media (max-width: 768px) {
+    
+    /* 1. 避免 Header 擋住內容 */
+    main {
+        padding-top: 100px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    /* 2. 標題與文字調整 */
+    main div {
+        font-size: 28px; /* 歌名縮小 */
+    }
+    
+    main p {
+        font-size: 16px; /* 介紹文字縮小 */
+        text-align: justify; /* 左右對齊比較整齊 */
+        line-height: 1.6;
+    }
+
+    /* 3. 愛心按鈕在手機上置中或靠右 */
+    main .heart1 {
+        margin: 10px auto; /* 上下10px，左右置中 */
+    }
+
+    /* 4. 留言區塊 */
+    .text {
+        padding-top: 20px;
+        font-size: 24px;
+        text-align: center; /* 「留言區」文字置中 */
+    }
+    
+    #commentform {
+        margin-top: 20px;
+        gap: 10px; /* 輸入框跟按鈕靠近一點 */
+    }
+
+    #commentinput {
+        font-size: 16px; /* 手機輸入文字不要太大 */
+        height: 45px; /* 高度適中 */
+    }
+
+    .send-btn {
+        width: 40px;
+        height: 40px; /* 按鈕稍微縮小 */
+    }
+    
+    .send-btn img.arrow {
+        width: 25px; /* 箭頭圖案縮小 */
+    }
+
+    /* 5. 留言列表內容調整 */
+    .comment-item {
+        flex-direction: column; /* 讓刪除按鈕跑到下面，避免擠壓文字 */
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .comment-right {
+        align-self: flex-end; /* 讓刪除/愛心按鈕靠右 */
+    }
+
+    /* 6. Footer (頁尾) 垂直排列 */
+    footer {
+        height: auto;
+        flex-direction: column-reverse; /* 直向反轉 */
+        padding: 30px 0;
+        margin-top: 50px;
+    }
+
+    .word {
+        padding: 0;
+        margin-top: 20px;
+        text-align: center;
+        font-size: 14px;
+        width: auto;
+    }
+    
+    .link {
+        justify-content: center;
+    }
+
+    .link img {
+        width: 50px;
+        height: 50px;
+        margin: 0 10px;
+    }
+    
+    .yt {
+        margin-right: 0; /* 移除原本的右邊距 */
+    }
+
+    /* 7. 漢堡選單修正 */
+    .slanted-menu {
+        width: 100% !important;
+        clip-path: none !important;
+    }
+    
+    .full-menu-link {
+        text-align: center;
+        padding-right: 0 !important;
+    }
+    
+    .offcanvas-body {
+        padding-right: 0 !important;
+        justify-content: center;
+    }
 }

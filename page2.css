@@ -1,36 +1,30 @@
-/* 往上跑動畫動畫 */
-.fade-up {
-  opacity: 0;
-  transform: translateY(90px); /* 負往上 正往下 */
-  transition: opacity 0.6s ease-out, transform 0.8s ease-out;
-}
-
-.fade-up.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-
-body {
-    margin: 0;
-    cursor: url('icon/mouse.png') 16 16, auto !important;
-
-    /* 背景圖設定 */
-    background-image: url('icon/back.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed; /* 背景固定 */
-}
 /*滑鼠*/
 canvas {
     position: fixed;
     top: 0;
     left: 0;
-    pointer-events: none; /* 不影響滑鼠事件 */
-    z-index: 9999; 
+    pointer-events: none;
+    /*不影響滑鼠事件*/
+    z-index: 9999;
 }
 
+/*ALL頁面*/
+body {
+    margin: 0;
+    cursor: url('icon/mouse.png') 16 16, auto !important;
+
+    /*背景圖設定*/
+    background-image: url('icon/back.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /*背景固定*/
+}
+
+
+
+/*HEADER*/
 header {
     top: 0;
     left: 0;
@@ -41,69 +35,87 @@ header {
     justify-content: space-between;
     box-sizing: border-box;
     padding: 0 30px;
-    z-index: 1050;
+    z-index: 1100 !important;
+    pointer-events: none;
 }
 
-.nav-list {
-    display: flex;
-    align-items: center;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+/*漢堡ㄉdiv*/
+.hamburger-icon {
+    width: 40px;
+    height: 30px;
+    position: relative;
+    cursor: pointer;
 }
 
-.nav-item {
-    margin-left: 30px;
+/*三條槓槓初始設定*/
+.hamburger-icon span {
+    display: block;
+    position: absolute;
+    height: 5px;
+    width: 100%;
+    background: #F2285A;
+    /*線條圓角*/
+    border-radius: 10px;
+    /*透明度*/
+    opacity: 1;
+    /*靠容器的左*/
+    left: 0;
+    /*旋轉角度*/
+    transform: rotate(0deg);
+    /*過渡動畫*/
+    transition: 0.3s ease-in-out;
 }
 
-.nav-link {
-    color: #F2285A;
-    text-decoration: none;
-    font-family: 'Konkhmer Sleokchher', sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 24px;
-    transition: color 0.3s;
+/*線條初始位置*/
+.hamburger-icon span:nth-child(1) {
+    top: 0px;
 }
 
-.nav-link:hover {
-    color: #F3E9EB;
+.hamburger-icon span:nth-child(2) {
+    top: 15px;
 }
 
-#login {
-    color: #F3E9EB;
-    background-color: #F2285A;
-    display: inline-block;
-    text-align: center;
-    width: 105px;
-    height: 45px;
-    line-height: 45px;
-    border-radius: 6px;
-    font-size: 20px;
-    transition: background-color 0.3s, color 0.3s;
+.hamburger-icon span:nth-child(3) {
+    top: 30px;
 }
 
-#login:hover {
-    background-color:#F3E9EB;
-    color: #F2285A;
+/*變成 X +active*/
+.hamburger-icon.active span:nth-child(1) {
+    top: 10px;
+    background: #F3E9EB;
+    transform: rotate(135deg);
 }
 
+.hamburger-icon.active span:nth-child(2) {
+    opacity: 0;
+    background: #F3E9EB;
+}
+
+.hamburger-icon.active span:nth-child(3) {
+    top: 10px;
+    background: #F3E9EB;
+    transform: rotate(-135deg);
+}
+
+
+
+/*BODY*/
 main {
     padding-top: 150px;
 }
 
-main img{
-  object-fit: cover;
-  transition: transform 0.3s ease, box-shadow 0.3s ease; 
+main img {
+    object-fit: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-figcaption div{
+figcaption div {
     font-family: "M PLUS Rounded 1c", sans-serif;
 }
 
 main img:hover {
-  transform: translateY(-10px) scale(1.05);
-  box-shadow: 0 8px 20px rgba(242, 40, 90, 0.6);
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(242, 40, 90, 0.6);
 }
 
 .musicline {
@@ -115,10 +127,11 @@ main img:hover {
 
 .musicline hr {
     border: none;
-    height: 2px;
+    height: 2px !important;
     background-color: #F2285A;
     flex: 0 0 296px;
     margin: 0 25px;
+    opacity: 1 !important;
 }
 
 .musicline div {
@@ -135,16 +148,15 @@ main img:hover {
     margin: 0 auto;
 }
 
-
-
 .song {
     color: #F3E9EB;
     font-size: 20px;
     text-align: center;
 }
 
-figcaption{
+figcaption {
     margin-top: 20px;
+    margin-bottom: 25px;
 }
 
 .song img {
@@ -152,7 +164,7 @@ figcaption{
     max-width: 244px;
     aspect-ratio: 1 / 1;
     object-fit: contain;
-    border: 2px solid #312C2C;
+    border: 2px solid #F3E9EB !important;
 }
 
 .song hr {
@@ -160,9 +172,13 @@ figcaption{
     height: 1.5px;
     background-color: #F2285A;
     width: 175.5px;
+    opacity: 1 !important;
+    margin: 10px auto !important;
 }
 
-/*footer*/
+
+
+/*FOOTER*/
 footer {
     padding: 0;
     margin-top: 161px;
@@ -200,148 +216,188 @@ footer {
     height: 80px;
 }
 
-.main-header {
-  z-index: 1100 !important;;
-  pointer-events: none;
+
+/* 往上跑動畫動畫 */
+.fade-up {
+    opacity: 0;
+    transform: translateY(90px);
+    /* 負往上 正往下 */
+    transition: opacity 0.6s ease-out, transform 0.8s ease-out;
 }
 
-/* 1. 漢堡圖示容器 */
-.hamburger-icon {
-  width: 40px;
-  height: 30px;
-  position: relative;
-  cursor: pointer;
+.fade-up.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-/* 2. 三條線的共同設定 */
-.hamburger-icon span {
-  display: block;
-  position: absolute;
-  height: 5px;
-  width: 100%;
-  background: #F2285A;
-  border-radius: 9px;/* 線條圓角 */
-  opacity: 1;/* 透明度 */
-  left: 0;/* 靠容器的左 */
-  transform: rotate(0deg);/* 旋轉角度 */
-  transition: 0.3s ease-in-out;/* 過渡動畫 */
-}
 
-/* 3. 線條初始位置 */
-.hamburger-icon span:nth-child(1) {
-  top: 0px;
-}
-
-.hamburger-icon span:nth-child(2) {
-  top: 15px;
-}
-
-.hamburger-icon span:nth-child(3) {
-  top: 30px;
-}
-
-/* 4. 變身成 X 的狀態 (白色) */
-.hamburger-icon.active span:nth-child(1) {
-  top: 10px;
-  background: #F3E9EB;
-  transform: rotate(135deg);
-}
-
-.hamburger-icon.active span:nth-child(2) {
-  opacity: 0;
-  left: 60px;
-  background: #F3E9EB;
-}
-
-.hamburger-icon.active span:nth-child(3) {
-  top: 10px;
-  background: #F3E9EB;
-  transform: rotate(-135deg);
-}
-/* =========================================
-   同步極速版：左上角軸心甩入
-   ========================================= */
-
+/*側邊滑出選單*/
 .slanted-menu {
-    /* --- 1. 基礎外觀 (保持不變) --- */
     background-color: #000;
     color: #fff;
     border: none;
     clip-path: polygon(60px 0, 100% 0, 100% 100%, 0% 100%);
     width: 350px !important;
 
-    /* --- 2. 動畫設定 (修改這裡) --- */
-    
-    /* 軸心維持在左上角 */
     transform-origin: top left;
-    
-    /* 預設狀態：
-       角度改成 -15deg (原本 -30deg)。
-       角度小一點，轉正的路徑就短一點，感覺會更俐落。
-    */
     transform: translateX(100%) rotate(-15deg) !important;
-    
-    /* --- 3. 速度設定 (關鍵！) --- */
-    /* 時間改成 0.4s (原本 0.8s)。
-       這跟漢堡按鈕的 0.25s 很接近，加上選單面積大，視覺上會感覺是同步的。
-       Ease-out 代表「一開始很快，最後慢慢煞車」，符合點擊後的立即反應。
-    */
+
     transition: transform 0.3s ease-out;
-    
-    visibility: hidden; 
+    visibility: hidden;
 }
 
-/* --- 4. 打開時的狀態 --- */
 .offcanvas.show {
     transform: translateX(0) rotate(0deg) !important;
     visibility: visible;
 }
 
-/* --- 5. 手機版 (保持不變) --- */
-@media (max-width: 768px) {
-    .slanted-menu {
-        width: 85% !important;
-        clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%);
-    }
-}
-/* =========================================
-   修正後的選單與連結樣式
-   ========================================= */
-
-/* 1. 選單連結 (常態) */
 .full-menu-link {
-  font-family: 'Konkhmer Sleokchher', sans-serif !important;
-  font-size: 2.5rem !important;
-  font-weight: 900 !important;
-  color: #fff !important;
-  text-transform: uppercase;
-  padding: 10px 0;
-  transition: 0.3s !important; /* 動畫時間 */
+    font-family: 'Konkhmer Sleokchher', sans-serif !important;
+    font-size: 2.5rem !important;
+    font-weight: 900 !important;
+    color: #fff !important;
+    text-transform: uppercase;
+    padding: 10px 0;
+    transition: 0.3s !important;
 
-  /* 讓連結變成長條塊狀，並靠右對齊 */
-  display: block;    
-  text-align: right; 
+    display: block;
+    text-align: right;
 }
 
-/* 2. 選單連結 (滑鼠移上去時 :hover) */
 .full-menu-link:hover {
-  color: #ff004f !important; /* 變粉紅色 */
-  
-  /* 往左邊彈一下的效果 */
-  /* 因為是靠右對齊，增加右邊內距會把文字往左推 */
-  padding-right: 20px !important; 
+    color: #ff004f !important;
+    padding-right: 20px !important;
 }
 
-/* 3. 選單容器 (Offcanvas Body) */
-/* 這裡控制整個選單內容離邊框多遠 */
+/*選單容器*/
 .offcanvas-body {
-    /* 強制把 Bootstrap 的 ps-5 (左邊留白) 歸零 */
-    padding-left: 0 !important; 
-    
-    /* 改成右邊留白 (數字越大，所有文字離右邊邊框越遠) */
-    padding-right: 4rem !important; 
-    
-    /* 確保內容垂直置中 */
+    padding-left: 0 !important;
+    padding-right: 4rem !important;
+
     display: flex;
     align-items: center;
 }
+
+/*RWD<1024*/
+@media (max-width: 1024px) {
+
+    /*歌曲列表變為兩欄*/
+    .music {
+        grid-template-columns: 1fr 1fr;
+        padding: 0 20px;
+        gap: 30px;
+    }
+
+    /*標題線條縮短*/
+    .musicline hr {
+        flex: 0 0 150px;
+    }
+
+    /*關閉鼠標特效*/
+    #cursorCanvas {
+        display: none !important;/* 隱藏跟隨滑鼠的 Canvas 特效 */
+    }
+    body, a, button, .hamburger-icon, .slanted-menu, .offcanvas-body {
+        cursor: auto !important;/*將游標改回系統預設 */
+    }
+    * {
+        cursor: auto !important;/*確保連結點擊時不會有游標殘留*/
+    }
+}
+
+/*RWD手機<768*/
+@media (max-width: 768px) {
+
+    main {
+        padding-top: 100px;/*主要內容往下推*/
+    }
+    .music {
+        grid-template-columns: 1fr;/*歌曲列表變為一欄*/
+        max-width: 80%;
+    }
+
+    /*MUSIC 標題旁邊的線條縮短*/
+    .musicline hr {
+        flex: 0 0 60px;
+        margin: 0 15px;
+    }
+
+    .musicline div {
+        font-size: 30px;
+    }
+
+    /*Footer文字在下，圖示在上*/
+    footer {
+        height: auto;
+        flex-direction: column-reverse;
+        padding: 30px 0;
+        margin-top: 80px;
+    }
+
+    .word {
+        width: auto;
+        padding: 0;
+        margin-top: 20px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .link img {
+        width: 50px;
+        height: 50px;
+        margin: 0 10px;
+    }
+
+    /*漢堡選單修正*/
+    .slanted-menu {
+        width: 100% !important;
+        clip-path: none !important;
+    }
+
+    /* 讓選單內的字置中 */
+    .full-menu-link {
+        text-align: center;
+        padding-right: 0 !important;
+    }
+
+    .offcanvas-body {
+        padding-right: 0 !important;
+        justify-content: center;
+    }
+      /* 隱藏 Header 上原本的 Icon */
+    header .nav-icon {
+        display: none !important;
+    }
+
+    /* 顯示側邊選單裡的 Icon */
+    .mobile-menu-icons {
+        display: flex !important;
+        justify-content: center;
+        gap: 30px;
+        width: 100%;
+        margin-top: 20px;
+    }
+    
+    .mobile-menu-icons img {
+        width: 50px;
+        height: auto;
+    }
+
+    /*強制讓選單內容變成「直向排列」 */
+    .offcanvas-body {
+        flex-direction: column !important;
+        justify-content: center !important;
+        padding-left: 0 !important;
+    }
+    
+    .navbar-nav {
+        margin-bottom: 20px;
+        width: 100%;
+    }
+}
+/*電腦版預設隱藏選單裡的icon*/
+.mobile-menu-icons {
+    display: none;
+}
+
+
