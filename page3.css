@@ -1,39 +1,34 @@
-
-/* 往上跑動畫動畫 */
-.fade-up {
-  opacity: 0;
-  transform: translateY(90px); /* 負往上 正往下 */
-  transition: opacity 0.6s ease-out, transform 0.8s ease-out;
-}
-
-.fade-up.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-html {
-    background-color: #F3E9EB;
-}
-
 body {
     margin: 0;
+    /*預設鼠標*/
     cursor: url('icon/mouse.png') 16 16, auto !important;
     font-family: 'Konkhmer Sleokchher', sans-serif;
 
-    /* 背景圖設定 */
+    /*背景圖*/
     background-image: url('icon/back.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed; /* 背景固定 */
+    background-attachment: fixed;
 }
 
+/*滑鼠特效*/
 canvas {
     position: fixed;
     top: 0;
     left: 0;
-    pointer-events: none; /* 不影響滑鼠事件 */
-    z-index: 9999; 
+    pointer-events: none;
+    z-index: 9999;
 }
+
+/*圖片置中*/
+main img {
+    display: block;
+    margin: 0 auto;
+    object-fit: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
 header {
     top: 0;
     left: 0;
@@ -52,71 +47,117 @@ header {
     height: 34px;
 }
 
-.nav-list {
+.main-header {
+    z-index: 1100 !important;
+    pointer-events: none;
+}
+
+header a, header button {
+    pointer-events: auto;
+}
+
+/*漢堡*/
+.hamburger-icon {
+    width: 40px;
+    height: 30px;
+    position: relative;
+    cursor: pointer;
+}
+
+.hamburger-icon span {
+    display: block;
+    position: absolute;
+    height: 5px;
+    width: 100%;
+    background: #F2285A;
+    border-radius: 9px;
+    opacity: 1;
+    left: 0;
+    transform: rotate(0deg);
+    transition: 0.3s ease-in-out;
+}
+
+.hamburger-icon span:nth-child(1) { top: 0px; }
+.hamburger-icon span:nth-child(2) { top: 15px; }
+.hamburger-icon span:nth-child(3) { top: 30px; }
+
+/*漢堡變叉叉*/
+.hamburger-icon.active span:nth-child(1) {
+    top: 10px;
+    background: #F3E9EB;
+    transform: rotate(135deg);
+}
+.hamburger-icon.active span:nth-child(2) {
+    opacity: 0;
+    background: #F3E9EB;
+}
+.hamburger-icon.active span:nth-child(3) {
+    top: 10px;
+    background: #F3E9EB;
+    transform: rotate(-135deg);
+}
+
+/*側邊選單*/
+.slanted-menu {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    clip-path: polygon(60px 0, 100% 0, 100% 100%, 0% 100%);
+    width: 350px !important;
+    transform-origin: top left;
+    transform: translateX(100%) rotate(-15deg) !important;
+    transition: transform 0.3s ease-out;
+    visibility: hidden;
+}
+
+.offcanvas.show {
+    transform: translateX(0) rotate(0deg) !important;
+    visibility: visible;
+}
+
+/*選單容器*/
+.offcanvas-body {
+    padding-left: 0 !important;
+    padding-right: 4rem !important;
     display: flex;
     align-items: center;
-    list-style: none;
-    margin: 0;
-    padding: 0;
 }
 
-.nav-item {
-    margin-left: 30px;
+/*選單內容*/
+.full-menu-link {
+    font-family: 'Konkhmer Sleokchher', sans-serif !important;
+    font-size: 2.5rem !important;
+    font-weight: 900 !important;
+    color: #fff !important;
+    text-transform: uppercase;
+    padding: 10px 0;
+    transition: 0.3s !important;
+    display: block;
+    text-align: right;
 }
 
-.nav-link {
-    color: #F2285A;
-    text-decoration: none;
-    font-family: 'Konkhmer Sleokchher', sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 24px;
-    transition: color 0.3s;
+.full-menu-link:hover {
+    color: #ff004f !important;
+    padding-right: 20px !important;
 }
 
-.nav-link:hover {
-    color: #FFFFFF;
+/*手機版選單內ㄉicon預設隱藏*/
+.mobile-menu-icons {
+    display: none;
 }
-
-#login {
-    color: #F3E9EB;
-    background-color: #F2285A;
-    display: inline-block;
-    text-align: center;
-    width: 105px;
-    height: 45px;
-    line-height: 45px;
-    border-radius: 6px;
-    font-size: 20px;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-#login:hover {
-    background-color: #F3E9EB;
-    color: #F2285A;
-}
-
 
 main {
-    padding-top:150px;
+    padding-top: 150px;
 }
 
 .top {
     text-align: center;
-
 }
 
 .top img {
     width: 100%;
     max-width: 1098px;
     margin-bottom: 50px;
-    object-fit: contain;
-
-}
-
-.top p {
-        color:  #F3E9EB;
-    font-size: 24px;
 }
 
 .middle {
@@ -148,57 +189,54 @@ main {
     width: 100%;
     max-width: 330px;
     aspect-ratio: 1 / 1;
-    object-fit: contain;
-}
-
-.mtitle {
-    font-size: 32px;
-    color:  #F3E9EB;
-
 }
 
 .mcontent {
     display: flex;
     align-items: center;
     gap: 16px;
-    color:  #F3E9EB;
-
+    color: #F3E9EB;
 }
 
 .member hr {
     border: none;
-    width: 3px;
+    width: 3px !important;
     background-color: #F2285A;
     height: 138px;
     margin-left: 5px;
-}
-
-.member .mcontent p {
-    font-size: 24px;
-    color: #F3E9EB;
+    opacity: 1 !important;
 }
 
 .bottom {
     text-align: center;
 }
 
-.bottom div {
-    font-size: 32px;
-        color:  #F3E9EB;
-    margin-top: 30px;
-}
-
 .bottom hr {
     border: none;
-    height: 2px;
+    height: 2px !important;
     background-color: #F2285A;
     width: 297px;
+    opacity: 1 !important;
+    margin: 10px auto !important;
 }
 
 .bottom p {
-    font-size: 24px;
-    color:  #F3E9EB;
     margin-top: 40px;
+}
+
+.top p, 
+.member .mcontent p, 
+.bottom p {
+    color: #F3E9EB;
+    font-size: 24px !important;
+    line-height: 1.8;
+}
+
+.mtitle, 
+.bottom div {
+    color: #F3E9EB;
+    font-size: 32px !important;
+    font-weight: bold;
 }
 
 footer {
@@ -208,24 +246,16 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
 }
 
 .word {
     width: 397px;
     height: 38px;
-    opacity: 1;
     padding-top: 22px;
     padding-left: 33px;
     font-family: "Konkhmer Sleokchher";
-    font-weight: 400;
-    font-style: Regular;
     font-size: 24px;
-    line-height: 100%;
-    letter-spacing: 0%;
     color: #F2285A;
-    justify-content: center;
-    align-items: center;
 }
 
 .link {
@@ -238,148 +268,141 @@ footer {
     height: 80px;
 }
 
-.main-header {
-  z-index: 1100 !important;;
-  pointer-events: none;
+/*動畫特效*/
+.fade-up {
+    opacity: 0;
+    transform: translateY(90px); 
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-/* 1. 漢堡圖示容器 */
-.hamburger-icon {
-  width: 40px;
-  height: 30px;
-  position: relative;
-  cursor: pointer;
+.member.fade-up {
+    transform: translateX(100px); /* 初始位置在右邊 */
 }
 
-/* 2. 三條線的共同設定 */
-.hamburger-icon span {
-  display: block;
-  position: absolute;
-  height: 5px;
-  width: 100%;
-  background: #F2285A;
-  border-radius: 9px;/* 線條圓角 */
-  opacity: 1;/* 透明度 */
-  left: 0;/* 靠容器的左 */
-  transform: rotate(0deg);/* 旋轉角度 */
-  transition: 0.3s ease-in-out;/* 過渡動畫 */
+.fade-up.show {
+    opacity: 1;
+    transform: translate(0, 0);
 }
-
-/* 3. 線條初始位置 */
-.hamburger-icon span:nth-child(1) {
-  top: 0px;
-}
-
-.hamburger-icon span:nth-child(2) {
-  top: 15px;
-}
-
-.hamburger-icon span:nth-child(3) {
-  top: 30px;
-}
-
-/* 4. 變身成 X 的狀態 (白色) */
-.hamburger-icon.active span:nth-child(1) {
-  top: 10px;
-  background: #F3E9EB;
-  transform: rotate(135deg);
-}
-
-.hamburger-icon.active span:nth-child(2) {
-  opacity: 0;
-  left: 60px;
-  background: #F3E9EB;
-}
-
-.hamburger-icon.active span:nth-child(3) {
-  top: 10px;
-  background: #F3E9EB;
-  transform: rotate(-135deg);
-}
-/* =========================================
-   同步極速版：左上角軸心甩入
-   ========================================= */
-
-.slanted-menu {
-    /* --- 1. 基礎外觀 (保持不變) --- */
-    background-color: #000;
-    color: #fff;
-    border: none;
-    clip-path: polygon(60px 0, 100% 0, 100% 100%, 0% 100%);
-    width: 350px !important;
-
-    /* --- 2. 動畫設定 (修改這裡) --- */
+/*RWD*/
+@media (max-width: 1024px) {
     
-    /* 軸心維持在左上角 */
-    transform-origin: top left;
-    
-    /* 預設狀態：
-       角度改成 -15deg (原本 -30deg)。
-       角度小一點，轉正的路徑就短一點，感覺會更俐落。
-    */
-    transform: translateX(100%) rotate(-15deg) !important;
-    
-    /* --- 3. 速度設定 (關鍵！) --- */
-    /* 時間改成 0.4s (原本 0.8s)。
-       這跟漢堡按鈕的 0.25s 很接近，加上選單面積大，視覺上會感覺是同步的。
-       Ease-out 代表「一開始很快，最後慢慢煞車」，符合點擊後的立即反應。
-    */
-    transition: transform 0.3s ease-out;
-    
-    visibility: hidden; 
-}
+    /*關閉鼠標*/
+    #cursorCanvas { display: none !important; }
+    body, a, button { cursor: auto !important; }
 
-/* --- 4. 打開時的狀態 --- */
-.offcanvas.show {
-    transform: translateX(0) rotate(0deg) !important;
-    visibility: visible;
-}
-
-/* --- 5. 手機版 (保持不變) --- */
-@media (max-width: 768px) {
-    .slanted-menu {
-        width: 85% !important;
-        clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%);
+    .top p {
+        text-align: center;
+        padding: 0 40px;
     }
-}
-/* =========================================
-   修正後的選單與連結樣式
-   ========================================= */
 
-/* 1. 選單連結 (常態) */
-.full-menu-link {
-  font-family: 'Konkhmer Sleokchher', sans-serif !important;
-  font-size: 2.5rem !important;
-  font-weight: 900 !important;
-  color: #fff !important;
-  text-transform: uppercase;
-  padding: 10px 0;
-  transition: 0.3s !important; /* 動畫時間 */
-
-  /* 讓連結變成長條塊狀，並靠右對齊 */
-  display: block;    
-  text-align: right; 
-}
-
-/* 2. 選單連結 (滑鼠移上去時 :hover) */
-.full-menu-link:hover {
-  color: #ff004f !important; /* 變粉紅色 */
-  
-  /* 往左邊彈一下的效果 */
-  /* 因為是靠右對齊，增加右邊內距會把文字往左推 */
-  padding-right: 20px !important; 
-}
-
-/* 3. 選單容器 (Offcanvas Body) */
-/* 這裡控制整個選單內容離邊框多遠 */
-.offcanvas-body {
-    /* 強制把 Bootstrap 的 ps-5 (左邊留白) 歸零 */
-    padding-left: 0 !important; 
+    .member {
+        width: 90%;
+        margin: 50px auto;
+        flex-direction: column;
+        text-align: center;
+        transform: none;
+    }
     
-    /* 改成右邊留白 (數字越大，所有文字離右邊邊框越遠) */
-    padding-right: 4rem !important; 
+    .member figcaption {
+        align-items: center;
+        width: 100%;
+    }
+
+    .mcontent {
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+    }
     
-    /* 確保內容垂直置中 */
-    display: flex;
-    align-items: center;
+    .member hr {
+        display: block !important;
+        width: 297px !important;
+        height: 2px !important;
+        margin: 15px auto !important;
+    }
+
+    .fade-up, 
+    .member.fade-up {
+        transform: translateY(80px) !important; /* 用 !important 蓋掉電腦版的 translateX */
+    }
+
+    .fade-up.show {
+        transform: translate(0, 0) !important;
+    }
+
+}
+
+
+@media (max-width: 768px) {
+
+    .top p, .member .mcontent p, .bottom p {
+        font-size: 16px !important;
+    }
+    .mtitle, .bottom div {
+        font-size: 24px !important;
+        margin-top: 10px;
+    }
+
+    /*隱藏 header 上原本ㄉicon*/
+    header .nav-icon { display: none !important; }
+
+    /*顯示icon*/
+    .mobile-menu-icons {
+        display: flex !important;
+        justify-content: center;
+        gap: 30px;
+        width: 100%;
+        margin-top: 20px;
+    }
+    .mobile-menu-icons img { width: 50px; height: auto; }
+
+    .full-menu-link {
+        text-align: center !important;
+        padding-right: 0 !important;
+        width: 100%;
+        display: block;
+    }
+
+    .navbar-nav {
+        width: 100% !important;
+        align-items: center !important;
+        text-align: center !important;
+    }
+
+    .offcanvas-body {
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    
+    .slanted-menu { width: 100% !important; clip-path: none !important; }
+    main { padding-top: 100px; }
+    .top p { padding: 0 20px; }
+    .member hr { width: 150px !important; }
+
+    .fade-up {
+        opacity: 0;
+        transform: translateY(80px) !important; /* 覆蓋平板的 translateX */
+    }
+    .fade-up.show {
+        opacity: 1;
+        transform: translateY(0) !important;
+    }
+
+    footer {
+        height: auto;
+        flex-direction: column-reverse;
+        padding: 30px 0;
+        margin-top: 80px;
+    }
+    .word {
+        width: auto;
+        padding: 0;
+        margin-top: 20px;
+        text-align: center;
+        font-size: 14px;
+    }
+    .link img { width: 50px; height: 50px; margin: 0 10px; }
 }
