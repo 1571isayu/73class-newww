@@ -1,7 +1,19 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { 
-    getFirestore, collection, addDoc, query, where, onSnapshot, serverTimestamp, doc, getDoc
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    query,
+    where,
+    onSnapshot,
+    orderBy,          // ✅ 一定要加
+    serverTimestamp,
+    doc,
+    getDoc,
+    setDoc,        // ✅ 新增
+    deleteDoc      // ✅ 新增
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 // =======================
@@ -84,41 +96,51 @@ if (form && commentInput && commentList) {
         commentInput.value = "";
     });
 
-    // =======================
-    // 監聽留言（安全）
-    // =======================
-    const q = query(collection(db, "comments"), where("pageId", "==", pageId));
-    onSnapshot(q, (snapshot) => {
-        commentList.innerHTML = "";
-        snapshot.forEach((doc) => {
-            const data = doc.data();
 
-            const item = document.createElement("div");
-            item.className = "comment-item";
-            item.innerHTML = `
-                <div class="comment-left">
-                    <div class="comment-avatar">
-                        <img src="${data.avatar}">
-                    </div>
-                    <div class="comment-body">
-                        <div class="comment-username">${data.username}</div>
-                        <div class="comment-text">${data.message}</div>
-                    </div>
+// =======================
+// 監聽留言（修正版）
+// =======================
+const q = query(
+    collection(db, "comments"),
+    where("pageId", "==", pageId),
+    orderBy("timestamp", "asc")   // ⭐ 關鍵
+);
+
+onSnapshot(q, (snapshot) => {
+    commentList.innerHTML = "";
+
+    snapshot.forEach((docSnap) => {
+        const data = docSnap.data();
+
+        const item = document.createElement("div");
+        item.className = "comment-item";
+        item.innerHTML = `
+            <div class="comment-left">
+                <div class="comment-avatar">
+                    <img src="${data.avatar}">
                 </div>
-                <div class="comment-right">
-                    <div class="comment-actions">
-                        <img src="musicimg/like.png" class="like">
-                        <img src="musicimg/dislike.png" class="dislike">
-                    </div>
+                <div class="comment-body">
+                    <div class="comment-username">${data.username}</div>
+                    <div class="comment-text">${data.message}</div>
                 </div>
-            `;
+            </div>
+            <div class="comment-right">
+                <div class="comment-actions">
+                    <img src="musicimg/like.png" class="like">
+                    <img src="musicimg/dislike.png" class="dislike">
+                </div>
+            </div>
+        `;
 
-            item.querySelector(".like").onclick = e => e.target.classList.toggle("active");
-            item.querySelector(".dislike").onclick = e => e.target.classList.toggle("active");
+        item.querySelector(".like").onclick =
+            e => e.target.classList.toggle("active");
+        item.querySelector(".dislike").onclick =
+            e => e.target.classList.toggle("active");
 
-            commentList.appendChild(item);
-        });
+        commentList.appendChild(item);
     });
+});
+
 }
 
 // =======================
@@ -166,42 +188,51 @@ const heart1 = document.querySelector('.heart1');
 
 if (heart1) {
     heart1.addEventListener('click', async () => {
-        if (!currentUser) return alert("請先登入");
+        if (!currentUser) {
+            alert("請先登入");
+            return;
+        }
 
-        // 愛心動畫
         const liked = heart1.src.includes('heart3.png');
-        heart1.src = liked ? "musicimg/heart1.png" : "musicimg/heart3.png";
+
+        // UI 動畫
+        heart1.src = liked
+            ? "musicimg/heart1.png"
+            : "musicimg/heart3.png";
+
         heart1.classList.remove('animate');
         void heart1.offsetWidth;
         heart1.classList.add('animate');
 
-        // 切換 active 樣式
-        heart1.classList.toggle("active");
+        const favoriteId = "music1";
 
-        // Firestore 收藏資料
-        const favoriteId = "music1";  // 每首歌的唯一 ID
-        const favoriteData = {
-            name: "夜に駆ける",          // 歌名
-            image: "songimg/song1.png",  // 封面圖片
-            pageLink: "music1.html"      // 歌曲頁面
-        };
+        const favoriteRef = doc(
+            db,
+            "users",
+            currentUser.uid,
+            "favorites",
+            favoriteId
+        );
 
         try {
-            const favoriteRef = doc(db, "users", currentUser.uid, "favorites", favoriteId);
             if (liked) {
-                // 已經收藏過 → 取消收藏
                 await deleteDoc(favoriteRef);
                 console.log("已取消收藏");
             } else {
-                // 尚未收藏 → 新增收藏
-                await setDoc(favoriteRef, favoriteData);
+                await setDoc(favoriteRef, {
+                    name: "夜に駆ける",
+                    image: "songimg/song1.png",
+                    pageLink: "music1.html",
+                    createdAt: serverTimestamp()
+                });
                 console.log("已加入收藏");
             }
         } catch (err) {
-            console.error("操作失敗:", err);
+            console.error("收藏操作失敗", err);
         }
     });
 }
+
 
 
 //漢堡選單動畫

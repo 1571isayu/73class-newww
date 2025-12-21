@@ -1,8 +1,15 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, getDocs, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+    getFirestore,
+    collection,
+    doc,
+    deleteDoc,
+    query,
+    orderBy,
+    onSnapshot
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// Firebase config
 const firebaseConfig = {
     apiKey: "AIzaSyD8nOFhcqlDGPVtWyMdw_6le1uKgL8ETyI",
     authDomain: "class-ne.firebaseapp.com",
@@ -14,73 +21,68 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 const favoritesList = document.getElementById("favoritesList");
 
-let currentUser = null;
-
-onAuthStateChanged(auth, async (user) => {
+onAuthStateChanged(auth, (user) => {
     if (!user) {
-        window.location.href = "page5.html"; // 如果沒登入跳回登入頁
+        console.log("使用者未登入");
         return;
     }
-    currentUser = user;
+    const uid = user.uid;
 
-    // 抓使用者收藏清單
-    const favCollection = collection(db, "users", user.uid, "favorites");
-    const favSnapshot = await getDocs(favCollection);
+    const favRef = collection(db, "users", uid, "favorites");
+    const q = query(favRef, orderBy("createdAt", "desc"));
 
-    favSnapshot.forEach(docSnap => {
-        const data = docSnap.data();
-        renderFavorite(data);
+    onSnapshot(q, (snapshot) => {
+        favoritesList.innerHTML = "";
+
+        if (snapshot.empty) {
+            favoritesList.innerHTML = `<p style="color:#F3E9EB; text-align:center;">尚未收藏任何歌曲</p>`;
+            return;
+        }
+
+        snapshot.forEach((docSnap) => {
+            const data = docSnap.data();
+            const itemId = docSnap.id;
+            const songImage = data.image || 'icon/default.png';
+
+            const item = document.createElement("div");
+            item.className = "favorite-item";
+
+            // 結構：唱片中心加入圖片 img
+            item.innerHTML = `
+                <div class="record-wrapper">
+                    <img src="${songImage}" alt="${data.name}" class="album-cover">
+                    <div class="record-disk">
+                        <div class="record-center">
+                            <img src="${songImage}" alt="label">
+                        </div>
+                    </div>
+                </div>
+                <div class="favorite-name">${data.name || '未知'}</div>
+                <div class="favorite-heart" data-id="${itemId}">
+                    <img src="musicimg/heart3.png" alt="愛心" class="heart-icon">
+                </div>
+            `;
+            favoritesList.appendChild(item);
+
+            // 愛心刪除邏輯
+            const heartDiv = item.querySelector(".favorite-heart");
+            heartDiv.addEventListener("click", async (e) => {
+                e.stopPropagation(); 
+                try {
+                    await deleteDoc(doc(db, "users", uid, "favorites", itemId));
+                    item.style.opacity = "0";
+                    setTimeout(() => item.remove(), 300);
+                } catch (err) {
+                    console.error("刪除失敗:", err);
+                }
+            });
+        });
+    }, (err) => {
+        console.error("抓取收藏清單失敗:", err);
     });
 });
-
-// 渲染單筆收藏
-function renderFavorite(item) {
-    const div = document.createElement("div");
-    div.classList.add("favorite-item");
-
-    div.innerHTML = `
-        <a href="${item.pageLink}">
-            <img src="${item.image}" alt="${item.name}">
-            <span>${item.name}</span>
-        </a>
-    `;
-    favoritesList.appendChild(div);
-}
-
-const heart = document.querySelector('.heart1');
-if (heart) {
-    heart.addEventListener('click', async () => {
-        if (!currentUser) return alert("請先登入");
-
-        const musicId = "music1";  // 唯一識別ID
-        const favoriteData = {
-            name: "夜に駆ける",
-            image: "songimg/song1.png",
-            pageLink: "music1.html"
-        };
-
-        const docRef = doc(db, "users", currentUser.uid, "favorites", musicId);
-
-        try {
-            if (heart.classList.contains("active")) {
-                await deleteDoc(docRef);
-                heart.classList.remove("active");
-                heart.src = "musicimg/heart1.png";
-                console.log("已取消收藏");
-            } else {
-                await setDoc(docRef, favoriteData);
-                heart.classList.add("active");
-                heart.src = "musicimg/heart3.png";
-                console.log("已加入收藏");
-                renderFavorite(favoriteData); // 新增到頁面
-            }
-        } catch (err) {
-            console.error("收藏操作失敗:", err);
-        }
-    });
-}

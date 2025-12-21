@@ -1,23 +1,20 @@
-
-
 body {
     margin: 0;
     cursor: url('icon/mouse.png') 16 16, auto !important;
-
-    /* 背景圖設定 */
     background-image: url('icon/back.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed; /* 背景固定 */
+    background-attachment: fixed;
 }
-/*滑鼠*/
+
+/* 滑鼠 Canvas */
 canvas {
     position: fixed;
     top: 0;
     left: 0;
-    pointer-events: none; /* 不影響滑鼠事件 */
-    z-index: 9999; 
+    pointer-events: none;
+    z-index: 9999;
 }
 
 header {
@@ -33,24 +30,10 @@ header {
     z-index: 1050;
 }
 
-.nav-list {
-    display: flex;
-    align-items: center;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.nav-item {
-    margin-left: 30px;
-}
-
 .nav-link {
     color: #F2285A;
     text-decoration: none;
     font-family: 'Konkhmer Sleokchher', sans-serif;
-    font-weight: 400;
-    font-style: normal;
     font-size: 24px;
     transition: color 0.3s;
 }
@@ -59,43 +42,11 @@ header {
     color: #F3E9EB;
 }
 
-#login {
-    color: #F3E9EB;
-    background-color: #F2285A;
-    display: inline-block;
-    text-align: center;
-    width: 105px;
-    height: 45px;
-    line-height: 45px;
-    border-radius: 6px;
-    font-size: 20px;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-#login:hover {
-    background-color:#F3E9EB;
-    color: #F2285A;
-}
-
 main {
     padding-top: 150px;
 }
 
-main img{
-  object-fit: cover;
-  transition: transform 0.3s ease, box-shadow 0.3s ease; 
-}
-
-figcaption div{
-    font-family: "M PLUS Rounded 1c", sans-serif;
-}
-
-main img:hover {
-  transform: translateY(-10px) scale(1.05);
-  box-shadow: 0 8px 20px rgba(242, 40, 90, 0.6);
-}
-
-
+/* Like 標題線條 */
 .likeline {
     margin-bottom: 40px;
     display: flex;
@@ -115,6 +66,141 @@ main img:hover {
     color: #F2285A;
     font-size: 40px;
     font-family: "Konkhmer Sleokchher";
-
 }
 
+/* --- 收藏清單容器 --- */
+.favorites-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px;
+}
+
+.favorite-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-radius: 12px;
+    position: relative;
+    overflow: visible; 
+}
+
+/* 唱片與封面包裹器 */
+.record-wrapper {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin-left: 246px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+/* 專輯封面圖 - 移除發光，只保留縮放 */
+.album-cover {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border: #F3E9EB 2px solid;
+    position: relative;
+    z-index: 5; 
+    background-color: #222;
+    transition: transform 0.3s ease;
+}
+
+/* 專輯封面上的斜向光影質感 */
+.record-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 100%);
+    z-index: 6;
+    pointer-events: none; /* 不擋住滑鼠 */
+}
+
+/* 黑膠唱片本體 - 加入紅色霓虹背光 */
+.record-disk {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 190px;
+    height: 190px;
+    /* 結合放射狀反光與溝槽 */
+    background: 
+        conic-gradient(from 0deg, transparent 0deg, rgba(255,255,255,0.05) 45deg, transparent 90deg, rgba(255,255,255,0.05) 225deg, transparent 270deg),
+        radial-gradient(circle, #444 2%, #111 4%, #333 10%, #111 15%, #333 20%, #111 25%, #333 30%, #111 35%, #000 70%);
+    border-radius: 50%;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* 初始陰影 */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.6s ease;
+}
+
+/* 唱片中心專輯小圖 */
+.record-center {
+    width: 60px;
+    height: 60px;
+    background-color: #F2285A; 
+    border-radius: 50%;
+    border: 2px solid #000;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.record-center img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- 動態觸發效果 --- */
+
+/* 1. 封面移入時稍微放大 */
+.record-wrapper:hover .album-cover {
+    transform: scale(1.03);
+    /* 這裡移除了 box-shadow，所以專輯不會發光 */
+}
+
+/* 2. 唱片滑出、旋轉、並發出紅色強光 */
+.record-wrapper:hover .record-disk {
+    animation: disk-slide-rotate 4s linear infinite;
+    /* 紅色霓虹燈效果 */
+    box-shadow: 0 0 25px rgba(242, 40, 90, 0.8), 0 0 50px rgba(242, 40, 90, 0.4);
+}
+
+@keyframes disk-slide-rotate {
+    0% { transform: translateX(0) rotate(0deg); }
+    15% { transform: translateX(110px) rotate(60deg); } 
+    100% { transform: translateX(110px) rotate(360deg); }
+}
+
+/* 歌名樣式 */
+.favorite-name {
+    flex: 1;
+    margin-left: 140px;
+    font-size: 36px;
+    color: #F3E9EB;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+}
+
+/* 愛心圖示 */
+.favorite-heart img.heart-icon {
+    width: 75px;
+    height: 75px;
+    cursor: pointer;
+    margin-right: 240px;
+    transition: transform 0.2s;
+}
+
+.favorite-heart img.heart-icon:hover {
+    transform: scale(1.1);
+}

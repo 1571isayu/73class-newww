@@ -53,7 +53,7 @@ window.addEventListener('resize', () => {
 });
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getAuth, signInAnonymously, onAuthStateChanged    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // Firebase config
@@ -79,27 +79,32 @@ document.querySelector(".form").addEventListener("submit", async (event) => {
     alert("請輸入暱稱");
     return;
   }
-try {
-    // 匿名登入
-    const userCredential = await signInAnonymously(auth);
-    const uid = userCredential.user.uid;
 
-    // 將 username 存到 users collection
-    await setDoc(doc(db, "users", uid), {
-      username: usernameInput
-    });
+  onAuthStateChanged(auth, async (user) => {
+    try {
+      let currentUser = user;
 
-    console.log("匿名登入成功，暱稱已存:", usernameInput);
+      // 如果還沒登入，才匿名登入
+      if (!currentUser) {
+        const userCredential = await signInAnonymously(auth);
+        currentUser = userCredential.user;
+      }
 
-    // 用 alert 提示登入成功
-    alert(`登入成功！歡迎 ${usernameInput}`);
+      const uid = currentUser.uid;
 
-    // 之後跳轉頁面
-    window.location.href = "page2.html"; // 登入後頁面
+      // 存 username（同 uid 會覆寫，不會長垃圾資料）
+      await setDoc(doc(db, "users", uid), {
+        username: usernameInput
+      }, { merge: true });
 
-} catch (error) {
-    console.error("匿名登入錯誤：", error);
-    alert("登入失敗，請查看 console");
-}
+      console.log("登入成功，uid:", uid);
 
+      alert(`登入成功！歡迎 ${usernameInput}`);
+      window.location.href = "page2.html";
+
+    } catch (error) {
+      console.error("匿名登入錯誤：", error);
+      alert("登入失敗，請查看 console");
+    }
+  });
 });

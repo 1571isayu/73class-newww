@@ -1,7 +1,19 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { 
-    getFirestore, collection, addDoc, query, where, onSnapshot, serverTimestamp, doc, getDoc
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    query,
+    where,
+    onSnapshot,
+    orderBy,          // ✅ 一定要加
+    serverTimestamp,
+    doc,
+    getDoc,
+    setDoc,        // ✅ 新增
+    deleteDoc      // ✅ 新增
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 // =======================
@@ -87,38 +99,48 @@ if (form && commentInput && commentList) {
     // =======================
     // 監聽留言（安全）
     // =======================
-    const q = query(collection(db, "comments"), where("pageId", "==", pageId));
-    onSnapshot(q, (snapshot) => {
-        commentList.innerHTML = "";
-        snapshot.forEach((doc) => {
-            const data = doc.data();
 
-            const item = document.createElement("div");
-            item.className = "comment-item";
-            item.innerHTML = `
-                <div class="comment-left">
-                    <div class="comment-avatar">
-                        <img src="${data.avatar}">
-                    </div>
-                    <div class="comment-body">
-                        <div class="comment-username">${data.username}</div>
-                        <div class="comment-text">${data.message}</div>
-                    </div>
+const q = query(
+    collection(db, "comments"),
+    where("pageId", "==", pageId),
+    orderBy("timestamp", "asc")   // ⭐ 關鍵
+);
+
+onSnapshot(q, (snapshot) => {
+    commentList.innerHTML = "";
+
+    snapshot.forEach((docSnap) => {
+        const data = docSnap.data();
+
+        const item = document.createElement("div");
+        item.className = "comment-item";
+        item.innerHTML = `
+            <div class="comment-left">
+                <div class="comment-avatar">
+                    <img src="${data.avatar}">
                 </div>
-                <div class="comment-right">
-                    <div class="comment-actions">
-                        <img src="musicimg/like.png" class="like">
-                        <img src="musicimg/dislike.png" class="dislike">
-                    </div>
+                <div class="comment-body">
+                    <div class="comment-username">${data.username}</div>
+                    <div class="comment-text">${data.message}</div>
                 </div>
-            `;
+            </div>
+            <div class="comment-right">
+                <div class="comment-actions">
+                    <img src="musicimg/like.png" class="like">
+                    <img src="musicimg/dislike.png" class="dislike">
+                </div>
+            </div>
+        `;
 
-            item.querySelector(".like").onclick = e => e.target.classList.toggle("active");
-            item.querySelector(".dislike").onclick = e => e.target.classList.toggle("active");
+        item.querySelector(".like").onclick =
+            e => e.target.classList.toggle("active");
+        item.querySelector(".dislike").onclick =
+            e => e.target.classList.toggle("active");
 
-            commentList.appendChild(item);
-        });
+        commentList.appendChild(item);
     });
+});
+
 }
 
 // =======================
@@ -163,17 +185,45 @@ document.addEventListener('DOMContentLoaded', () => {
 // =======================
 // 愛心動畫（安全）
 // =======================
-const heart = document.querySelector('.heart1');
-if (heart) {
-    heart.addEventListener('click', () => {
-        const liked = heart.src.includes('heart3.png');
-        heart.src = liked ? "musicimg/heart1.png" : "musicimg/heart3.png";
-        heart.classList.remove('animate');
-        void heart.offsetWidth;
-        heart.classList.add('animate');
+
+const heart1 = document.querySelector('.heart1');
+
+if (heart1) {
+    heart1.addEventListener('click', async () => {
+        if (!currentUser) {
+            alert("請先登入");
+            return;
+        }
+
+        // 判斷目前是否已收藏
+        const liked = heart1.src.includes('heart3.png');
+
+        // 切換愛心圖片（空心 / 滿心）
+        heart1.src = liked ? "musicimg/heart1.png" : "musicimg/heart3.png";
+
+        const favoriteId = "music5"; // 唯一 ID，對應這首歌
+        const favoriteRef = doc(db, "users", currentUser.uid, "favorites", favoriteId);
+
+        try {
+            if (liked) {
+                // 取消收藏
+                await deleteDoc(favoriteRef);
+                console.log("已取消收藏");
+            } else {
+                // 加入收藏
+                await setDoc(favoriteRef, {
+                    name: "群青",
+                    image: "songimg/song5.jpg",
+                    pageLink: "music5.html",
+                    createdAt: serverTimestamp()
+                });
+                console.log("已加入收藏");
+            }
+        } catch (err) {
+            console.error("收藏操作失敗", err);
+        }
     });
 }
-
 //漢堡選單動畫
 document.addEventListener('DOMContentLoaded', function () {
     // 1. 抓取元素
