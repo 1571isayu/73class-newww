@@ -254,79 +254,68 @@ main p {
     margin-top: 20px;
 }
 
-/*comment*/
+/*留言區*/
 .container {
     width: 100%;
     margin: 67px auto;
-    /* 加入 Flex 讓所有內容自動置中 */
     display: flex;
-    flex-direction: column;
+    flex-direction: column;/* 垂直排 */
     align-items: center;
 }
+
 .container hr {
     border: none;
-    height: 2px !important;
+    height: 2px !important;/*!important 是為了讓他成為最高層級*/
     background-color: #F2285A;
     width: 977px;
     margin: 10px auto !important;
-    opacity: 1; /* 修正 Bootstrap 讓線變淡的問題 */
+    opacity: 1; 
 }
 .text {
-    width: 977px; /* 設定寬度與線條一致，文字就會對齊左邊 */
+    width: 977px; 
     height: 30px;
     padding-top: 43px;
     font-size: 36px;
     color: #F3E9EB;
-    /* 移除 margin-left */
 }
-/* 1. 表單容器：控制「整個輸入區塊」要離上方文字多遠 */
+
 #commentform {
     display: flex;
     align-items: center;
     gap: 35px;
     width: 977px;
-    
-    /* 把這裡的數字加大，直到覺得不擠為止 */
     margin-top: 60px;    
 }
-/* 2. 輸入框：把原本的 margin-top 拿掉 */
+
 #commentinput {
     width: 883px;
     height: 52px;
     opacity: 1;
     font-size: 18px;
     line-height: 3;
-    
-    margin-top: 0; /* 歸零，由上面父層控制距離 */
-    
     border-radius: 8px;
     border-width: 2px;
     border: 2px solid #F2285A;
     outline: none;
-    background-color: #fff; /* 白底 */
-    color: #000;            /* 黑字 */
+    background-color: #fff; 
+    color: #000;         
 }
 
-/* 3. 按鈕：把原本的 margin-top 拿掉 */
 .send-btn {
     width: 45px;
     height: 45px;
     background: #ff2f72;     
     border-radius: 50%;
     cursor: pointer;
-    border: none;
-    
-    margin-top: 0; /* 歸零，由上面父層控制距離 */
-    
+    border: none;    
     display: flex;
     justify-content: center;
     align-items: center;
-    
     color: white;
     font-size: 14px;
     font-weight: bold;
     padding: 0;
-    white-space: nowrap; /* 確保文字不換行 */
+    white-space: nowrap; 
 }
 
 .send-btn:hover {
@@ -338,32 +327,30 @@ main p {
     transition: transform 0.8s;
 }
 
-/* 飛機飛出去的動畫 */
 @keyframes fly {
     0% {
         transform: translate(0, 0) rotate(0);
         opacity: 1;
     }
     100% {
-        transform: translate(60px, -20px) rotate(20deg);
+        transform: translate(60px, -20px) rotate(20deg);/*右60 上20 旋20*/
         opacity: 0;
     }
 }
 
 .send-btn.fly img.arrow {
     animation: fly 0.45s ease-out forwards;
+    /*ease-in 慢-快 ease-out 快-慢*/
 }
 
-/*ease-out：快>慢
-forwards：
-動畫結束後 停在最後一幀狀態（不會彈回來）*/
+
 
 /* 留言列表 */
 #commentList {
     margin-top: 40px;
-    width: 977px; /* 修正寬度 */
-    /* 移除 margin-left */
+    width: 977px;
 }
+
 .comment-item {
     display: flex;
     justify-content: space-between;
@@ -374,79 +361,70 @@ forwards：
     color: #fff;
 }
 
-/* 左側整體：頭像 + 文字 */
+/* 頭像 */
 .comment-left {
     display: flex;
-    align-items: center;   /* 關鍵：垂直置中對齊頭像 */
+    align-items: center;   
     gap: 12px;
 }
-
-/* 文字區塊（暱稱 + 留言） */
-.comment-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* 讓文字群組本身置中 */
-}
-
-.comment-username {
-    /* 1. 字體大小稍微加大一點點，視覺上會更有份量 */
-    font-size: 22px; 
-    
-    /* 2. 設定為最粗 */
-    font-weight: 900; 
-    
-    /* 3. 與下方留言的距離 */
-    margin-bottom: 5px; 
-    
-    /* === 關鍵密技 === */
-    /* 透過文字陰影來模擬「加粗」效果 (水平 0.5px 垂直 0) */
-    text-shadow: 1px 0 0 currentColor; 
-}
-.comment-text {
-    font-size: 17  px;      /* 留言文字大小 */
-    line-height: 1.6;    /* 行距，閱讀性很好 */
-    opacity: 0.95;       /* 稍微柔一點 */
-}
-
-
-.comment-right {
-    display: flex;
-    height: 100%;
-}
-
-
-.comment-actions {
-    display: flex;
-}
-
 
 /*圖*/
 .comment-avatar {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    overflow: hidden;
+    overflow: hidden;/*不超出*/
     margin-right: 15px;
 }
 
 .comment-avatar img {
     width: 100%;
     height: 100%;
-    object-fit: cover; 
+    object-fit: cover; /*不變形*/
 }
+
+/* 暱稱+留言 */
+.comment-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+}
+
+.comment-username {
+    font-size: 22px; 
+    font-weight: 900; 
+    margin-bottom: 5px; 
+    text-shadow: 1px 0 0 currentColor; 
+}
+
+.comment-text {
+    font-size: 17px;
+    line-height: 1.6;    
+    opacity: 0.95;       
+}
+
+/*讚+倒讚*/
+.comment-right {
+    display: flex;
+    height: 100%;
+}
+
+.comment-actions {
+    display: flex;
+}
+
 
 .comment-actions img {
     width: 35px;
-    /* 修正圖示變小的問題：改用 margin 推開距離 */
     margin-left: 20px; 
     padding-top: 15px;
-    
     cursor: pointer;
     filter: grayscale(100%);
     transition: transform 0.3s, filter 0.3s;
 }
+
 .comment-actions img.active {
-    transform: scale(1.3);      
+    transform: scale(1.3);/*放大*/
     filter: grayscale(0%) sepia(1) hue-rotate(-50deg) saturate(5);
 }
 
