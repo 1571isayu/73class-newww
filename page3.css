@@ -276,7 +276,7 @@ footer {
 }
 
 .member.fade-up {
-    transform: translateX(100px); /* 初始位置在右邊 */
+    transform: translateX(100px);
 }
 
 .fade-up.show {
@@ -323,7 +323,7 @@ footer {
 
     .fade-up, 
     .member.fade-up {
-        transform: translateY(80px) !important; /* 用 !important 蓋掉電腦版的 translateX */
+        transform: translateY(80px) !important;
     }
 
     .fade-up.show {
@@ -384,7 +384,7 @@ footer {
 
     .fade-up {
         opacity: 0;
-        transform: translateY(80px) !important; /* 覆蓋平板的 translateX */
+        transform: translateY(80px) !important;
     }
     .fade-up.show {
         opacity: 1;
