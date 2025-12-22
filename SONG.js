@@ -193,3 +193,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     drawCursor();
 });
+// 取得按鈕與圖示元素
+const hamburgerBtn = document.getElementById('hamburger-btn');
+const hamburgerIcon = document.querySelector('.hamburger-icon');
+const offcanvasElement = document.getElementById('offcanvasNavbar');
+
+// 當選單「打開」時，變成叉叉
+offcanvasElement.addEventListener('show.bs.offcanvas', function () {
+    hamburgerIcon.classList.add('active');
+});
+
+// 當選單「關閉」時，變回三條線
+offcanvasElement.addEventListener('hide.bs.offcanvas', function () {
+    hamburgerIcon.classList.remove('active');
+});

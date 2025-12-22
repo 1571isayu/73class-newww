@@ -42,7 +42,6 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
     padding: 0 30px;
     z-index: 1050;
 }
@@ -101,7 +100,6 @@ header {
 
 .hamburger-icon.active span:nth-child(2) {
   opacity: 0;
-  left: 60px;
   background: #F3E9EB;
 }
 
@@ -149,13 +147,7 @@ header {
     visibility: visible;
 }
 
-/* --- 5. 手機版 (保持不變) --- */
-@media (max-width: 768px) {
-    .slanted-menu {
-        width: 85% !important;
-        clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%);
-    }
-}
+
 /* =========================================
    修正後的選單與連結樣式
    ========================================= */
@@ -459,115 +451,185 @@ footer {
         margin-right: 20px;
 }
 /* =========================================
-   RWD：平板尺寸 (螢幕寬度小於 1024px)
-   設定：將固定寬度改為百分比，修正愛心位置
+   [通用設定] 確保圖片不會超出容器
    ========================================= */
-@media (max-width: 1024px) {
-    
-    /* 1. 主要內容圖片與分隔線 */
-    main .dream {
-        width: 90%; /* 圖片改為相對寬度 */
-        height: auto; /* 高度自動維持比例 */
-    }
-    
-    main hr {
-        width: 50%; /* 分隔線縮短 */
-    }
-
-    /* 2. 愛心按鈕位置修正 */
-    /* 原本 margin-left: 900px 會把愛心推到螢幕外，改為靠右對齊 */
-    main .heart1 {
-        display: block;
-        margin-left: auto; /* 左邊自動 */
-        margin-right: 5%;  /* 右邊留一點邊距 */
-        margin-top: 10px;
-    }
-
-    /* 3. 留言區塊寬度修正 */
-    .container hr,
-    .text,
-    #commentform,
-    #commentList {
-        width: 90%; /* 全部改為視窗的 90% */
-    }
-
-    /* 4. 輸入框自適應 */
-    #commentinput {
-        width: 100%; /* 讓輸入框填滿剩下的空間 */
-        flex: 1; /* 重要：在 flex 容器中自動伸展 */
-    }
+img {
+    max-width: 100%;
+    height: auto;
 }
 
 /* =========================================
-   RWD：手機尺寸 (螢幕寬度小於 768px)
-   設定：文字大小調整、Footer 堆疊、留言版面優化
+   [最終修復版] RWD 選單邏輯
    ========================================= */
-@media (max-width: 768px) {
+
+/* 1. 預設狀態 (電腦 & 平板)：隱藏選單內的 Icon */
+.mobile-menu-icons {
+    display: none;
+}
+
+/* 2. 修復漢堡按鈕層級 (讓叉叉永遠在黑色選單上面) */
+#hamburger-btn {
+    z-index: 99999 !important;
+    position: relative;
+}
+
+@media (max-width: 1024px) {
     
-    /* 1. 避免 Header 擋住內容 */
+    /* 1. 關閉滑鼠特效 */
+    #cursorCanvas { display: none !important; }
+    body { cursor: auto !important; }
+
+    /* 2. 選單排版設定：靠右對齊 */
+    .offcanvas-body {
+        flex-direction: column !important;  /* 垂直排列 */
+        justify-content: center !important; /* 上下置中 */
+        align-items: flex-end !important;   /* ★ 左右靠右 (關鍵) */
+        padding-left: 0 !important;
+        padding-right: 4rem !important;     /* 右邊留白 (維持電腦版質感) */
+    }
+
+    /* 3. 連結文字設定：靠右 */
+    .full-menu-link {
+        text-align: right !important;       /* ★ 文字靠右 */
+        width: 100%;
+        padding-right: 0 !important;
+    }
+
+    /* (注意：這裡不設定 .mobile-menu-icons，讓它保持隱藏) */
+        /* 2. 主要內容寬度修正 */
+    main .dream {
+        width: 90%;      /* 圖片改為相對寬度 */
+        height: auto;
+    }
+    
+    main hr {
+        width: 50%;      /* 分隔線縮短 */
+    }
+
+    /* 3. 愛心按鈕位置修正 */
+    /* 原本 margin-left: 900px 會爆版，改用 Flex 或是相對位置 */
+    main .heart1 {
+        display: block;
+        margin: 20px auto; /* 上下留白，左右置中 */
+        margin-left: auto; /* 若想靠右，可保留這行 */
+        margin-right: 5%;  /* 靠右時留點邊距 */
+        width: 50px;       /* 稍微縮小 */
+        height: 50px;
+    }
+
+    /* 4. 留言區塊寬度修正 */
+    .container {
+        margin: 40px auto;
+        width: 90%;      /* 容器寬度改為 90% */
+    }
+
+    .container hr,
+    .text,
+    #commentList {
+        width: 100%;     /* 填滿容器 */
+    }
+    
+    .text {
+        text-align: center;
+        padding-top: 20px;
+    }
+
+    /* 5. 輸入框表單修正 */
+    #commentform {
+        width: 100%;
+        margin-top: 30px;
+        gap: 15px;
+    }
+
+    #commentinput {
+        width: 100%;     /* 讓輸入框填滿剩下的空間 */
+        flex: 1;         /* 自動伸縮 */
+    }
+}
+
+
+@media (max-width: 768px) {
+
+    /* 1. 隱藏 Header 上原本的 Icon */
+    header .nav-icon {
+        display: none !important;
+    }
+
+    /* 2. 顯示選單內的 Icon (只有手機版出現) */
+    .mobile-menu-icons {
+        display: flex !important;
+        justify-content: center;
+        gap: 30px;
+        width: 100%;
+        margin-top: 20px;
+    }
+    
+    .mobile-menu-icons img {
+        width: 50px;
+        height: auto;
+    }
+
+    /* 3. 選單排版改為「置中」 */
+    .slanted-menu { 
+        width: 100% !important; 
+        clip-path: none !important; 
+    }
+    .offcanvas-body {
+        align-items: center !important;     /* ★ 手機版改回置中 */
+        padding-right: 0 !important;        /* 移除右邊留白 */
+    }
+
+    .full-menu-link {
+        text-align: center !important;      /* ★ 手機版文字置中 */
+    }
+    
+    /* 2. Main 內容調整 */
     main {
         padding-top: 100px;
         padding-left: 20px;
         padding-right: 20px;
     }
 
-    /* 2. 標題與文字調整 */
-    main div {
-        font-size: 28px; /* 歌名縮小 */
-    }
+    main div { font-size: 28px; } /* 歌名縮小 */
     
     main p {
-        font-size: 16px; /* 介紹文字縮小 */
-        text-align: justify; /* 左右對齊比較整齊 */
-        line-height: 1.6;
+        font-size: 16px;       /* 介紹文縮小 */
+        text-align: center !important;
+        line-height: 1.8;
     }
 
-    /* 3. 愛心按鈕在手機上置中或靠右 */
+    /* 愛心置中 */
     main .heart1 {
-        margin: 10px auto; /* 上下10px，左右置中 */
+        margin: 10px auto; 
+        margin-right: auto; /* 取消靠右，改成置中 */
     }
 
-    /* 4. 留言區塊 */
+    /* 3. 留言區塊優化 */
     .text {
-        padding-top: 20px;
         font-size: 24px;
-        text-align: center; /* 「留言區」文字置中 */
+        width: 100%;
     }
     
     #commentform {
-        margin-top: 20px;
-        gap: 10px; /* 輸入框跟按鈕靠近一點 */
-    }
-
-    #commentinput {
-        font-size: 16px; /* 手機輸入文字不要太大 */
-        height: 45px; /* 高度適中 */
-    }
-
-    .send-btn {
-        width: 40px;
-        height: 40px; /* 按鈕稍微縮小 */
-    }
-    
-    .send-btn img.arrow {
-        width: 25px; /* 箭頭圖案縮小 */
-    }
-
-    /* 5. 留言列表內容調整 */
-    .comment-item {
-        flex-direction: column; /* 讓刪除按鈕跑到下面，避免擠壓文字 */
-        align-items: flex-start;
+        flex-direction: row; /* 維持橫向，但間距縮小 */
         gap: 10px;
     }
 
-    .comment-right {
-        align-self: flex-end; /* 讓刪除/愛心按鈕靠右 */
+    #commentinput {
+        font-size: 16px;
+        height: 45px;
     }
 
-    /* 6. Footer (頁尾) 垂直排列 */
+    .send-btn {
+        width: 40px; height: 40px;
+    }
+    .send-btn img.arrow { width: 25px; }
+
+
+     /* 4. Footer 垂直排列 */
     footer {
         height: auto;
-        flex-direction: column-reverse; /* 直向反轉 */
+        flex-direction: column-reverse;
         padding: 30px 0;
         margin-top: 50px;
     }
@@ -580,33 +642,7 @@ footer {
         width: auto;
     }
     
-    .link {
-        justify-content: center;
-    }
-
-    .link img {
-        width: 50px;
-        height: 50px;
-        margin: 0 10px;
-    }
-    
-    .yt {
-        margin-right: 0; /* 移除原本的右邊距 */
-    }
-
-    /* 7. 漢堡選單修正 */
-    .slanted-menu {
-        width: 100% !important;
-        clip-path: none !important;
-    }
-    
-    .full-menu-link {
-        text-align: center;
-        padding-right: 0 !important;
-    }
-    
-    .offcanvas-body {
-        padding-right: 0 !important;
-        justify-content: center;
-    }
+    .link { justify-content: center; }
+    .link img { width: 50px; height: 50px; margin: 0 10px; }
+    .yt { margin-right: 0; }
 }
