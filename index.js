@@ -33,6 +33,22 @@ window.addEventListener('resize', () => {
   cursorCanvas.height = window.innerHeight;
 });
 
+//fade up
+document.addEventListener("DOMContentLoaded", () => {
+    const fadeUpElements = document.querySelectorAll('.fade-up');
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show');
+                observer.unobserve(entry.target); // 只觸發一次
+            }
+        });
+    }, { threshold: 0.5 }); // 元素 50% 進入視窗觸發
+
+    fadeUpElements.forEach(el => observer.observe(el));
+});
+
 //Loading
 window.addEventListener('load', () => {
   setTimeout(() => {
