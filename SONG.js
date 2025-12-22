@@ -44,9 +44,9 @@ const SONG_MAP = {
   music7: { name: "怪物", image: "songimg/song7.jpg", pageLink: "music7.html" },
   music8: { name: "優しい彗星", image: "songimg/song8.jpg", pageLink: "music8.html" },
   music9: { name: "もう少しだけ", image: "songimg/song9.jpg", pageLink: "music9.html" },
-  music10:{ name: "三原色", image: "songimg/song10.jpg", pageLink: "music10.html" },
-  music11:{ name: "ラブレター", image: "songimg/song11.jpg", pageLink: "music11.html" },
-  music12:{ name: "大正浪漫", image: "songimg/song12.jpg", pageLink: "music12.html" }
+  music10: { name: "三原色", image: "songimg/song10.jpg", pageLink: "music10.html" },
+  music11: { name: "ラブレター", image: "songimg/song11.jpg", pageLink: "music11.html" },
+  music12: { name: "大正浪漫", image: "songimg/song12.jpg", pageLink: "music12.html" }
 };
 
 const song = SONG_MAP[pageId];
@@ -97,14 +97,14 @@ if (form) {
   );
 
   onSnapshot(q, (snapshot) => {
-  commentList.innerHTML = "";
+    commentList.innerHTML = "";
 
-  snapshot.forEach((docSnap) => {
-    const data = docSnap.data();
+    snapshot.forEach((docSnap) => {
+      const data = docSnap.data();
 
-    const item = document.createElement("div");
-    item.className = "comment-item";
-    item.innerHTML = `
+      const item = document.createElement("div");
+      item.className = "comment-item";
+      item.innerHTML = `
       <div class="comment-left">
         <div class="comment-avatar">
           <img src="${data.avatar}">
@@ -122,16 +122,16 @@ if (form) {
       </div>
     `;
 
-    //讚+倒讚
-    item.querySelector(".like").onclick =
-      e => e.target.classList.toggle("active");
+      //讚+倒讚
+      item.querySelector(".like").onclick =
+        e => e.target.classList.toggle("active");
 
-    item.querySelector(".dislike").onclick =
-      e => e.target.classList.toggle("active");
+      item.querySelector(".dislike").onclick =
+        e => e.target.classList.toggle("active");
 
-    commentList.appendChild(item);
+      commentList.appendChild(item);
+    });
   });
-});
 
 }
 
@@ -146,6 +146,11 @@ if (heart && song) {
     const liked = heart.src.includes("heart3.png");
     heart.src = liked ? "musicimg/heart1.png" : "musicimg/heart3.png";
 
+    // 觸發愛心動畫
+    heart.classList.remove("animate"); // 重置動畫
+    void heart.offsetWidth; // 強制重排，保證動畫可重新觸發
+    heart.classList.add("animate");
+
     if (liked) {
       await deleteDoc(favRef());
     } else {
@@ -155,44 +160,46 @@ if (heart && song) {
       });
     }
   });
+
 }
 
 // 滑鼠游標
 document.addEventListener('DOMContentLoaded', () => {
-    const canvas = document.getElementById('cursorCanvas');
-    if (!canvas) return;
+  const canvas = document.getElementById('cursorCanvas');
+  if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
-    let mouseX = 0, mouseY = 0, mouseDown = false;
+  const ctx = canvas.getContext('2d');
+  let mouseX = 0, mouseY = 0, mouseDown = false;
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 
-    window.addEventListener('mousemove', e => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-    window.addEventListener('mousedown', () => mouseDown = true);
-    window.addEventListener('mouseup', () => mouseDown = false);
+  window.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+  window.addEventListener('mousedown', () => mouseDown = true);
+  window.addEventListener('mouseup', () => mouseDown = false);
 
-    function drawCursor() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.save();
-        ctx.translate(mouseX, mouseY);
-        ctx.rotate(-Math.PI / 4);
-        ctx.fillStyle = mouseDown ? '#F3E9EB' : '#F2285A';
-        ctx.beginPath();
-        ctx.moveTo(0, -15);
-        ctx.lineTo(10, 10);
-        ctx.lineTo(0, 5);
-        ctx.lineTo(-10, 10);
-        ctx.closePath();
-        ctx.fill();
-        ctx.restore();
-        requestAnimationFrame(drawCursor);
-    }
-    drawCursor();
+  function drawCursor() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.save();
+    ctx.translate(mouseX, mouseY);
+    ctx.rotate(-Math.PI / 4);
+    ctx.fillStyle = mouseDown ? '#F3E9EB' : '#F2285A';
+    ctx.beginPath();
+    ctx.moveTo(0, -15);
+    ctx.lineTo(10, 10);
+    ctx.lineTo(0, 5);
+    ctx.lineTo(-10, 10);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+    requestAnimationFrame(drawCursor);
+  }
+  drawCursor();
 });
+
 // 取得按鈕與圖示元素
 const hamburgerBtn = document.getElementById('hamburger-btn');
 const hamburgerIcon = document.querySelector('.hamburger-icon');
@@ -200,10 +207,10 @@ const offcanvasElement = document.getElementById('offcanvasNavbar');
 
 // 當選單「打開」時，變成叉叉
 offcanvasElement.addEventListener('show.bs.offcanvas', function () {
-    hamburgerIcon.classList.add('active');
+  hamburgerIcon.classList.add('active');
 });
 
 // 當選單「關閉」時，變回三條線
 offcanvasElement.addEventListener('hide.bs.offcanvas', function () {
-    hamburgerIcon.classList.remove('active');
+  hamburgerIcon.classList.remove('active');
 });
