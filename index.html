@@ -40,7 +40,6 @@
         <p class="loading-text">Loading...</p>
     </div>
 
-
     <div id="main-content" style="display:none;"><!-- loading完前先隱藏所有內容 -->
         <!-- 滑鼠拖曳特效 -->
         <canvas id="cursorCanvas"></canvas>
@@ -80,57 +79,62 @@
             <div class="container py-5"></div><!--留白-->
 
             <div class="offcanvas-body d-flex align-items-center ps-0">
-    
-    <ul class="navbar-nav w-100 mb-4">
-        <li class="nav-item full-menu-item"><a class="nav-link full-menu-link" href="index.html">HOME</a></li>
-        <li class="nav-item full-menu-item"><a class="nav-link full-menu-link" href="page2.html">MUSIC</a></li>
-        <li class="nav-item full-menu-item"><a class="nav-link full-menu-link" href="page3.html">MEMBER</a></li>
-    </ul>
 
-    <div class="mobile-menu-icons">
-        <a href="page6.html">
-            <img src="icon/愛心填色.png" alt="Like">
-        </a>
-        <a href="page5.html">
-            <img src="icon/頭貼.png" alt="Login">
-        </a>
-    </div>
+                <ul class="navbar-nav w-100 mb-4">
+                    <li class="nav-item full-menu-item"><a class="nav-link full-menu-link" href="index.html">HOME</a>
+                    </li>
+                    <li class="nav-item full-menu-item"><a class="nav-link full-menu-link" href="page2.html">MUSIC</a>
+                    </li>
+                    <li class="nav-item full-menu-item"><a class="nav-link full-menu-link" href="page3.html">MEMBER</a>
+                    </li>
+                </ul>
 
-</div>
+                <div class="mobile-menu-icons">
+                    <a href="page6.html">
+                        <img src="icon/愛心填色.png" alt="Like">
+                    </a>
+                    <a href="page5.html">
+                        <img src="icon/頭貼.png" alt="Login">
+                    </a>
+                </div>
+            </div>
         </div>
 
-        <!--YOASOBI 霓虹空心字效果 -->
+
+        <!--YOASOBI 首頁動畫 -->
         <section class="neon-section">
             <div class="neon-text">YOASOBI</div>
         </section>
 
-        <!-- 第三個畫面 -->
-        <div class="black">
+        <!-- 第二個 -->
+        <div class="two">
+            <!-- 音量波動條-->
             <canvas id="volumeCanvas"></canvas>
+            <!-- 漂浮音符 -->
+            <canvas id="blackredCanvas"></canvas>
 
-            <canvas id="blackCanvas"></canvas>
-
-            <p class="black-text">
+            <p class="blackred-text">
                 NEW ALBUM<br><br><br><br>
                 小說を音樂にするユニット<br>
                 ”YOASOBIのライブ映像作品集 第3彈。<br>
                 2枚組Blu-rayと、各地でのライブ写真を綴じ込んだ
                 <br>特製バインダー付きの豪華仕様。
             </p>
-            <img src="icon/00.png" alt="black" class="black-img">
+            <img src="icon/00.png" alt="black" class="blackred-img">
         </div>
-        
-        <!-- 第二個畫面 -->
-        <div class="red">
+
+        <!-- 第三個 -->
+        <div class="three">
             <div class="stage-bg">
+                <!-- 煙霧特效-->
                 <canvas id="smokeCanvas"></canvas>
             </div>
-
+            <!-- 圖片特效-->
             <div class="neon-wrapper">
                 <img src="icon/ttt.jpg" class="red-img" alt="Red">
             </div>
 
-            <p class="red-text">
+            <p class="three-text">
                 LIVE<br><br>
                 YOASOBI ASIA TOUR 2024-2025<br>
                 “超現実 cho-genjitsu”<br>
@@ -139,7 +143,7 @@
             </p>
         </div>
 
-        
+
         <!--Footer-->
         <footer>
             <p class="word">Made by Isayu and Elaine</p>

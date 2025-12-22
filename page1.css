@@ -1,70 +1,15 @@
-/* 往上跑動畫動畫 */
-.fade-up {
-  opacity: 0;
-  transform: translateY(50px);
-  /* 負往上 正往下 */
-  transition: opacity 0.6s ease-out, transform 0.8s ease-out;
-}
-
-.fade-up.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/*CSS*/
 body {
   margin: 0;
   cursor: url('icon/mouse.png') 16 16, auto !important;
-
-  /* 背景圖設定 */
   background-image: url('icon/back.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  /* 背景固定 */
   overflow-x: hidden;
-
 }
 
-/* loading 蓋滿全螢幕 */
-/* 霓虹圈圈 */
-.neon-spinner {
-  width: 100px;
-  height: 100px;
-  border: 6px solid rgba(255, 40, 90, 0.2);
-  border-top: 6px solid #F2285A;
-  border-radius: 50%;
-  /* 延長動畫時間，圈圈慢慢轉 + 光暈慢慢變化 */
-  animation: spin 3s linear infinite, glow 4s ease-in-out infinite alternate;
-  box-shadow: 0 0 10px #F2285A, 0 0 20px #F2285A, 0 0 30px #A18CD1, 0 0 40px #A18CD1;
-  margin-bottom: 20px;
-}
-
-/* 旋轉動畫變慢 */
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-/* 光暈跳動慢一點 */
-@keyframes glow {
-  0% {
-    box-shadow: 0 0 10px #F2285A, 0 0 20px #F2285A, 0 0 30px #A18CD1, 0 0 40px #A18CD1;
-  }
-
-  100% {
-    box-shadow: 0 0 20px #F2285A, 0 0 40px #F2285A, 0 0 60px #ff9a9e, 0 0 80px #fbc2eb, 0 0 100px #F2285A;
-  }
-}
-
-/* Loading 文字 */
-/* loading 蓋滿全螢幕 */
+/* Loading 背景 */
 #loading {
   position: fixed;
   top: 0;
@@ -91,7 +36,6 @@ body {
   margin-bottom: 20px;
 }
 
-/* 旋轉動畫 */
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -102,7 +46,7 @@ body {
   }
 }
 
-/* 光暈跳動 */
+/* 圈圈光暈 */
 @keyframes glow {
   0% {
     box-shadow: 0 0 10px #F2285A, 0 0 20px #F2285A, 0 0 30px #A18CD1, 0 0 40px #A18CD1;
@@ -113,7 +57,6 @@ body {
   }
 }
 
-/* Loading 文字 */
 .loading-text {
   margin-top: 15px;
   font-family: 'BBH Sans Hegarty', sans-serif;
@@ -134,7 +77,6 @@ body {
   }
 }
 
-/* 文字浮動 */
 @keyframes floatUp {
   0% {
     transform: translateY(0);
@@ -151,7 +93,6 @@ canvas {
   top: 0;
   left: 0;
   pointer-events: none;
-  /* 不影響滑鼠事件 */
   z-index: 9999;
 }
 
@@ -173,21 +114,17 @@ header {
   height: 34px;
 }
 
-
-/*動態大圖*/
+/*yoasobi 動態效果 */
 .neon-section {
   width: 100%;
   height: 730px;
   background: #000;
-
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
-  /* ★ */
+  overflow: hidden;/*防止跑出*/
 }
 
-/* 保持文字效果 */
 .neon-text {
   font-size: 9.5rem;
   font-weight: 500;
@@ -196,56 +133,44 @@ header {
   -webkit-text-stroke: 2px #F2285A;
   position: relative;
   overflow: visible;
-  /* ★ 允許光暈超出文字 */
   transform: scaleX(1.2);
   transform-origin: center;
   animation: glow 2s ease-in-out infinite alternate;
 }
 
-/* 光暈跨螢幕 */
+/* 光暈 */
 .neon-text::after {
   content: "";
   position: fixed;
   top: 0;
   left: 0;
   width: 300%;
-  /* 光暈寬度夠大 */
   height: 100%;
   pointer-events: none;
-  background: linear-gradient(120deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.6) 50%,
-      transparent 100%);
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 100%);
   transform: skewX(-20deg) translateX(-100%);
-  /* ★ 起始位置 */
   animation: shine 3s linear infinite;
-  /* ★ 使用 linear 平滑 */
   z-index: 2;
 }
 
 @keyframes shine {
   0% {
     transform: skewX(-20deg) translateX(-100%);
-  }
-
-  100% {
-    transform: skewX(-20deg) translateX(100%);
-  }
-}
-
-@keyframes shine {
-  0% {
     left: -100%;
   }
-
-  60% {
+ 60% {
     left: 100%;
   }
-
   100% {
+    transform: skewX(-20deg) translateX(100%);
     left: 100%;
   }
 }
+
 
 @keyframes glow {
   0% {
@@ -266,149 +191,8 @@ header {
   }
 }
 
-.neon-text::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -150%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(120deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.6) 50%,
-      transparent 100%);
-  animation: shine 3s infinite;
-  transform: skewX(-20deg);
-}
-
-@keyframes shine {
-  0% {
-    left: -150%;
-  }
-
-  60% {
-    left: 150%;
-  }
-
-  100% {
-    left: 150%;
-  }
-}
-
-/* 第二個畫面容器 */
-/* 移除原本的 .spotlight 樣式，並修改以下內容 */
-
-.red {
-  position: relative;
-  width: 100%;
-  height: 777px;
-  background: rgba(0, 0, 0, 1);
-  /* 確保背景全黑，霓虹燈才亮 */
-  display: flex;
-  align-items: center;
-  padding-left: 330px;
-  gap: 120px;
-  overflow: hidden;
-}
-
-/* 霓虹燈容器 */
-.neon-wrapper {
-  position: relative;
-  z-index: 3;
-  transition: all 0.4s ease;
-  /* 控制浮起速度 */
-  line-height: 0;
-  /* 防止圖片下方出現空隙 */
-  border-radius: 8px;
-  /* 稍微圓角比較自然 */
-}
-
-.red-img {
-  width: 369px;
-  height: 454px;
-  object-fit: cover;
-  border-radius: 8px;
-  display: block;
-}
-
-/* ★ 滑到照片的效果：浮起 + 白色霓虹燈 */
-.neon-wrapper:hover {
-  transform: translateY(-15px) scale(1.02);
-  /* 向上浮起並微放 */
-  /* 多層陰影堆疊出霓虹燈感：強光 -> 暈開 -> 遠處光暈 */
-  box-shadow:
-    0 0 5px #fff,
-    0 0 15px #fff,
-    0 0 30px #fff,
-    0 0 60px rgba(255, 255, 255, 0.5);
-}
-
-/* 確保文字不會變透明 */
-.red {
-  position: relative;
-  /* 確保 canvas 以此為基準 */
-  width: 100%;
-  height: 777px;
-  background: #000;
-  display: flex;
-  align-items: center;
-  padding-left: 220px;
-  gap: 120px;
-  overflow: hidden;
-}
-
-#smokeCanvas {
-  position: absolute;
-  bottom: 0;
-  /* 貼緊底部 */
-  left: 0;
-  width: 100%;
-  height: 100%;
-  /* 高度與父容器一致 */
-  z-index: 1;
-  pointer-events: none;
-  /* 顆粒要糊但不要消失，建議 blur 15px-25px */
-  filter: blur(20px);
-  opacity: 0.8;
-}
-
-.red-text {
-  opacity: 0;
-  color: #fff;
-  z-index: 4;
-}
-
-/* 文字 */
-.red-text {
-  font-family: "Kay Pho Du", sans-serif;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 1.6;
-  color: #fff;
-  text-align: center;
-  position: relative;
-  z-index: 4;
-  opacity: 0;
-  transform: translateX(100%);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.red-text.show {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* 自訂游標 */
-#cursorCanvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 999;
-}
-
-/* 第三個畫面容器 */
-.black {
+/* 第二個 */
+.two {
   width: 100%;
   height: 777px;
   position: relative;
@@ -435,18 +219,18 @@ header {
   opacity: 1;
 }
 
-#blackCanvas {
+#blackredCanvas {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 3;
+  z-index: 4;   /* ★ 比圖片高 */
   pointer-events: none;
   opacity: 1;
 }
 
-.black-text {
+.blackred-text {
   font-family: "Kay Pho Du", sans-serif;
   font-weight: 400;
   font-size: 24px;
@@ -462,12 +246,12 @@ header {
   opacity: 1;
 }
 
-.black-text.show {
+.blackred-text.show {
   opacity: 1;
   transform: translateX(0);
 }
 
-.black-img {
+.blackred-img {
   width: 45%;
   height: 777px;
   object-fit: cover;
@@ -477,6 +261,87 @@ header {
   opacity: 1;
 }
 
+
+/* 第三個 */
+.three {
+  position: relative;
+  width: 100%;
+  height: 777px;
+  background: rgba(0, 0, 0, 1);
+  display: flex;
+  align-items: center;
+  padding-left: 330px;
+  gap: 120px;
+  overflow: hidden;
+}
+
+/* 圖片特效 */
+.neon-wrapper {
+  position: relative;
+  z-index: 3;
+  transition: all 0.4s ease;
+  line-height: 0;
+  border-radius: 8px;
+}
+
+.neon-wrapper:hover {
+  transform: translateY(-15px) scale(1.02);
+  box-shadow:
+    0 0 5px #fff,
+    0 0 15px #fff,
+    0 0 30px #fff,
+    0 0 60px rgba(255, 255, 255, 0.5);
+}
+
+.three-img {
+  width: 369px;
+  height: 454px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+/* 煙霧特效 */
+#smokeCanvas {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;  
+  filter: blur(20px);/* 顆粒湖糊的*/
+  opacity: 0.8;
+}
+
+/* 文字 */
+.three-text {
+  font-family: "Kay Pho Du", sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.6;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  z-index: 4;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.three-text.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* 自訂游標 */
+#cursorCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 999;
+}
 
 /*Footer*/
 footer {
