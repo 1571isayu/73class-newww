@@ -17,6 +17,7 @@ canvas {
     z-index: 9999; 
 }
 
+
 header {
     top: 0;
     left: 0;
@@ -182,7 +183,6 @@ header {
 
 .hamburger-icon.active span:nth-child(2) {
   opacity: 0;
-  left: 60px;
   background: #F3E9EB;
 }
 
@@ -290,94 +290,136 @@ header {
     /* 確保在手機上不要因為 padding 太大而導致需要一直滑 */
     margin-bottom: 20px; 
 }
+/* =========================================
+   [通用設定] 圖片與輸入框自適應
+   ========================================= */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* 確保輸入框不會超出表單 */
+.input {
+    max-width: 100%; 
+    box-sizing: border-box; /* 含內距計算寬度 */
+}
+
+/* =========================================
+   [全域修正] 漢堡按鈕與選單 Icon 預設
+   ========================================= */
+/* 1. 電腦與平板預設：隱藏選單內的 Icon */
+.mobile-menu-icons {
+    display: none;
+}
+
+/* 2. 修復漢堡按鈕層級 */
+#hamburger-btn {
+    z-index: 99999 !important;
+    position: relative;
+}
 
 /* =========================================
    RWD：平板尺寸 (螢幕寬度小於 1024px)
+   設定：選單靠右、無圖、表單寬度調整
    ========================================= */
 @media (max-width: 1024px) {
-    /* 1. 表單寬度調整 */
-    .form {
-        width: 80%; /* 改用百分比，不再固定 522px */
-        max-width: 522px; /* 但最大不要超過原本設定 */
-    }
     
-    /* 2. 輸入框寬度跟隨表單 */
-    .input {
-        width: 100%; /* 讓輸入框填滿表單寬度 */
+    /* 1. 關閉鼠標特效 */
+    #cursorCanvas { display: none !important; }
+    body { cursor: auto !important; }
+
+    /* 2. 表單寬度調整 (改用百分比) */
+    .form {
+        width: 80%;       /* 寬度 80% */
+        max-width: 522px; /* 但不超過原本大小 */
+    }
+    .input { width: 100%; }
+    .button { width: 100%; } /* 按鈕滿版比較好按 */
+
+    /* 3. 選單設定 (靠右、無圖) */
+    .mobile-menu-icons { display: none !important; }
+
+    .offcanvas-body {
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: flex-end !important;   /* 靠右 */
+        padding-left: 0 !important;
+        padding-right: 4rem !important;
+    }
+    .full-menu-link {
+        text-align: right !important;
+        padding-right: 0 !important;
+        width: 100%;
     }
 }
 
 /* =========================================
    RWD：手機尺寸 (螢幕寬度小於 768px)
+   設定：表單縮小、標題線條縮短、選單置中有圖
    ========================================= */
 @media (max-width: 768px) {
     
-    /* 1. 標題區域調整 */
+    /* 1. Header 與選單 */
+    header .nav-icon { display: none !important; } /* 隱藏 Header Icon */
+
+    /* 顯示選單內 Icon */
+    .mobile-menu-icons {
+        display: flex !important;
+        justify-content: center;
+        gap: 30px;
+        width: 100%;
+        margin-top: 20px;
+    }
+    .mobile-menu-icons img { width: 50px; height: auto; }
+
+    /* 選單改回置中 */
+    .offcanvas-body {
+        align-items: center !important;
+        padding-right: 0 !important;
+    }
+    .full-menu-link { text-align: center !important; }
+    .slanted-menu { width: 100% !important; clip-path: none !important; }
+
+
+    /* 2. LOGIN 標題區調整 */
     .login-title-container {
         padding-top: 120px; /* 避開 Header */
-        gap: 10px; /* 縮小 LOGIN 字樣與線條的距離 */
+        gap: 10px;
     }
-
-    /* 線條變短，不然手機會塞不下 "線 LOGIN 線" */
+    
     .line {
-        width: 60px; /* 原本 189px 太長了 */
+        width: 60px; /* ★ 縮短線條，不然手機會爆版 */
     }
-
+    
     .login {
-        font-size: 28px; /* LOGIN 字體稍微縮小 */
+        font-size: 28px;
     }
 
-    /* 2. 表單區域大調整 */
+    /* 3. 表單調整 */
     .form {
-        width: 90%; /* 手機版佔據 90% 寬度 */
-        padding: 30px 20px; /* 內距縮小一點，爭取空間 */
-        margin-top: 10px;
+        width: 90%;       /* 手機版更寬一點 */
+        padding: 30px 20px;
     }
 
-    /* 輸入框與按鈕全寬 */
+    .label { font-size: 18px; }
+    
     .input {
-        width: 100%;
+        height: 45px;
         margin-bottom: 15px;
     }
-
+    
     .button {
-        width: 100%; /* 按鈕也變成全寬比較好按 */
+        height: 45px;
         margin-top: 10px;
-    }
-
-    /* 3. Footer (如果有 Footer 的話，這頁目前沒看到，但以防萬一) */
-    footer {
-        flex-direction: column-reverse;
-        height: auto;
-        padding: 20px 0;
-    }
-    
-    /* 4. 漢堡選單修正 (同前幾頁) */
-    .slanted-menu {
-        width: 100% !important;
-        clip-path: none !important;
-    }
-    
-    .full-menu-link {
-        text-align: center;
-        padding-right: 0 !important;
-    }
-    
-    .offcanvas-body {
-        padding-right: 0 !important;
-        justify-content: center;
     }
 }
 
-/* =========================================
-   針對超小手機 (如 iPhone SE, Fold 折疊機)
-   ========================================= */
-@media (max-width: 380px) {
-    .line {
-        width: 30px; /* 線條再縮短 */
-    }
-    
-    .login-title-container {
-         padding-top: 100px;
-    }
+/* 修正 CSS Class 對應問題 (確保標題能排版) */
+/* 因為 HTML 用 login-title-container 但 CSS 原本只寫 container */
+.login-title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 23px;
+    padding-top: 100px;
 }

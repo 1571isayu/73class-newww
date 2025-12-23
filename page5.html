@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yoasobi</title>
+    <title>Login</title>
     <!-- 自訂 CSS -->
     <link rel="stylesheet" href="page5.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!--字體1-->
     <link href="https://fonts.googleapis.com/css2?family=Konkhmer+Sleokchher&display=swap" rel="stylesheet">
     <!--字體2-->
@@ -17,7 +18,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="page5.js"></script>
-    
+
     <!--favicon-->
     <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
@@ -31,9 +32,10 @@
     </script>
 
 </head>
+
 <body>
-        <canvas id="cursorCanvas"></canvas>
-  
+    <canvas id="cursorCanvas"></canvas>
+
     <!--header-->
     <header class="d-flex justify-content-between 
         align-items-center px-4 py-3 fixed-top main-header"><!-- 橫排 左右分散對齊 垂直置中 左右&上下留白 滑動時固定在頂 -->
@@ -64,18 +66,25 @@
         </div>
     </header>
     <!--側邊滑出選單-->
-    <div class="offcanvas offcanvas-end slanted-menu bg-black text-white" tabindex="-1" id="offcanvasNavbar"><!-- 從右滑出 -->
+    <div class="offcanvas offcanvas-end slanted-menu bg-black text-white" tabindex="-1" id="offcanvasNavbar">
+        <!-- 從右滑出 -->
         <div class="container py-5"></div><!--留白-->
 
-        <div class="offcanvas-body d-flex align-items-center ps-5"><!--左側留白-->
-            <ul class="navbar-nav w-100"><!--寬度100-->
-                <li class="nav-item full-menu-item"><a class="nav-link full-menu-link" href="index.html">HOME</a>
-                </li>
-                <li class="nav-item full-menu-item"><a class="nav-link full-menu-link" href="page2.html">MUSIC</a>
-                </li>
-                <li class="nav-item full-menu-item"><a class="nav-link full-menu-link" href="page3.html">MEMBER</a>
-                </li>
+        <div class="offcanvas-body d-flex align-items-center ps-0">
+            <ul class="navbar-nav w-100 mb-4">
+                <li class="nav-item full-menu-item"><a class="nav-link full-menu-link" href="index.html">HOME</a></li>
+                <li class="nav-item full-menu-item"><a class="nav-link full-menu-link" href="page2.html">MUSIC</a></li>
+                <li class="nav-item full-menu-item"><a class="nav-link full-menu-link" href="page3.html">MEMBER</a></li>
             </ul>
+
+            <div class="mobile-menu-icons">
+                <a href="page6.html">
+                    <img src="icon/愛心填色.png" alt="Like">
+                </a>
+                <a href="page5.html">
+                    <img src="icon/頭貼.png" alt="Login">
+                </a>
+            </div>
         </div>
     </div>
 
@@ -85,9 +94,9 @@
         <p class="login">LOGIN</p>
         <div class="line"></div>
     </div>
-    
+
     <div>
-       <form class="form">
+        <form class="form">
             <label for="username" class="label" id="label1">Username</label>
             <input type="text" id="username" name="username" class="input">
 
@@ -96,14 +105,14 @@
 
             <button type="submit" class="button">LOGIN</button>
             <br>
-            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-            class="forget">FORGET PASSWORD ?</a>
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="forget">FORGET PASSWORD ?</a>
         </form>
-     </div>
+    </div>
 
     <!-- 登入成功提示 -->
     <div id="successPopup" class="popup">Successful login</div>
 
- 
+
 </body>
+
 </html>

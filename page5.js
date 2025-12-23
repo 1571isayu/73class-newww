@@ -25,7 +25,6 @@ function drawCursor() {
     ctx.translate(mouseX, mouseY);
     ctx.rotate(-Math.PI / 4);
     ctx.fillStyle = mouseDown ? '#F3E9EB' : '#F2285A';
-
     ctx.beginPath();
     ctx.moveTo(0, -15);    
     ctx.lineTo(10, 10);    
@@ -33,12 +32,11 @@ function drawCursor() {
     ctx.lineTo(-10, 10);   
     ctx.closePath();
     ctx.fill();
-
     ctx.restore();
 
     requestAnimationFrame(drawCursor);
 }
-
+drawCursor();
 // 調整畫布大小
 window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
@@ -98,4 +96,23 @@ document.querySelector(".form").addEventListener("submit", async (event) => {
       alert("登入失敗，請查看 console");
     }
   });
+});
+//漢堡選單動畫
+document.addEventListener('DOMContentLoaded', function () {
+    // 1. 抓取元素
+    var offcanvasElement = document.getElementById('offcanvasNavbar');
+    var hamburgerIcon = document.querySelector('.hamburger-icon');
+
+    // 如果找不到元素就不要執行，避免報錯
+    if (!offcanvasElement || !hamburgerIcon) return;
+
+    // 2. 當選單「開始顯示」時 -> 變成 X
+    offcanvasElement.addEventListener('show.bs.offcanvas', function () {
+        hamburgerIcon.classList.add('active');
+    });
+
+    // 3. 當選單「開始隱藏」時 -> 變回三條線
+    offcanvasElement.addEventListener('hide.bs.offcanvas', function () {
+        hamburgerIcon.classList.remove('active');
+    });
 });

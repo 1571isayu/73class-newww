@@ -17,6 +17,7 @@ canvas {
     z-index: 9999;
 }
 
+/*HEADER*/
 header {
     top: 0;
     left: 0;
@@ -27,19 +28,114 @@ header {
     justify-content: space-between;
     box-sizing: border-box;
     padding: 0 30px;
-    z-index: 1050;
+    z-index: 1100 !important;
+    pointer-events: none;
 }
 
-.nav-link {
-    color: #F2285A;
-    text-decoration: none;
-    font-family: 'Konkhmer Sleokchher', sans-serif;
-    font-size: 24px;
-    transition: color 0.3s;
+/*漢堡ㄉdiv*/
+.hamburger-icon {
+    width: 40px;
+    height: 30px;
+    position: relative;
+    cursor: pointer;
 }
 
-.nav-link:hover {
-    color: #F3E9EB;
+/*三條槓槓初始設定*/
+.hamburger-icon span {
+    display: block;
+    position: absolute;
+    height: 5px;
+    width: 100%;
+    background: #F2285A;
+    /*線條圓角*/
+    border-radius: 10px;
+    /*透明度*/
+    opacity: 1;
+    /*靠容器的左*/
+    left: 0;
+    /*旋轉角度*/
+    transform: rotate(0deg);
+    /*過渡動畫*/
+    transition: 0.3s ease-in-out;
+}
+
+/*線條初始位置*/
+.hamburger-icon span:nth-child(1) {
+    top: 0px;
+}
+
+.hamburger-icon span:nth-child(2) {
+    top: 15px;
+}
+
+.hamburger-icon span:nth-child(3) {
+    top: 30px;
+}
+
+/*變成 X +active*/
+.hamburger-icon.active span:nth-child(1) {
+    top: 10px;
+    background: #F3E9EB;
+    transform: rotate(135deg);
+}
+
+.hamburger-icon.active span:nth-child(2) {
+    opacity: 0;
+    background: #F3E9EB;
+}
+
+.hamburger-icon.active span:nth-child(3) {
+    top: 10px;
+    background: #F3E9EB;
+    transform: rotate(-135deg);
+}
+
+
+/*側邊滑出選單*/
+.slanted-menu {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    clip-path: polygon(60px 0, 100% 0, 100% 100%, 0% 100%);
+    width: 350px !important;
+
+    transform-origin: top left;
+    transform: translateX(100%) rotate(-15deg) !important;
+
+    transition: transform 0.3s ease-out;
+    visibility: hidden;
+}
+
+.offcanvas.show {
+    transform: translateX(0) rotate(0deg) !important;
+    visibility: visible;
+}
+
+.full-menu-link {
+    font-family: 'Konkhmer Sleokchher', sans-serif !important;
+    font-size: 2.5rem !important;
+    font-weight: 900 !important;
+    color: #fff !important;
+    text-transform: uppercase;
+    padding: 10px 0;
+    transition: 0.3s !important;
+
+    display: block;
+    text-align: right;
+}
+
+.full-menu-link:hover {
+    color: #ff004f !important;
+    padding-right: 20px !important;
+}
+
+/*選單容器*/
+.offcanvas-body {
+    padding-left: 0 !important;
+    padding-right: 4rem !important;
+
+    display: flex;
+    align-items: center;
 }
 
 main {
@@ -56,10 +152,11 @@ main {
 
 .likeline hr {
     border: none;
-    height: 2px;
+    height: 2px !important;
     background-color: #F2285A;
     flex: 0 0 296px;
     margin: 0 25px;
+    opacity: 1 !important;
 }
 
 .likeline div {
@@ -83,7 +180,7 @@ main {
     padding: 10px 20px;
     border-radius: 12px;
     position: relative;
-    overflow: visible; 
+    overflow: visible;
 }
 
 /* 唱片與封面包裹器 */
@@ -103,7 +200,7 @@ main {
     object-fit: cover;
     border: #F3E9EB 2px solid;
     position: relative;
-    z-index: 5; 
+    z-index: 5;
     background-color: #222;
     transition: transform 0.3s ease;
 }
@@ -111,26 +208,25 @@ main {
 /* 專輯封面上的斜向光影質感 */
 .record-wrapper::after {
     content: "";
-    position: absolute;
     top: 0;
     left: 0;
     width: 200px;
     height: 200px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 100%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.1) 100%);
     z-index: 6;
-    pointer-events: none; /* 不擋住滑鼠 */
+    pointer-events: none;
+    /* 不擋住滑鼠 */
 }
 
 /* 黑膠唱片本體 - 加入紅色霓虹背光 */
 .record-disk {
-    position: absolute;
     top: 5px;
     left: 5px;
     width: 190px;
     height: 190px;
     /* 結合放射狀反光與溝槽 */
-    background: 
-        conic-gradient(from 0deg, transparent 0deg, rgba(255,255,255,0.05) 45deg, transparent 90deg, rgba(255,255,255,0.05) 225deg, transparent 270deg),
+    background:
+        conic-gradient(from 0deg, transparent 0deg, rgba(255, 255, 255, 0.05) 45deg, transparent 90deg, rgba(255, 255, 255, 0.05) 225deg, transparent 270deg),
         radial-gradient(circle, #444 2%, #111 4%, #333 10%, #111 15%, #333 20%, #111 25%, #333 30%, #111 35%, #000 70%);
     border-radius: 50%;
     z-index: 1;
@@ -138,7 +234,7 @@ main {
     align-items: center;
     justify-content: center;
     /* 初始陰影 */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.6s ease;
 }
 
@@ -146,7 +242,7 @@ main {
 .record-center {
     width: 60px;
     height: 60px;
-    background-color: #F2285A; 
+    background-color: #F2285A;
     border-radius: 50%;
     border: 2px solid #000;
     overflow: hidden;
@@ -178,9 +274,17 @@ main {
 }
 
 @keyframes disk-slide-rotate {
-    0% { transform: translateX(0) rotate(0deg); }
-    15% { transform: translateX(110px) rotate(60deg); } 
-    100% { transform: translateX(110px) rotate(360deg); }
+    0% {
+        transform: translateX(0) rotate(0deg);
+    }
+
+    15% {
+        transform: translateX(110px) rotate(60deg);
+    }
+
+    100% {
+        transform: translateX(110px) rotate(360deg);
+    }
 }
 
 /* 歌名樣式 */
@@ -203,4 +307,247 @@ main {
 
 .favorite-heart img.heart-icon:hover {
     transform: scale(1.1);
+}
+
+/* =========================================
+   [通用設定] 圖片自適應
+   ========================================= */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* =========================================
+   [全域修正] 漢堡按鈕與選單 Icon 預設
+   ========================================= */
+/* 1. 電腦與平板預設：隱藏選單內的 Icon (如果 HTML 有加的話) */
+.mobile-menu-icons {
+    display: none;
+}
+
+/* 2. 修復漢堡按鈕層級 */
+#hamburger-btn {
+    z-index: 99999 !important;
+    position: relative;
+}
+
+/* =========================================
+   [通用設定] 圖片自適應
+   ========================================= */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* =========================================
+   [全域修正] 漢堡按鈕與選單 Icon 預設
+   ========================================= */
+.mobile-menu-icons {
+    display: none;
+}
+
+#hamburger-btn {
+    z-index: 99999 !important;
+    position: relative;
+}
+
+/* 確保歌名有動畫過渡效果 (為了平板推擠動畫) */
+.favorite-name {
+    transition: transform 0.4s ease, margin 0.3s ease;
+}
+
+/* =========================================
+   RWD：平板尺寸 (螢幕寬度小於 1024px)
+   重點：推擠動畫變慢、距離變短
+   ========================================= */
+@media (max-width: 1024px) {
+
+    /* 1. 關閉鼠標特效 */
+    #cursorCanvas {
+        display: none !important;
+    }
+
+    body {
+        cursor: auto !important;
+    }
+
+    /* 2. 標題線條縮短 */
+    .likeline hr {
+        flex: 0 0 150px;
+        margin: 0 15px;
+    }
+
+    /* 3. 收藏項目排版 */
+    .favorite-item {
+        padding: 10px 0;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    /* 唱片位置 */
+    .record-wrapper {
+        margin-left: 50px;
+    }
+
+    /* 歌名位置與動畫設定 */
+    .favorite-name {
+        margin-left: 20px;
+        font-size: 28px;
+        /* ★ 改慢一點：從 0.4s 改成 0.8s */
+        transition: transform 0.8s ease;
+    }
+
+    /* ★ 改短一點：從 180px 改成 100px (只要不被擋住就好) */
+    .record-wrapper:hover~.favorite-name {
+        transform: translateX(100px);
+    }
+
+    /* 愛心位置 */
+    .favorite-heart img.heart-icon {
+        margin-right: 50px;
+        width: 60px;
+        height: 60px;
+    }
+
+    /* 選單設定 (平板靠右) */
+    .mobile-menu-icons {
+        display: none !important;
+    }
+
+    .offcanvas-body {
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: flex-end !important;
+        padding-left: 0 !important;
+        padding-right: 4rem !important;
+    }
+
+    .full-menu-link {
+        text-align: right !important;
+        padding-right: 0 !important;
+    }
+}
+
+/* =========================================
+   RWD：手機尺寸 (螢幕寬度小於 768px)
+   重點：黑膠獨佔一行、歌名愛心置中並排
+   ========================================= */
+@media (max-width: 768px) {
+
+    /* 1. Header 與選單 */
+    header .nav-icon {
+        display: none !important;
+    }
+
+    /* 選單置中 + 顯示 Icon */
+    .offcanvas-body {
+        align-items: center !important;
+        padding-right: 0 !important;
+    }
+
+    .full-menu-link {
+        text-align: center !important;
+    }
+
+    .slanted-menu {
+        width: 100% !important;
+        clip-path: none !important;
+    }
+
+    .mobile-menu-icons {
+        display: flex !important;
+        justify-content: center;
+        gap: 30px;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .mobile-menu-icons img {
+        width: 50px;
+        height: auto;
+    }
+
+    /* 2. Main 標題區塊 */
+    main {
+        padding-top: 100px;
+    }
+
+    .likeline hr {
+        flex: 1;
+        margin: 0 10px;
+    }
+
+    .likeline div {
+        font-size: 32px;
+    }
+
+    /* 3. 收藏列表排版 (修復版) */
+    .favorite-item {
+        flex-wrap: wrap;
+        /* 允許換行 */
+        justify-content: center;
+        /* 整體內容置中 */
+        align-items: center;
+        /* 垂直置中 */
+        gap: 15px;
+        padding: 30px 0;
+        border-bottom: 1px solid rgba(242, 40, 90, 0.3);
+    }
+
+  
+    /* (1) 唱片：強制寬度 100% 讓它獨佔第一行 */
+    .record-wrapper {
+        flex: 0 0 100%;
+        /* 強制佔滿一行 */
+        width: 200px;
+        /* 內容寬度 */
+        margin: 0 auto 10px auto !important;
+        /* 置中，下方留點空隙 */
+        display: flex;
+        justify-content: center;
+        transform: scale(0.95);
+    }
+
+    /* 手機版移除推擠動畫 */
+    .record-wrapper:hover~.favorite-name {
+        transform: none !important;
+    }
+
+    /* (2) 歌名：自動寬度 */
+    .favorite-name {
+        width: auto !important;
+        margin: 0 !important;
+        flex: 0 1 auto;
+        font-size: 24px;
+        text-align: right;
+        /* 文字靠右，靠近愛心 */
+    }
+
+    /* (3) 愛心：自動寬度 */
+    .favorite-heart {
+        width: auto !important;
+        display: flex;
+        align-items: center;
+    }
+
+    .favorite-heart img.heart-icon {
+        margin: 0 !important;
+        margin-left: 10px !important;
+        /* 與歌名拉開一點距離 */
+        width: 45px;
+        height: 45px;
+    }
+    .record-disk {
+        width: 190px !important;       
+        height: 190px !important;
+        
+        top: 5px !important;           
+        
+        /* ★ 這裡修改：原本 5px，改大一點往右推 */
+        left: 80px !important;          
+        
+        z-index: 1 !important;         /* 藏在下面 */
+        
+    }
+
 }
