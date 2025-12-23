@@ -228,8 +228,8 @@ main hr {
 
 main .dream {
     margin-top: 40px;
-    width:977px;
-    height:549px;
+    width:977px !important;
+    height:549px !important;
     transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
@@ -243,7 +243,7 @@ main .dream:hover {
     justify-content: center; /* 水平置中 */
     width: 65px;
     height: 65px;
-    margin-left: 1250px;
+    margin-left: 1230px;
 }
 
 .heart1.animate {
