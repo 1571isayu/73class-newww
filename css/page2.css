@@ -8,19 +8,7 @@ canvas {
     z-index: 9999;
 }
 
-/*ALL頁面*/
-body {
-    margin: 0;
-    cursor: url('icon/mouse.png') 16 16, auto !important;
 
-    /*背景圖設定*/
-    background-image: url('icon/back.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    /*背景固定*/
-}
 
 
 

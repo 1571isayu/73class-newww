@@ -1,16 +1,3 @@
-body {
-    margin: 0;
-    /*預設鼠標*/
-    cursor: url('icon/mouse.png') 16 16, auto !important;
-    font-family: 'Konkhmer Sleokchher', sans-serif;
-
-    /*背景圖*/
-    background-image: url('icon/back.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
 
 /*滑鼠特效*/
 canvas {

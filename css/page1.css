@@ -1,13 +1,4 @@
-body {
-  margin: 0;
-  cursor: url('icon/mouse.png') 16 16, auto !important;
-  background-image: url('icon/back.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  overflow-x: hidden;
-}
+
 
 /* Loading 背景 */
 #loading {
