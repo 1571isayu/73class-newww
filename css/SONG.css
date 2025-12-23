@@ -1,0 +1,664 @@
+/* 往上跑動畫動畫 */
+.fade-up {
+  opacity: 0;
+  transform: translateY(50px); /* 負往上 正往下 */
+  transition: opacity 0.6s ease-out, transform 0.8s ease-out;
+}
+
+.fade-up.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/*CSS*/
+body {
+    margin: 0;
+    cursor: url('icon/mouse.png') 16 16, auto ;
+    font-family: "Konkhmer Sleokchher";
+
+    /* 背景圖設定 */
+    background-image: url('icon/back.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* 背景固定 */
+
+
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none; /* 不影響滑鼠事件 */
+    z-index: 9999; 
+}
+
+header {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    z-index: 1050;
+}
+
+.icon {
+    width: 117px;
+    height: 34px;
+}
+
+.main-header {
+  z-index: 1100 !important;;
+  pointer-events: none;
+}
+
+/* 1. 漢堡圖示容器 */
+.hamburger-icon {
+  width: 40px;
+  height: 30px;
+  position: relative;
+  cursor: pointer;
+}
+
+/* 2. 三條線的共同設定 */
+.hamburger-icon span {
+  display: block;
+  position: absolute;
+  height: 5px;
+  width: 100%;
+  background: #F2285A;
+  border-radius: 9px;/* 線條圓角 */
+  opacity: 1;/* 透明度 */
+  left: 0;/* 靠容器的左 */
+  transform: rotate(0deg);/* 旋轉角度 */
+  transition: 0.3s ease-in-out;/* 過渡動畫 */
+}
+
+/* 3. 線條初始位置 */
+.hamburger-icon span:nth-child(1) {
+  top: 0px;
+}
+
+.hamburger-icon span:nth-child(2) {
+  top: 15px;
+}
+
+.hamburger-icon span:nth-child(3) {
+  top: 30px;
+}
+
+/* 4. 變身成 X 的狀態 (白色) */
+.hamburger-icon.active span:nth-child(1) {
+  top: 10px;
+  background: #F3E9EB;
+  transform: rotate(135deg);
+}
+
+.hamburger-icon.active span:nth-child(2) {
+  opacity: 0;
+  background: #F3E9EB;
+}
+
+.hamburger-icon.active span:nth-child(3) {
+  top: 10px;
+  background: #F3E9EB;
+  transform: rotate(-135deg);
+}
+/* =========================================
+   同步極速版：左上角軸心甩入
+   ========================================= */
+
+.slanted-menu {
+    /* --- 1. 基礎外觀 (保持不變) --- */
+    background-color: #000;
+    color: #fff;
+    border: none;
+    clip-path: polygon(60px 0, 100% 0, 100% 100%, 0% 100%);
+    width: 350px !important;
+
+    /* --- 2. 動畫設定 (修改這裡) --- */
+    
+    /* 軸心維持在左上角 */
+    transform-origin: top left;
+    
+    /* 預設狀態：
+       角度改成 -15deg (原本 -30deg)。
+       角度小一點，轉正的路徑就短一點，感覺會更俐落。
+    */
+    transform: translateX(100%) rotate(-15deg) !important;
+    
+    /* --- 3. 速度設定 (關鍵！) --- */
+    /* 時間改成 0.4s (原本 0.8s)。
+       這跟漢堡按鈕的 0.25s 很接近，加上選單面積大，視覺上會感覺是同步的。
+       Ease-out 代表「一開始很快，最後慢慢煞車」，符合點擊後的立即反應。
+    */
+    transition: transform 0.3s ease-out;
+    
+    visibility: hidden; 
+}
+
+/* --- 4. 打開時的狀態 --- */
+.offcanvas.show {
+    transform: translateX(0) rotate(0deg) !important;
+    visibility: visible;
+}
+
+
+/* =========================================
+   修正後的選單與連結樣式
+   ========================================= */
+
+/* 1. 選單連結 (常態) */
+.full-menu-link {
+  font-family: 'Konkhmer Sleokchher', sans-serif !important;
+  font-size: 2.5rem !important;
+  font-weight: 900 !important;
+  color: #fff !important;
+  text-transform: uppercase;
+  padding: 10px 0;
+  transition: 0.3s !important; /* 動畫時間 */
+
+  /* 讓連結變成長條塊狀，並靠右對齊 */
+  display: block;    
+  text-align: right; 
+}
+
+/* 2. 選單連結 (滑鼠移上去時 :hover) */
+.full-menu-link:hover {
+  color: #ff004f !important; /* 變粉紅色 */
+  
+  /* 往左邊彈一下的效果 */
+  /* 因為是靠右對齊，增加右邊內距會把文字往左推 */
+  padding-right: 20px !important; 
+}
+
+/* 3. 選單容器 (Offcanvas Body) */
+/* 這裡控制整個選單內容離邊框多遠 */
+.offcanvas-body {
+    /* 強制把 Bootstrap 的 ps-5 (左邊留白) 歸零 */
+    padding-left: 0 !important; 
+    
+    /* 改成右邊留白 (數字越大，所有文字離右邊邊框越遠) */
+    padding-right: 4rem !important; 
+    
+    /* 確保內容垂直置中 */
+    display: flex;
+    align-items: center;
+}
+
+/* BODY */
+main {
+    padding-top: 60px;
+    text-align: center;
+    color: #F3E9EB;
+}
+
+main div {
+    font-size: 36px;
+    margin: 10px 0 0 0;
+}
+
+main hr {
+    border: none;
+    height: 2px !important;
+    background-color: #F2285A;
+    width: 297px;
+    opacity: 1 !important;
+    margin: 10px auto !important;
+}
+
+.song-aa {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px; /* 箭頭和大圖間距 */
+}
+
+.arrow-link {
+    display: inline-flex;       /* 讓 a 可以控制大小 */
+    align-items: center;
+    justify-content: center;
+    width: 49px;
+    height: 49px;
+}
+
+main .dream {
+    margin-top: 40px;
+    width:977px !important;
+    height:549px !important;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+main .dream:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+.heart1 {
+    display: flex;
+    justify-content: center; /* 水平置中 */
+    width: 65px;
+    height: 65px;
+    margin-left: 1270px;
+}
+
+.heart1.animate {
+    animation: heartBeat 0.6s forwards;
+}
+
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.5); }
+    50% { transform: scale(1.3); }
+    70% { transform: scale(1.5); }
+    100% { transform: scale(1); }
+}
+main p {
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+/*留言區*/
+.container {
+    width: 100%;
+    margin: 67px auto;
+    display: flex;
+    flex-direction: column;/* 垂直排 */
+    align-items: center;
+}
+
+.container hr {
+    border: none;
+    height: 2px !important;/*!important 是為了讓他成為最高層級*/
+    background-color: #F2285A;
+    width: 977px;
+    margin: 10px auto !important;
+    opacity: 1; 
+}
+.text {
+    width: 977px; 
+    height: 30px;
+    padding-top: 43px;
+    font-size: 36px;
+    color: #F3E9EB;
+}
+
+#commentform {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    width: 977px;
+    margin-top: 60px;    
+}
+
+#commentinput {
+    width: 883px;
+    height: 52px;
+    opacity: 1;
+    font-size: 18px;
+    line-height: 3;
+    border-radius: 8px;
+    border-width: 2px;
+    border: 2px solid #F2285A;
+    outline: none;
+    background-color: #fff; 
+    color: #000;         
+}
+
+.send-btn {
+    width: 45px;
+    height: 45px;
+    background: #ff2f72;     
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0;
+    white-space: nowrap; 
+}
+
+.send-btn:hover {
+    background: #e22763;
+}
+
+.send-btn img.arrow {
+    width: 45px;      
+    transition: transform 0.8s;
+}
+
+@keyframes fly {
+    0% {
+        transform: translate(0, 0) rotate(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(60px, -20px) rotate(20deg);/*右60 上20 旋20*/
+        opacity: 0;
+    }
+}
+
+.send-btn.fly img.arrow {
+    animation: fly 0.45s ease-out forwards;
+    /*ease-in 慢-快 ease-out 快-慢*/
+}
+
+
+
+/* 留言列表 */
+#commentList {
+    margin-top: 40px;
+    width: 977px;
+}
+
+.comment-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    color: #fff;
+}
+
+/* 頭像 */
+.comment-left {
+    display: flex;
+    align-items: center;   
+    gap: 12px;
+}
+
+/*圖*/
+.comment-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;/*不超出*/
+    margin-right: 15px;
+}
+
+.comment-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /*不變形*/
+}
+
+/* 暱稱+留言 */
+.comment-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+}
+
+.comment-username {
+    font-size: 22px; 
+    font-weight: 900; 
+    margin-bottom: 5px; 
+    text-shadow: 1px 0 0 currentColor; 
+}
+
+.comment-text {
+    font-size: 17px;
+    line-height: 1.6;    
+    opacity: 0.95;       
+}
+
+/*讚+倒讚*/
+.comment-right {
+    display: flex;
+    height: 100%;
+}
+
+.comment-actions {
+    display: flex;
+}
+
+
+.comment-actions img {
+    width: 35px;
+    margin-left: 20px; 
+    padding-top: 15px;
+    cursor: pointer;
+    filter: grayscale(100%);
+    transition: transform 0.3s, filter 0.3s;
+}
+
+.comment-actions img.active {
+    transform: scale(1.3);/*放大*/
+    filter: grayscale(0%) sepia(1) hue-rotate(-50deg) saturate(5);
+}
+
+/* FOOTER */
+footer {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+
+}
+
+.word {
+    padding-left: 33px;
+    font-size: 24px;
+    color: #F2285A;
+}
+
+.link {
+    display: flex;
+    align-items: center;
+}
+
+.link img {
+    width: 80px;
+    height: 80px;
+
+}
+.yt{
+        margin-right: 20px;
+}
+/* =========================================
+   [通用設定] 確保圖片不會超出容器
+   ========================================= */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* =========================================
+   [最終修復版] RWD 選單邏輯
+   ========================================= */
+
+/* 1. 預設狀態 (電腦 & 平板)：隱藏選單內的 Icon */
+.mobile-menu-icons {
+    display: none;
+}
+
+/* 2. 修復漢堡按鈕層級 (讓叉叉永遠在黑色選單上面) */
+#hamburger-btn {
+    z-index: 99999 !important;
+    position: relative;
+}
+
+@media (max-width: 1024px) {
+    
+    /* 1. 關閉滑鼠特效 */
+    #cursorCanvas { display: none !important; }
+    body { cursor: auto !important; }
+
+    /* 2. 選單排版設定：靠右對齊 */
+    .offcanvas-body {
+        flex-direction: column !important;  /* 垂直排列 */
+        justify-content: center !important; /* 上下置中 */
+        align-items: flex-end !important;   /* ★ 左右靠右 (關鍵) */
+        padding-left: 0 !important;
+        padding-right: 4rem !important;     /* 右邊留白 (維持電腦版質感) */
+    }
+
+    /* 3. 連結文字設定：靠右 */
+    .full-menu-link {
+        text-align: right !important;       /* ★ 文字靠右 */
+        width: 100%;
+        padding-right: 0 !important;
+    }
+
+    /* (注意：這裡不設定 .mobile-menu-icons，讓它保持隱藏) */
+        /* 2. 主要內容寬度修正 */
+    main .dream {
+        width: 90%;      /* 圖片改為相對寬度 */
+        height: auto;
+    }
+    
+    main hr {
+        width: 50%;      /* 分隔線縮短 */
+    }
+
+    /* 3. 愛心按鈕位置修正 */
+    /* 原本 margin-left: 900px 會爆版，改用 Flex 或是相對位置 */
+    main .heart1 {
+        display: block;
+        margin: 20px auto; /* 上下留白，左右置中 */
+        margin-left: auto; /* 若想靠右，可保留這行 */
+        margin-right: 5%;  /* 靠右時留點邊距 */
+        width: 50px;       /* 稍微縮小 */
+        height: 50px;
+    }
+
+    /* 4. 留言區塊寬度修正 */
+    .container {
+        margin: 40px auto;
+        width: 90%;      /* 容器寬度改為 90% */
+    }
+
+    .container hr,
+    .text,
+    #commentList {
+        width: 100%;     /* 填滿容器 */
+    }
+    
+    .text {
+        text-align: center;
+        padding-top: 20px;
+    }
+
+    /* 5. 輸入框表單修正 */
+    #commentform {
+        width: 100%;
+        margin-top: 30px;
+        gap: 15px;
+    }
+
+    #commentinput {
+        width: 100%;     /* 讓輸入框填滿剩下的空間 */
+        flex: 1;         /* 自動伸縮 */
+    }
+}
+
+
+@media (max-width: 768px) {
+
+    /* 1. 隱藏 Header 上原本的 Icon */
+    header .nav-icon {
+        display: none !important;
+    }
+
+    /* 2. 顯示選單內的 Icon (只有手機版出現) */
+    .mobile-menu-icons {
+        display: flex !important;
+        justify-content: center;
+        gap: 30px;
+        width: 100%;
+        margin-top: 20px;
+    }
+    
+    .mobile-menu-icons img {
+        width: 50px;
+        height: auto;
+    }
+
+    /* 3. 選單排版改為「置中」 */
+    .slanted-menu { 
+        width: 100% !important; 
+        clip-path: none !important; 
+    }
+    .offcanvas-body {
+        align-items: center !important;     /* ★ 手機版改回置中 */
+        padding-right: 0 !important;        /* 移除右邊留白 */
+    }
+
+    .full-menu-link {
+        text-align: center !important;      /* ★ 手機版文字置中 */
+    }
+    
+    /* 2. Main 內容調整 */
+    main {
+        padding-top: 100px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    main div { font-size: 28px; } /* 歌名縮小 */
+    
+    main p {
+        font-size: 16px;       /* 介紹文縮小 */
+        text-align: center !important;
+        line-height: 1.8;
+    }
+
+    /* 愛心置中 */
+    main .heart1 {
+        margin: 10px auto; 
+        margin-right: auto; /* 取消靠右，改成置中 */
+    }
+
+    /* 3. 留言區塊優化 */
+    .text {
+        font-size: 24px;
+        width: 100%;
+    }
+    
+    #commentform {
+        flex-direction: row; /* 維持橫向，但間距縮小 */
+        gap: 10px;
+    }
+
+    #commentinput {
+        font-size: 16px;
+        height: 45px;
+    }
+
+    .send-btn {
+        width: 40px; height: 40px;
+    }
+    .send-btn img.arrow { width: 25px; }
+
+
+     /* 4. Footer 垂直排列 */
+    footer {
+        height: auto;
+        flex-direction: column-reverse;
+        padding: 30px 0;
+        margin-top: 50px;
+    }
+
+    .word {
+        padding: 0;
+        margin-top: 20px;
+        text-align: center;
+        font-size: 14px;
+        width: auto;
+    }
+    
+    .link { justify-content: center; }
+    .link img { width: 50px; height: 50px; margin: 0 10px; }
+    .yt { margin-right: 0; }
+}

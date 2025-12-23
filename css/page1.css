@@ -1,0 +1,719 @@
+body {
+  margin: 0;
+  cursor: url('icon/mouse.png') 16 16, auto !important;
+  background-image: url('icon/back.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+/* Loading 背景 */
+#loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 11000;
+}
+
+/* 霓虹圈圈 */
+.neon-spinner {
+  width: 100px;
+  height: 100px;
+  border: 6px solid rgba(255, 40, 90, 0.2);
+  border-top: 6px solid #F2285A;
+  border-radius: 50%;
+  animation: spin 1s linear infinite, glow 1.5s ease-in-out infinite alternate;
+  box-shadow: 0 0 10px #F2285A, 0 0 20px #F2285A, 0 0 30px #A18CD1, 0 0 40px #A18CD1;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 圈圈光暈 */
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 10px #F2285A, 0 0 20px #F2285A, 0 0 30px #A18CD1, 0 0 40px #A18CD1;
+  }
+
+  100% {
+    box-shadow: 0 0 20px #F2285A, 0 0 40px #F2285A, 0 0 60px #ff9a9e, 0 0 80px #fbc2eb, 0 0 100px #F2285A;
+  }
+}
+
+.loading-text {
+  margin-top: 15px;
+  font-family: 'BBH Sans Hegarty', sans-serif;
+  font-size: 2rem;
+  color: #F2285A;
+  text-shadow: 0 0 5px #F2285A, 0 0 10px #A18CD1;
+  animation: textGlow 1.5s ease-in-out infinite alternate, floatUp 1s ease-in-out infinite alternate;
+}
+
+/* 文字光暈 */
+@keyframes textGlow {
+  0% {
+    text-shadow: 0 0 5px #F2285A, 0 0 10px #A18CD1;
+  }
+
+  100% {
+    text-shadow: 0 0 10px #F2285A, 0 0 20px #ff9a9e, 0 0 30px #fbc2eb;
+  }
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-10px);
+  }
+}
+
+/*滑鼠*/
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+header {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 0 30px;
+  z-index: 1050;
+}
+
+.icon {
+  width: 117px;
+  height: 34px;
+}
+
+/*yoasobi 動態效果 */
+.neon-section {
+  width: 100%;
+  height: 730px;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;/*防止跑出*/
+}
+
+.neon-text {
+  font-size: 9.5rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: transparent;
+  -webkit-text-stroke: 2px #F2285A;
+  position: relative;
+  overflow: visible;
+  transform: scaleX(1.2);
+  transform-origin: center;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+/* 光暈 */
+.neon-text::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 100%);
+  transform: skewX(-20deg) translateX(-100%);
+  animation: shine 3s linear infinite;
+  z-index: 2;
+}
+
+@keyframes shine {
+  0% {
+    transform: skewX(-20deg) translateX(-100%);
+    left: -100%;
+  }
+ 60% {
+    left: 100%;
+  }
+  100% {
+    transform: skewX(-20deg) translateX(100%);
+    left: 100%;
+  }
+}
+
+
+@keyframes glow {
+  0% {
+    text-shadow:
+      0 0 10px #F2285A,
+      0 0 20px #F2285A,
+      0 0 30px #A18CD1,
+      0 0 40px #A18CD1;
+  }
+
+  100% {
+    text-shadow:
+      0 0 20px #F2285A,
+      0 0 40px #F2285A,
+      0 0 60px #ff9a9e,
+      0 0 80px #fbc2eb,
+      0 0 100px #F2285A;
+  }
+}
+
+/* 第二個 */
+.two {
+  width: auto;
+  height: 777px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 80px;
+  /* 文字與圖片間距 */
+  padding-left: 200px;
+  background: rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+
+#volumeCanvas {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 777px;
+  /* 設定波動的高度範圍 */
+  z-index: 1;
+  /* 高於背景，低於圖片(z-index: 2) */
+  pointer-events: none;
+  opacity: 1;
+}
+
+#blackredCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;   /* ★ 比圖片高 */
+  pointer-events: none;
+  opacity: 1;
+}
+
+.blackred-text {
+  font-family: "Kay Pho Du", sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 100%;
+  text-align: center;
+  flex: 0 0 45%;
+  max-width: 45%;
+  opacity: 0;
+  transform: translateX(-150px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+  color: #fff;
+  z-index: 4;
+  opacity: 1;
+}
+
+.blackred-text.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+.blackred-img {
+  width: 45%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 4;
+  cursor: pointer;
+  padding-right: 320px;
+  opacity: 1;
+}
+
+/* 第三個 */
+.three {
+    position: relative;
+    width: 100%;
+    height: 777px;
+    
+    background: rgba(0, 0, 0, 1);
+    
+    display: flex;
+    justify-content: center; /* 水平置中 (左右) */
+    align-items: center;     /* 垂直置中 (上下) */
+    gap: 80px;              
+    overflow: hidden;
+    box-sizing: border-box;
+}
+/* 圖片特效 */
+.neon-wrapper {
+  position: relative;
+  z-index: 3;
+  transition: all 0.4s ease;
+  line-height: 0;
+  border-radius: 8px;
+  margin-right: 40px;
+}
+
+.neon-wrapper:hover {
+  transform: translateY(-15px) scale(1.02);
+  box-shadow:
+    0 0 5px #fff,
+    0 0 15px #fff,
+    0 0 30px #fff,
+    0 0 60px rgba(255, 255, 255, 0.5);
+}
+
+.red-img {
+  width: 369px;
+  height: 454px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+/* 煙霧特效 */
+#smokeCanvas {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;  
+  filter: blur(20px);/* 顆粒湖糊的*/
+  opacity: 0.8;
+}
+
+/* 文字 */
+.three-text {
+  font-family: "Kay Pho Du", sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.6;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  z-index: 4;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.three-text.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* 自訂游標 */
+#cursorCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 999;
+}
+
+/*Footer*/
+footer {
+  background-color: #000;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.word {
+  width: 397px;
+  height: 38px;
+  opacity: 1;
+  padding-top: 22px;
+  padding-left: 33px;
+  font-family: "Konkhmer Sleokchher";
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #F2285A;
+  justify-content: center;
+  align-items: center;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+}
+
+.link img {
+  width: 80px;
+  height: 80px;
+}
+
+.main-header {
+  z-index: 1060;
+  pointer-events: none;
+}
+
+/* 1. 漢堡圖示容器 */
+.hamburger-icon {
+  width: 40px;
+  height: 30px;
+  position: relative;
+  cursor: pointer;
+}
+
+/* 2. 三條線的共同設定 */
+.hamburger-icon span {
+  display: block;
+  position: absolute;
+  height: 5px;
+  width: 100%;
+  background: #F2285A;
+  border-radius: 9px;
+  /* 線條圓角 */
+  opacity: 1;
+  /* 透明度 */
+  left: 0;
+  /* 靠容器的左 */
+  transform: rotate(0deg);
+  /* 旋轉角度 */
+  transition: 0.3s ease-in-out;
+  /* 過渡動畫 */
+}
+
+/* 3. 線條初始位置 */
+.hamburger-icon span:nth-child(1) {
+  top: 0px;
+}
+
+.hamburger-icon span:nth-child(2) {
+  top: 15px;
+}
+
+.hamburger-icon span:nth-child(3) {
+  top: 30px;
+}
+
+/* 4. 變身成 X 的狀態 (白色) */
+.hamburger-icon.active span:nth-child(1) {
+  top: 10px;
+  background: #F3E9EB;
+  transform: rotate(135deg);
+}
+
+.hamburger-icon.active span:nth-child(2) {
+  opacity: 0;
+  background: #F3E9EB;
+}
+
+.hamburger-icon.active span:nth-child(3) {
+  top: 10px;
+  background: #F3E9EB;
+  transform: rotate(-135deg);
+}
+
+/* =========================================
+   同步極速版：左上角軸心甩入
+   ========================================= */
+
+.slanted-menu {
+  /* --- 1. 基礎外觀 (保持不變) --- */
+  background-color: #000;
+  color: #fff;
+  border: none;
+  clip-path: polygon(60px 0, 100% 0, 100% 100%, 0% 100%);
+  width: 350px !important;
+
+  /* --- 2. 動畫設定 (修改這裡) --- */
+
+  /* 軸心維持在左上角 */
+  transform-origin: top left;
+
+  /* 預設狀態：
+       角度改成 -15deg (原本 -30deg)。
+       角度小一點，轉正的路徑就短一點，感覺會更俐落。
+    */
+  transform: translateX(100%) rotate(-15deg) !important;
+
+  /* --- 3. 速度設定 (關鍵！) --- */
+  /* 時間改成 0.4s (原本 0.8s)。
+       這跟漢堡按鈕的 0.25s 很接近，加上選單面積大，視覺上會感覺是同步的。
+       Ease-out 代表「一開始很快，最後慢慢煞車」，符合點擊後的立即反應。
+    */
+  transition: transform 0.3s ease-out;
+
+  visibility: hidden;
+}
+
+/* --- 4. 打開時的狀態 --- */
+.offcanvas.show {
+  transform: translateX(0) rotate(0deg) !important;
+  visibility: visible;
+}
+
+/* --- 5. 手機版 (保持不變) --- */
+@media (max-width: 768px) {
+  .slanted-menu {
+    width: 85% !important;
+    clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+/* =========================================
+   修正後的選單與連結樣式
+   ========================================= */
+
+/* 1. 選單連結 (常態) */
+.full-menu-link {
+  font-family: 'Konkhmer Sleokchher', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #fff !important;
+  text-transform: uppercase;
+  padding: 10px 0;
+  transition: 0.3s;
+  /* 動畫時間 */
+
+  /* 讓連結變成長條塊狀，並靠右對齊 */
+  display: block;
+  text-align: right;
+}
+
+/* 2. 選單連結 (滑鼠移上去時 :hover) */
+.full-menu-link:hover {
+  color: #ff004f !important;
+  /* 變粉紅色 */
+
+  /* 往左邊彈一下的效果 */
+  /* 因為是靠右對齊，增加右邊內距會把文字往左推 */
+  padding-right: 20px;
+}
+
+/* 3. 選單容器 (Offcanvas Body) */
+/* 這裡控制整個選單內容離邊框多遠 */
+.offcanvas-body {
+  /* 強制把 Bootstrap 的 ps-5 (左邊留白) 歸零 */
+  padding-left: 0 !important;
+
+  /* 改成右邊留白 (數字越大，所有文字離右邊邊框越遠) */
+  padding-right: 4rem !important;
+
+  /* 確保內容垂直置中 */
+  display: flex;
+  align-items: center;
+}
+
+/* 1. 電腦版預設：隱藏手機選單 Icon */
+.mobile-menu-icons {
+    display: none;
+}
+/* =========================================
+   RWD：平板尺寸 (1024px 以下)
+   重點：維持左右排版、保留動畫、文字內容置中
+   ========================================= */
+@media (max-width: 1024px) {
+    
+    /* --- 1. 關閉滑鼠特效 --- */
+    #cursorCanvas { display: none !important; }
+    body, a, button { cursor: auto !important; }
+
+    /* --- 2. 霓虹燈標題 --- */
+    .neon-text { font-size: 6rem; }
+    .neon-section { height: 500px; }
+
+    /* --- 3. 黑色區塊 (LIVE) --- */
+    .two {
+        height: 500px;          /* 維持高度 */
+        padding: 0 40px;        /* 縮小內距，不然左右排不下 */
+        gap: 30px;              
+        display: flex;          /* ★ 維持橫向排列 (位置不動) */
+        align-items: center;    /* 垂直置中 */
+        /* 不寫 flex-direction: column，讓它保持左右 */
+    }
+
+    #volumeCanvas, #blackredCanvas {
+        height: 100% !important;
+        width: 100% !important;
+    }
+
+    .blackred-img {
+        padding-right: 0 !important; 
+        width: 45%;             /* 圖片佔一半不到，留空間給字 */
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .blackred-text {
+        flex: 1;                /* 文字填滿剩下空間 */
+        text-align: center !important; /* ★ 文字內容置中 */
+        font-size: 18px;
+        
+        /* ★ 關鍵：讓動畫生效 */
+        opacity: 0;             
+        transform: translateX(-50px); /* 從左邊滑入 */
+        transition: opacity 1.2s ease, transform 1.2s ease;
+    }
+    
+    /* JS 觸發顯示 */
+    .blackred-text.show {
+        opacity: 1 !important;
+        transform: translateX(0) !important;
+    }
+
+    /* --- 4. 紅色區塊 (ALBUM - 最下面那段) --- */
+    .three {
+        height: 500px;
+        padding: 0 40px;        /* 縮小內距 */
+        gap: 30px;
+        display: flex;          /* ★ 維持橫向排列 (位置不動) */
+        align-items: center;
+    }
+    
+    .red-img {
+        width: 300px;           /* 限制圖片寬度 */
+        height: auto;
+        object-fit: contain;
+    }
+
+    .three-text {
+        flex: 1;                /* 文字填滿剩下空間 */
+        text-align: center !important; /* ★ 最下面那段文字置中排列 */
+        font-size: 18px;
+
+        /* ★ 關鍵：讓動畫生效 */
+        opacity: 0;
+        transform: translateX(50px); /* 從右邊滑入 */
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    /* JS 觸發顯示 */
+    .three-text.show {
+        opacity: 1 !important;
+        transform: translateX(0) !important;
+    }
+}
+/* =========================================
+   RWD：手機尺寸 (768px 以下)
+   ========================================= */
+@media (max-width: 768px) {
+
+    /* --- 1. Header & 選單 --- */
+    header .nav-icon { display: none !important; }
+
+    .mobile-menu-icons {
+        display: flex !important;
+        justify-content: center;
+        gap: 30px;
+        width: 100%;
+        margin-top: 20px;
+    }
+    .mobile-menu-icons img { width: 50px; height: auto; }
+
+    .full-menu-link { text-align: center !important; padding-right: 0 !important; width: 100%; }
+    .offcanvas-body { flex-direction: column !important; justify-content: center !important; padding: 0 !important; }
+    .slanted-menu { width: 100% !important; clip-path: none !important; }
+
+    /* --- 2. 霓虹標題 --- */
+    .neon-section { height: 100vh; }
+    .neon-text { font-size: 15vw; transform: scaleX(1); }
+
+    /* --- 3. 黑色區塊 (手機轉直向) --- */
+    .two {
+        height: auto;
+        flex-direction: column-reverse; /* 圖在上，文在下 */
+        padding: 60px 20px;
+        gap: 30px;
+    }
+
+    #volumeCanvas { height: 100% !important; opacity: 0.5; }
+
+    .blackred-img {
+        width: 90%;
+        max-width: 400px;
+        height: auto;
+        padding-right: 0 !important;
+        margin: 0 auto;
+    }
+
+    .blackred-text {
+        text-align: center;
+        font-size: 16px;
+    }
+
+    /* --- 4. 紅色區塊 (手機轉直向) --- */
+    .three {
+        height: auto;
+        flex-direction: column; /* 圖在上，文在下 */
+        padding: 60px 20px;
+        gap: 30px;
+    }
+
+    .neon-wrapper { order: 1; transform: none !important; }
+    
+    .red-img {
+        width: 80vw;
+        max-width: 300px;
+        height: auto;
+    }
+
+    .three-text {
+        order: 2;
+        width: 100%;
+        text-align: center;
+        font-size: 16px;
+        transform: none !important;
+        opacity: 1 !important;
+    }
+
+    #smokeCanvas { opacity: 0.3; }
+
+    /* --- 5. Footer --- */
+    footer {
+        height: auto;
+        flex-direction: column-reverse;
+        padding: 30px 0;
+    }
+    .word {
+        width: auto;
+        padding: 0;
+        margin-top: 20px;
+        text-align: center;
+        font-size: 14px;
+    }
+    .link img { width: 50px; height: 50px; margin: 0 10px; }
+}

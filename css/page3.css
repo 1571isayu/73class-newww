@@ -1,0 +1,408 @@
+body {
+    margin: 0;
+    /*預設鼠標*/
+    cursor: url('icon/mouse.png') 16 16, auto !important;
+    font-family: 'Konkhmer Sleokchher', sans-serif;
+
+    /*背景圖*/
+    background-image: url('icon/back.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/*滑鼠特效*/
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/*圖片置中*/
+main img {
+    display: block;
+    margin: 0 auto;
+    object-fit: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+header {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 0 30px;
+    z-index: 1050;
+}
+
+.icon {
+    width: 117px;
+    height: 34px;
+}
+
+.main-header {
+    z-index: 1100 !important;
+    pointer-events: none;
+}
+
+header a, header button {
+    pointer-events: auto;
+}
+
+/*漢堡*/
+.hamburger-icon {
+    width: 40px;
+    height: 30px;
+    position: relative;
+    cursor: pointer;
+}
+
+.hamburger-icon span {
+    display: block;
+    position: absolute;
+    height: 5px;
+    width: 100%;
+    background: #F2285A;
+    border-radius: 9px;
+    opacity: 1;
+    left: 0;
+    transform: rotate(0deg);
+    transition: 0.3s ease-in-out;
+}
+
+.hamburger-icon span:nth-child(1) { top: 0px; }
+.hamburger-icon span:nth-child(2) { top: 15px; }
+.hamburger-icon span:nth-child(3) { top: 30px; }
+
+/*漢堡變叉叉*/
+.hamburger-icon.active span:nth-child(1) {
+    top: 10px;
+    background: #F3E9EB;
+    transform: rotate(135deg);
+}
+.hamburger-icon.active span:nth-child(2) {
+    opacity: 0;
+    background: #F3E9EB;
+}
+.hamburger-icon.active span:nth-child(3) {
+    top: 10px;
+    background: #F3E9EB;
+    transform: rotate(-135deg);
+}
+
+/*側邊選單*/
+.slanted-menu {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    clip-path: polygon(60px 0, 100% 0, 100% 100%, 0% 100%);
+    width: 350px !important;
+    transform-origin: top left;
+    transform: translateX(100%) rotate(-15deg) !important;
+    transition: transform 0.3s ease-out;
+    visibility: hidden;
+}
+
+.offcanvas.show {
+    transform: translateX(0) rotate(0deg) !important;
+    visibility: visible;
+}
+
+/*選單容器*/
+.offcanvas-body {
+    padding-left: 0 !important;
+    padding-right: 4rem !important;
+    display: flex;
+    align-items: center;
+}
+
+/*選單內容*/
+.full-menu-link {
+    font-family: 'Konkhmer Sleokchher', sans-serif !important;
+    font-size: 2.5rem !important;
+    font-weight: 900 !important;
+    color: #fff !important;
+    text-transform: uppercase;
+    padding: 10px 0;
+    transition: 0.3s !important;
+    display: block;
+    text-align: right;
+}
+
+.full-menu-link:hover {
+    color: #ff004f !important;
+    padding-right: 20px !important;
+}
+
+/*手機版選單內ㄉicon預設隱藏*/
+.mobile-menu-icons {
+    display: none;
+}
+
+main {
+    padding-top: 150px;
+}
+
+.top {
+    text-align: center;
+}
+
+.top img {
+    width: 100%;
+    max-width: 1098px;
+    margin-bottom: 50px;
+}
+
+.middle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.member {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 60px;
+    width: 100%;
+    max-width: 974px;
+    transform: translateX(10px);
+    margin-top: 80px;
+}
+
+.member figcaption {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: auto;
+}
+
+.member img {
+    width: 100%;
+    max-width: 330px;
+    aspect-ratio: 1 / 1;
+}
+
+.mcontent {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: #F3E9EB;
+}
+
+.member hr {
+    border: none;
+    width: 3px !important;
+    background-color: #F2285A;
+    height: 138px;
+    margin-left: 5px;
+    opacity: 1 !important;
+}
+
+.bottom {
+    text-align: center;
+}
+
+.bottom hr {
+    border: none;
+    height: 2px !important;
+    background-color: #F2285A;
+    width: 297px;
+    opacity: 1 !important;
+    margin: 10px auto !important;
+}
+
+.bottom p {
+    margin-top: 40px;
+}
+
+.top p, 
+.member .mcontent p, 
+.bottom p {
+    color: #F3E9EB;
+    font-size: 24px !important;
+    line-height: 1.8;
+}
+
+.mtitle, 
+.bottom div {
+    color: #F3E9EB;
+    font-size: 32px !important;
+    font-weight: bold;
+}
+
+footer {
+    margin-top: 161px;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.word {
+    width: 397px;
+    height: 38px;
+    padding-top: 22px;
+    padding-left: 33px;
+    font-family: "Konkhmer Sleokchher";
+    font-size: 24px;
+    color: #F2285A;
+}
+
+.link {
+    display: flex;
+    align-items: center;
+}
+
+.link img {
+    width: 80px;
+    height: 80px;
+}
+
+/*動畫特效*/
+.fade-up {
+    opacity: 0;
+    transform: translateY(90px); 
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.member.fade-up {
+    transform: translateX(100px);
+}
+
+.fade-up.show {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+/*RWD*/
+@media (max-width: 1024px) {
+    
+    /*關閉鼠標*/
+    #cursorCanvas { display: none !important; }
+    body, a, button { cursor: auto !important; }
+
+    .top p {
+        text-align: center;
+        padding: 0 40px;
+    }
+
+    .member {
+        width: 90%;
+        margin: 50px auto;
+        flex-direction: column;
+        text-align: center;
+        transform: none;
+    }
+    
+    .member figcaption {
+        align-items: center;
+        width: 100%;
+    }
+
+    .mcontent {
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .member hr {
+        display: block !important;
+        width: 297px !important;
+        height: 2px !important;
+        margin: 15px auto !important;
+    }
+
+    .fade-up, 
+    .member.fade-up {
+        transform: translateY(80px) !important;
+    }
+
+    .fade-up.show {
+        transform: translate(0, 0) !important;
+    }
+
+}
+
+
+@media (max-width: 768px) {
+
+    .top p, .member .mcontent p, .bottom p {
+        font-size: 16px !important;
+    }
+    .mtitle, .bottom div {
+        font-size: 24px !important;
+        margin-top: 10px;
+    }
+
+    /*隱藏 header 上原本ㄉicon*/
+    header .nav-icon { display: none !important; }
+
+    /*顯示icon*/
+    .mobile-menu-icons {
+        display: flex !important;
+        justify-content: center;
+        gap: 30px;
+        width: 100%;
+        margin-top: 20px;
+    }
+    .mobile-menu-icons img { width: 50px; height: auto; }
+
+    .full-menu-link {
+        text-align: center !important;
+        padding-right: 0 !important;
+        width: 100%;
+        display: block;
+    }
+
+    .navbar-nav {
+        width: 100% !important;
+        align-items: center !important;
+        text-align: center !important;
+    }
+
+    .offcanvas-body {
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    
+    .slanted-menu { width: 100% !important; clip-path: none !important; }
+    main { padding-top: 100px; }
+    .top p { padding: 0 20px; }
+    .member hr { width: 150px !important; }
+
+    .fade-up {
+        opacity: 0;
+        transform: translateY(80px) !important;
+    }
+    .fade-up.show {
+        opacity: 1;
+        transform: translateY(0) !important;
+    }
+
+    footer {
+        height: auto;
+        flex-direction: column-reverse;
+        padding: 30px 0;
+        margin-top: 80px;
+    }
+    .word {
+        width: auto;
+        padding: 0;
+        margin-top: 20px;
+        text-align: center;
+        font-size: 14px;
+    }
+    .link img { width: 50px; height: 50px; margin: 0 10px; }
+}
