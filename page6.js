@@ -45,22 +45,20 @@ onSnapshot(q, (snapshot) =>
         return;
     }
 
-    let counter = 1; // 用來自動對應 MUSIC1~MUSIC12
+    let counter = 1; 
 
     snapshot.forEach((docSnap) => {
-        const data = docSnap.data(); //動態生成
+        const data = docSnap.data(); 
         const itemId = docSnap.id;
         const songImage = data.image || 'icon/default.png';
 
-        // 自動對應 MUSIC1.html ~ MUSIC12.html
         const pageLink = `MUSIC${counter}.html`;
         counter++;
-        if(counter > 12) counter = 1; // 超過 12 從頭開始
+        if(counter > 12) counter = 1; 
 
         const item = document.createElement("div");
         item.className = "favorite-item";
 
-        // 將 record-wrapper 包在 <a> 標籤裡
         item.innerHTML = `
             <a href="${pageLink}" class="record-link">
                 <div class="record-wrapper">
