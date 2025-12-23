@@ -251,6 +251,15 @@ main {
     position: relative;
 }
 
+.record-link {
+    display: inline-block;
+    text-decoration: none;
+}
+.record-link:hover .album-cover {
+    transform: scale(1.03);
+}
+
+
 .record-center img {
     width: 100%;
     height: 100%;
