@@ -1,7 +1,18 @@
 * {
-    cursor: none !important;
+  cursor: none !important;
 }
-/* Loading 背景 */
+
+body {
+  margin: 0;
+  background-image: url('../icon/back.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+/*loading 背景*/
 #loading {
   position: fixed;
   top: 0;
@@ -16,7 +27,7 @@
   z-index: 11000;
 }
 
-/* 霓虹圈圈 */
+/*霓虹圈圈*/
 .neon-spinner {
   width: 100px;
   height: 100px;
@@ -38,7 +49,7 @@
   }
 }
 
-/* 圈圈光暈 */
+/*圈圈光暈*/
 @keyframes glow {
   0% {
     box-shadow: 0 0 10px #F2285A, 0 0 20px #F2285A, 0 0 30px #A18CD1, 0 0 40px #A18CD1;
@@ -58,7 +69,7 @@
   animation: textGlow 1.5s ease-in-out infinite alternate, floatUp 1s ease-in-out infinite alternate;
 }
 
-/* 文字光暈 */
+/*文字光暈*/
 @keyframes textGlow {
   0% {
     text-shadow: 0 0 5px #F2285A, 0 0 10px #A18CD1;
@@ -80,39 +91,54 @@
 }
 
 
-/* --- 大星星 (鼠標本體) --- */
+/*星星鼠標*/
 #cursor-star {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 50px;
-    height: 50px;
-    /* 層級要設很高，比 loading (11000) 和 header (1050) 還要高 */
-    z-index: 99999; 
-    display: none; /* 初始隱藏 */
-    filter: drop-shadow(0 0 5px rgba(255, 100, 150, 0.5));
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  z-index: 99999;
+  display: none;
+  filter: drop-shadow(0 0 5px rgba(255, 100, 150, 0.5));
 }
 
-/* --- 尾巴小星星 --- */
+/*拖尾小星星*/
 .trail-star {
-    position: absolute;
-    z-index: 99998;
-    opacity: 0.8;
-    animation: fall 1s ease-in forwards;
+  position: absolute;
+  z-index: 99998;
+  opacity: 0.8;
+  animation: fall 1s ease-in forwards;
 }
 
-/* 定義掉落動畫 */
-@keyframes fall {
-    0% {
-        transform: translate(0, 0) rotate(0deg) scale(0.8);
-        opacity: 0.8;
-    }
-    100% {
-        transform: translate(var(--tx), 100px) rotate(180deg) scale(0);
-        opacity: 0;
-    }
+.star-image {
+  background-image: url('../icon/star.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  pointer-events: none;
 }
+
+#cursor-star.is-hovering {
+  background-image: url('../icon/star2.png') !important;
+}
+
+/*star掉落動畫*/
+@keyframes fall {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(0.8);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translate(var(--tx), 100px) rotate(180deg) scale(0);
+    opacity: 0;
+  }
+}
+
 header {
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -123,6 +149,7 @@ header {
   box-sizing: border-box;
   padding: 0 30px;
   z-index: 1050;
+  pointer-events: none;
 }
 
 .icon {
@@ -130,7 +157,7 @@ header {
   height: 34px;
 }
 
-/*yoasobi 動態效果 */
+/*yoasobi動態效果*/
 .neon-section {
   width: 100%;
   height: 850px;
@@ -138,7 +165,8 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;/*防止跑出*/
+  overflow: hidden;
+  /*防止跑出*/
 }
 
 .neon-text {
@@ -154,7 +182,7 @@ header {
   animation: glow 2s ease-in-out infinite alternate;
 }
 
-/* 光暈 */
+/*光暈*/
 .neon-text::after {
   content: "";
   position: fixed;
@@ -163,11 +191,10 @@ header {
   width: 300%;
   height: 100%;
   pointer-events: none;
-  background: linear-gradient(
-    120deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.6) 50%,
-    transparent 100%);
+  background: linear-gradient(120deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.6) 50%,
+      transparent 100%);
   transform: skewX(-20deg) translateX(-100%);
   animation: shine 3s linear infinite;
   z-index: 2;
@@ -178,9 +205,11 @@ header {
     transform: skewX(-20deg) translateX(-100%);
     left: -100%;
   }
- 60% {
+
+  60% {
     left: 100%;
   }
+
   100% {
     transform: skewX(-20deg) translateX(100%);
     left: 100%;
@@ -207,19 +236,18 @@ header {
   }
 }
 
-/* 第二個 */
+/*第二個*/
 .two {
   width: auto;
   height: 777px;
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 80px;
-  /* 文字與圖片間距 */
-  padding-left: 200px;
+  justify-content: center;
+  gap: 200px;
   background: rgba(0, 0, 0, 0.35);
   overflow: hidden;
+  padding: 0 !important;
 }
 
 #volumeCanvas {
@@ -228,9 +256,9 @@ header {
   left: 0;
   width: 100%;
   height: 777px;
-  /* 設定波動的高度範圍 */
+  /*設定波動的高度範圍*/
   z-index: 1;
-  /* 高於背景，低於圖片(z-index: 2) */
+  /*高於背景，低於圖片(z-index: 2)*/
   pointer-events: none;
   opacity: 1;
 }
@@ -241,7 +269,7 @@ header {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 4;   /* ★ 比圖片高 */
+  z-index: 4;
   pointer-events: none;
   opacity: 1;
 }
@@ -252,8 +280,8 @@ header {
   font-size: 24px;
   line-height: 100%;
   text-align: center;
-  flex: 0 0 45%;
-  max-width: 45%;
+
+
   opacity: 0;
   transform: translateX(-150px);
   transition: opacity 1.2s ease, transform 1.2s ease;
@@ -267,40 +295,37 @@ header {
   transform: translateX(0);
 }
 
-
 .blackred-img {
-  width: 45%;
+  width: auto;
   height: 100%;
   object-fit: cover;
   z-index: 4;
   cursor: pointer;
-  padding-right: 320px;
   opacity: 1;
 }
 
-/* 第三個 */
+/*第三個*/
 .three {
-    position: relative;
-    width: 100%;
-    height: 777px;
-    
-    background: rgba(0, 0, 0, 1);
-    
-    display: flex;
-    justify-content: center; /* 水平置中 (左右) */
-    align-items: center;     /* 垂直置中 (上下) */
-    gap: 80px;              
-    overflow: hidden;
-    box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  height: 777px;
+  background: rgba(0, 0, 0, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 200px;
+  overflow: hidden;
+  box-sizing: border-box;
 }
-/* 圖片特效 */
+
+/*圖片特效*/
 .neon-wrapper {
   position: relative;
   z-index: 3;
   transition: all 0.4s ease;
   line-height: 0;
   border-radius: 8px;
-  margin-right: 40px;
+
 }
 
 .neon-wrapper:hover {
@@ -320,20 +345,7 @@ header {
   display: block;
 }
 
-/* 煙霧特效 */
-#smokeCanvas {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;  
-  filter: blur(20px);/* 顆粒湖糊的*/
-  opacity: 0.8;
-}
-
-/* 文字 */
+/*文字*/
 .three-text {
   font-family: "Kay Pho Du", sans-serif;
   font-weight: 400;
@@ -353,16 +365,34 @@ header {
   transform: translateX(0);
 }
 
-/* 自訂游標 */
-#cursorCanvas {
-  position: fixed;
-  top: 0;
+/*煙霧特效*/
+#smokeCanvas {
+  position: absolute;
+  bottom: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
   pointer-events: none;
-  z-index: 999;
+  filter: blur(20px);
+  /*顆粒湖糊的*/
+  opacity: 0.8;
 }
 
-/*Footer*/
+/*讓煙霧背景脫離排版流，才不會卡位*/
+.stage-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  /*讓滑鼠可以穿透它*/
+  z-index: 1;
+  /*確保它在背景*/
+}
+
+/*footer*/
 footer {
   background-color: #000;
   width: 100%;
@@ -405,7 +435,7 @@ footer {
   pointer-events: none;
 }
 
-/* 1. 漢堡圖示容器 */
+/*漢堡圖示容器*/
 .hamburger-icon {
   width: 40px;
   height: 30px;
@@ -413,7 +443,7 @@ footer {
   cursor: pointer;
 }
 
-/* 2. 三條線的共同設定 */
+/*三條線的共同設定*/
 .hamburger-icon span {
   display: block;
   position: absolute;
@@ -421,18 +451,18 @@ footer {
   width: 100%;
   background: #F2285A;
   border-radius: 9px;
-  /* 線條圓角 */
+  /*線條圓角*/
   opacity: 1;
-  /* 透明度 */
+  /*透明度*/
   left: 0;
-  /* 靠容器的左 */
+  /*靠容器的左*/
   transform: rotate(0deg);
-  /* 旋轉角度 */
+  /*旋轉角度*/
   transition: 0.3s ease-in-out;
-  /* 過渡動畫 */
+  /*過渡動畫*/
 }
 
-/* 3. 線條初始位置 */
+/*線條初始位置*/
 .hamburger-icon span:nth-child(1) {
   top: 0px;
 }
@@ -445,7 +475,7 @@ footer {
   top: 30px;
 }
 
-/* 4. 變身成 X 的狀態 (白色) */
+/*變成X*/
 .hamburger-icon.active span:nth-child(1) {
   top: 10px;
   background: #F3E9EB;
@@ -463,46 +493,24 @@ footer {
   transform: rotate(-135deg);
 }
 
-/* =========================================
-   同步極速版：左上角軸心甩入
-   ========================================= */
-
 .slanted-menu {
-  /* --- 1. 基礎外觀 (保持不變) --- */
   background-color: #000;
   color: #fff;
   border: none;
   clip-path: polygon(60px 0, 100% 0, 100% 100%, 0% 100%);
   width: 350px !important;
-
-  /* --- 2. 動畫設定 (修改這裡) --- */
-
-  /* 軸心維持在左上角 */
   transform-origin: top left;
 
-  /* 預設狀態：
-       角度改成 -15deg (原本 -30deg)。
-       角度小一點，轉正的路徑就短一點，感覺會更俐落。
-    */
   transform: translateX(100%) rotate(-15deg) !important;
-
-  /* --- 3. 速度設定 (關鍵！) --- */
-  /* 時間改成 0.4s (原本 0.8s)。
-       這跟漢堡按鈕的 0.25s 很接近，加上選單面積大，視覺上會感覺是同步的。
-       Ease-out 代表「一開始很快，最後慢慢煞車」，符合點擊後的立即反應。
-    */
   transition: transform 0.3s ease-out;
 
   visibility: hidden;
 }
-
-/* --- 4. 打開時的狀態 --- */
 .offcanvas.show {
   transform: translateX(0) rotate(0deg) !important;
   visibility: visible;
 }
 
-/* --- 5. 手機版 (保持不變) --- */
 @media (max-width: 768px) {
   .slanted-menu {
     width: 85% !important;
@@ -510,11 +518,6 @@ footer {
   }
 }
 
-/* =========================================
-   修正後的選單與連結樣式
-   ========================================= */
-
-/* 1. 選單連結 (常態) */
 .full-menu-link {
   font-family: 'Konkhmer Sleokchher', sans-serif;
   font-size: 2.5rem;
@@ -523,213 +526,297 @@ footer {
   text-transform: uppercase;
   padding: 10px 0;
   transition: 0.3s;
-  /* 動畫時間 */
-
-  /* 讓連結變成長條塊狀，並靠右對齊 */
   display: block;
   text-align: right;
 }
 
-/* 2. 選單連結 (滑鼠移上去時 :hover) */
 .full-menu-link:hover {
   color: #ff004f !important;
-  /* 變粉紅色 */
-
-  /* 往左邊彈一下的效果 */
-  /* 因為是靠右對齊，增加右邊內距會把文字往左推 */
   padding-right: 20px;
 }
 
-/* 3. 選單容器 (Offcanvas Body) */
-/* 這裡控制整個選單內容離邊框多遠 */
 .offcanvas-body {
-  /* 強制把 Bootstrap 的 ps-5 (左邊留白) 歸零 */
   padding-left: 0 !important;
-
-  /* 改成右邊留白 (數字越大，所有文字離右邊邊框越遠) */
   padding-right: 4rem !important;
-
-  /* 確保內容垂直置中 */
   display: flex;
   align-items: center;
 }
 
-/* 1. 電腦版預設：隱藏手機選單 Icon */
 .mobile-menu-icons {
-    display: none;
+  display: none;
 }
-/* =========================================
-   RWD：平板尺寸 (1024px 以下)
-   重點：維持左右排版、保留動畫、文字內容置中
-   ========================================= */
+
+/*捲軸外觀*/
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+  border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #F2285A;
+  border-radius: 10px;
+  border: 3px solid #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #ff5c8a;
+}
+
+html {
+  scrollbar-color: #F2285A #1a1a1a;
+  scrollbar-width: thin;
+}
+
 @media (max-width: 1024px) {
-    
-    /* --- 1. 關閉滑鼠特效 --- */
-    #cursorCanvas { display: none !important; }
-    body, a, button { cursor: auto !important; }
 
-    /* --- 2. 霓虹燈標題 --- */
-    .neon-text { font-size: 6rem; }
-    .neon-section { height: 500px; }
+  .two {
+    height: 500px;
+    padding: 0 !important;
+    gap: 0;
 
-    /* --- 3. 黑色區塊 (LIVE) --- */
-    .two {
-        height: 500px;          /* 維持高度 */
-        padding: 0 40px;        /* 縮小內距，不然左右排不下 */
-        gap: 30px;              
-        display: flex;          /* ★ 維持橫向排列 (位置不動) */
-        align-items: center;    /* 垂直置中 */
-        /* 不寫 flex-direction: column，讓它保持左右 */
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
 
-    #volumeCanvas, #blackredCanvas {
-        height: 100% !important;
-        width: 100% !important;
-    }
+  #volumeCanvas,
+  #blackredCanvas {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    pointer-events: none;
+  }
 
-    .blackred-img {
-        padding-right: 0 !important; 
-        width: 45%;             /* 圖片佔一半不到，留空間給字 */
-        height: 100%;
-        object-fit: cover;
-    }
+  #volumeCanvas {
+    z-index: 1;
+  }
 
-    .blackred-text {
-        flex: 1;                /* 文字填滿剩下空間 */
-        text-align: center !important; /* ★ 文字內容置中 */
-        font-size: 18px;
-        
-        /* ★ 關鍵：讓動畫生效 */
-        opacity: 0;             
-        transform: translateX(-50px); /* 從左邊滑入 */
-        transition: opacity 1.2s ease, transform 1.2s ease;
-    }
-    
-    /* JS 觸發顯示 */
-    .blackred-text.show {
-        opacity: 1 !important;
-        transform: translateX(0) !important;
-    }
+  #blackredCanvas {
+    z-index: 4;
+  }
 
-    /* --- 4. 紅色區塊 (ALBUM - 最下面那段) --- */
-    .three {
-        height: 500px;
-        padding: 0 40px;        /* 縮小內距 */
-        gap: 30px;
-        display: flex;          /* ★ 維持橫向排列 (位置不動) */
-        align-items: center;
-    }
-    
-    .red-img {
-        width: 300px;           /* 限制圖片寬度 */
-        height: auto;
-        object-fit: contain;
-    }
+  .blackred-img {
+    padding-right: 0 !important;
+    width: 50%;
+    height: 100%;
+    max-height: none;
 
-    .three-text {
-        flex: 1;                /* 文字填滿剩下空間 */
-        text-align: center !important; /* ★ 最下面那段文字置中排列 */
-        font-size: 18px;
+    object-fit: contain;
 
-        /* ★ 關鍵：讓動畫生效 */
-        opacity: 0;
-        transform: translateX(50px); /* 從右邊滑入 */
-        transition: opacity 0.8s ease, transform 0.8s ease;
-    }
+    margin: 0;
+    z-index: 4;
+  }
 
-    /* JS 觸發顯示 */
-    .three-text.show {
-        opacity: 1 !important;
-        transform: translateX(0) !important;
-    }
+  .blackred-text {
+    flex: 1;
+    text-align: center !important;
+    font-size: 18px;
+    z-index: 5;
+    padding-left: 60px;
+    padding-right: 30px;
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+  }
+
+  .blackred-text.show {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+  }
+  .three {
+    height: 500px;
+    padding: 0 40px;
+    gap: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .neon-wrapper {
+    margin-left: 40px;
+    z-index: 3;
+  }
+
+  .red-img {
+    width: 300px;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .three-text {
+    flex: 1;
+    text-align: center !important;
+    font-size: 18px;
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    z-index: 4;
+  }
+
+  .three-text.show {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+  }
+
+  #cursor-star {
+    display: none !important;
+  }
+
+  body {
+    cursor: auto;
+  }
+
+  .click-effect-star {
+    width: 50px;
+    height: 50px;
+  }
 }
-/* =========================================
-   RWD：手機尺寸 (768px 以下)
-   ========================================= */
+
 @media (max-width: 768px) {
 
-    /* --- 1. Header & 選單 --- */
-    header .nav-icon { display: none !important; }
+  header .nav-icon {
+    display: none !important;
+  }
 
-    .mobile-menu-icons {
-        display: flex !important;
-        justify-content: center;
-        gap: 30px;
-        width: 100%;
-        margin-top: 20px;
-    }
-    .mobile-menu-icons img { width: 50px; height: auto; }
+  .mobile-menu-icons {
+    display: flex !important;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+    margin-top: 20px;
+  }
 
-    .full-menu-link { text-align: center !important; padding-right: 0 !important; width: 100%; }
-    .offcanvas-body { flex-direction: column !important; justify-content: center !important; padding: 0 !important; }
-    .slanted-menu { width: 100% !important; clip-path: none !important; }
+  .mobile-menu-icons img {
+    width: 50px;
+    height: auto;
+  }
 
-    /* --- 2. 霓虹標題 --- */
-    .neon-section { height: 100vh; }
-    .neon-text { font-size: 15vw; transform: scaleX(1); }
+  .full-menu-link {
+    text-align: center !important;
+    padding-right: 0 !important;
+    width: 100%;
+  }
 
-    /* --- 3. 黑色區塊 (手機轉直向) --- */
-    .two {
-        height: auto;
-        flex-direction: column-reverse; /* 圖在上，文在下 */
-        padding: 60px 20px;
-        gap: 30px;
-    }
+  .offcanvas-body {
+    flex-direction: column !important;
+    justify-content: center !important;
+    padding: 0 !important;
+  }
 
-    #volumeCanvas { height: 100% !important; opacity: 0.5; }
+  .slanted-menu {
+    width: 100% !important;
+    clip-path: none !important;
+  }
 
-    .blackred-img {
-        width: 90%;
-        max-width: 400px;
-        height: auto;
-        padding-right: 0 !important;
-        margin: 0 auto;
-    }
+  .neon-section {
+    height: 100vh;
+  }
 
-    .blackred-text {
-        text-align: center;
-        font-size: 16px;
-    }
+  .neon-text {
+    font-size: 15vw;
+    transform: scaleX(1);
+  }
 
-    /* --- 4. 紅色區塊 (手機轉直向) --- */
-    .three {
-        height: auto;
-        flex-direction: column; /* 圖在上，文在下 */
-        padding: 60px 20px;
-        gap: 30px;
-    }
+  .two {
+    height: auto;
+    flex-direction: column-reverse;
+    padding: 60px 20px;
+    gap: 30px;
+  }
 
-    .neon-wrapper { order: 1; transform: none !important; }
-    
-    .red-img {
-        width: 80vw;
-        max-width: 300px;
-        height: auto;
-    }
+  #volumeCanvas {
+    height: 100% !important;
+    opacity: 0.5;
+  }
 
-    .three-text {
-        order: 2;
-        width: 100%;
-        text-align: center;
-        font-size: 16px;
-        transform: none !important;
-        opacity: 1 !important;
-    }
+  .blackred-img {
+    width: 60%;
+    max-width: 200px;
+    height: auto;
+    padding-right: 0 !important;
+    margin: 0 auto;
+    background-color: transparent;
+  }
 
-    #smokeCanvas { opacity: 0.3; }
+  .blackred-text {
+    text-align: center;
+    font-size: 16px;
+    width: 100%;
+    padding: 0 !important;
+    margin-bottom: 60px;
+  }
 
-    /* --- 5. Footer --- */
-    footer {
-        height: auto;
-        flex-direction: column-reverse;
-        padding: 30px 0;
-    }
-    .word {
-        width: auto;
-        padding: 0;
-        margin-top: 20px;
-        text-align: center;
-        font-size: 14px;
-    }
-    .link img { width: 50px; height: 50px; margin: 0 10px; }
+  .three {
+    height: auto;
+    flex-direction: column;
+    padding: 60px 20px;
+    gap: 30px;
+  }
+
+  .neon-wrapper {
+    order: 1;
+    transform: none !important;
+    margin-left: 0 !important;
+  }
+
+  .red-img {
+    width: 80vw;
+    max-width: 300px;
+    height: auto;
+  }
+
+  .three-text {
+    order: 2;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .three-text.show {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+  }
+
+  #smokeCanvas {
+    opacity: 0.3;
+  }
+
+  footer {
+    height: auto;
+    flex-direction: column-reverse;
+    padding: 30px 0;
+  }
+
+  .word {
+    width: auto;
+    padding: 0;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .link img {
+    width: 50px;
+    height: 50px;
+    margin: 0 10px;
+  }
+}
+
+.neon-wrapper {
+  position: relative;
+  z-index: 3;
+  transition: all 0.4s ease;
+  line-height: 0;
+  border-radius: 8px;
 }

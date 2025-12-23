@@ -85,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     }
 });
+
 //fade up
 document.addEventListener("DOMContentLoaded", () => {
     const fadeUpElements = document.querySelectorAll('.fade-up');
