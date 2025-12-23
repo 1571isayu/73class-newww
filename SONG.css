@@ -211,6 +211,21 @@ main hr {
     margin: 10px auto !important;
 }
 
+.song-aa {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px; /* 箭頭和大圖間距 */
+}
+
+.arrow-link {
+    display: inline-flex;       /* 讓 a 可以控制大小 */
+    align-items: center;
+    justify-content: center;
+    width: 49px;
+    height: 49px;
+}
+
 main .dream {
     margin-top: 40px;
     width:977px;
@@ -223,12 +238,13 @@ main .dream:hover {
     box-shadow: 0 10px 25px rgba(0,0,0,0.25);
 }
 
-main .heart1 {
+.heart1 {
+    display: flex;
+    justify-content: center; /* 水平置中 */
     width: 65px;
     height: 65px;
-    margin-left: 900px;
+    margin-left: 1250px;
 }
-
 
 .heart1.animate {
     animation: heartBeat 0.6s forwards;
