@@ -36,24 +36,33 @@ onAuthStateChanged(auth, (user) => {
     const favRef = collection(db, "users", uid, "favorites");
     const q = query(favRef, orderBy("createdAt", "desc"));
 
-    onSnapshot(q, (snapshot) => {
-        favoritesList.innerHTML = "";
+onSnapshot(q, (snapshot) => 
+{
+    favoritesList.innerHTML = "";
 
-        if (snapshot.empty) {
-            favoritesList.innerHTML = `<p style="color:#F3E9EB; text-align:center;">尚未收藏任何歌曲</p>`;
-            return;
-        }
+    if (snapshot.empty) {
+        favoritesList.innerHTML = `<p style="color:#F3E9EB; text-align:center;">尚未收藏任何歌曲</p>`;
+        return;
+    }
 
-        snapshot.forEach((docSnap) => {
-            const data = docSnap.data();//動態生成
-            const itemId = docSnap.id;
-            const songImage = data.image || 'icon/default.png';
+    let counter = 1; // 用來自動對應 MUSIC1~MUSIC12
 
-            const item = document.createElement("div");
-            item.className = "favorite-item";
+    snapshot.forEach((docSnap) => {
+        const data = docSnap.data(); //動態生成
+        const itemId = docSnap.id;
+        const songImage = data.image || 'icon/default.png';
 
-            // 結構：唱片中心加入圖片 img
-            item.innerHTML = `
+        // 自動對應 MUSIC1.html ~ MUSIC12.html
+        const pageLink = `MUSIC${counter}.html`;
+        counter++;
+        if(counter > 12) counter = 1; // 超過 12 從頭開始
+
+        const item = document.createElement("div");
+        item.className = "favorite-item";
+
+        // 將 record-wrapper 包在 <a> 標籤裡
+        item.innerHTML = `
+            <a href="${pageLink}" class="record-link">
                 <div class="record-wrapper">
                     <img src="${songImage}" alt="${data.name}" class="album-cover">
                     <div class="record-disk">
@@ -62,29 +71,30 @@ onAuthStateChanged(auth, (user) => {
                         </div>
                     </div>
                 </div>
-                <div class="favorite-name">${data.name || '未知'}</div>
-                <div class="favorite-heart" data-id="${itemId}">
-                    <img src="musicimg/heart3.png" alt="愛心" class="heart-icon">
-                </div>
-            `;
-            favoritesList.appendChild(item);
+            </a>
+            <div class="favorite-name">${data.name || '未知'}</div>
+            <div class="favorite-heart" data-id="${itemId}">
+                <img src="musicimg/heart3.png" alt="愛心" class="heart-icon">
+            </div>
+        `;
+        favoritesList.appendChild(item);
 
-            // 愛心刪除
-            const heartDiv = item.querySelector(".favorite-heart");
-            heartDiv.addEventListener("click", async (e) => {
-                e.stopPropagation(); 
-                try {
-                    await deleteDoc(doc(db, "users", uid, "favorites", itemId));
-                    item.style.opacity = "0";
-                    setTimeout(() => item.remove(), 300);
-                } catch (err) {
-                    console.error("刪除失敗:", err);
-                }
-            });
+        // 愛心刪除
+        const heartDiv = item.querySelector(".favorite-heart");
+        heartDiv.addEventListener("click", async (e) => {
+            e.stopPropagation(); 
+            try {
+                await deleteDoc(doc(db, "users", uid, "favorites", itemId));
+                item.style.opacity = "0";
+                setTimeout(() => item.remove(), 300);
+            } catch (err) {
+                console.error("刪除失敗:", err);
+            }
         });
-    }, (err) => {
-        console.error("抓取收藏清單失敗:", err);
     });
+}, (err) => {
+    console.error("抓取收藏清單失敗:", err);
+});
 });
 
 //漢堡選單動畫
