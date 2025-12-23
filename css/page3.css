@@ -1,13 +1,6 @@
-
-/*滑鼠特效*/
-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 9999;
+* {
+    cursor: none !important;
 }
-
 /*圖片置中*/
 main img {
     display: block;
@@ -16,6 +9,38 @@ main img {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* --- 大星星 (鼠標本體) --- */
+#cursor-star {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    /* 層級要設很高，比 loading (11000) 和 header (1050) 還要高 */
+    z-index: 99999; 
+    display: none; /* 初始隱藏 */
+    filter: drop-shadow(0 0 5px rgba(255, 100, 150, 0.5));
+}
+
+/* --- 尾巴小星星 --- */
+.trail-star {
+    position: absolute;
+    z-index: 99998;
+    opacity: 0.8;
+    animation: fall 1s ease-in forwards;
+}
+
+/* 定義掉落動畫 */
+@keyframes fall {
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(0.8);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(var(--tx), 100px) rotate(180deg) scale(0);
+        opacity: 0;
+    }
+}
 header {
     top: 0;
     left: 0;

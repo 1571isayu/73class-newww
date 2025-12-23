@@ -28,21 +28,29 @@
     <style>
         body {
             margin: 0;
-            /*預設鼠標*/
-            cursor: url('icon/mouse.png') 16 16, auto !important;
-            font-family: 'Konkhmer Sleokchher', sans-serif;
-
-            /*背景圖*/
             background-image: url('icon/back.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        .star-image {
+            background-image: url('icon/star.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: transparent;
+            pointer-events: none;
+        }
+
+        #cursor-star.is-hovering {
+            background-image: url('icon/star2.png') !important;
         }
     </style>
-    <canvas id="cursorCanvas"></canvas>
-
-
+<!-- 滑鼠拖曳特效 -->
+        <div id="cursor-star" class="star-image"></div>
     <!--header-->
     <header class="d-flex justify-content-between 
         align-items-center px-4 py-3 fixed-top main-header"><!-- 橫排 左右分散對齊 垂直置中 左右&上下留白 滑動時固定在頂 -->
