@@ -200,13 +200,14 @@ main {
     object-fit: cover;
     border: #F3E9EB 2px solid;
     position: relative;
-    z-index: 5;
+    z-index: 10;
     background-color: #222;
     transition: transform 0.3s ease;
 }
 
 /* 專輯封面特效*/
 .record-wrapper::after {
+    position: absolute;
     content: "";
     top: 0;
     left: 0;
@@ -228,6 +229,7 @@ main {
         radial-gradient(circle, #444 2%, #111 4%, #333 10%, #111 15%, #333 20%, #111 25%, #333 30%, #111 35%, #000 70%);
     border-radius: 50%;
     z-index: 1;
+    position: absolute;   
     display: flex;
     align-items: center;
     justify-content: center;
@@ -266,10 +268,10 @@ main {
 
 @keyframes disk-slide-rotate {
     0% {
-        transform: translateX(0) rotate(0deg);
+        transform: translateX(0px) rotate(0deg);
     }
 
-    15% {
+    20% {
         transform: translateX(110px) rotate(60deg);
     }
 
@@ -277,6 +279,7 @@ main {
         transform: translateX(110px) rotate(360deg);
     }
 }
+
 
 /*歌名*/
 .favorite-name {
