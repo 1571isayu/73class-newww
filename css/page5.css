@@ -61,12 +61,31 @@ header {
   padding-top: 100px;
 }
 
-.line {
-  width: 189px;             
-  border-top: 2px solid #F2285A;
+
+.login-title-container {
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+.login-title-container hr {
+    border: none;
+    height: 2px !important;
+    background-color: #F2285A;
+    opacity: 1 !important;
+    margin: 0 15px;
+    flex: 1;             /* 讓線段自動伸縮，填滿剩餘空間 */
+    max-width: 189px;    /* 限制最大長度 (電腦版維持原本設計) */
+    min-width: 30px;
+}
 
+.login-title-container div {
+    color: #F2285A;
+    font-size: 40px;
+    font-family: "Konkhmer Sleokchher";
+
+}
 .login {
   font-family: "Konkhmer Sleokchher";
   font-size: 40px;
@@ -82,7 +101,7 @@ header {
 }
 
 .form {
-  width: 522px;
+  width: 600px;
   height: auto;
   background-color: #312C2C;
   margin: 5px auto;
@@ -297,15 +316,7 @@ header {
 /* =========================================
    修正：標題容器對應 (解決 HTML 與 CSS Class 對不上的問題)
    ========================================= */
-.login-title-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 23px;
-    padding-top: 100px;
-    /* 確保在手機上不要因為 padding 太大而導致需要一直滑 */
-    margin-bottom: 20px; 
-}
+
 /* =========================================
    [通用設定] 圖片與輸入框自適應
    ========================================= */
@@ -340,10 +351,13 @@ img {
    ========================================= */
 @media (max-width: 1024px) {
     
-    /* 1. 關閉鼠標特效 */
-    #cursorCanvas { display: none !important; }
-    body { cursor: auto !important; }
-
+     
+  #cursor-star {
+    display: none !important;
+  }
+    * {
+        cursor: auto !important;/*確保連結點擊時不會有游標殘留*/
+    }
     /* 2. 表單寬度調整 (改用百分比) */
     .form {
         width: 80%;       /* 寬度 80% */
@@ -368,17 +382,14 @@ img {
         width: 100%;
     }
 }
-
 /* =========================================
    RWD：手機尺寸 (螢幕寬度小於 768px)
-   設定：表單縮小、標題線條縮短、選單置中有圖
    ========================================= */
 @media (max-width: 768px) {
     
     /* 1. Header 與選單 */
-    header .nav-icon { display: none !important; } /* 隱藏 Header Icon */
+    header .nav-icon { display: none !important; }
 
-    /* 顯示選單內 Icon */
     .mobile-menu-icons {
         display: flex !important;
         justify-content: center;
@@ -388,7 +399,7 @@ img {
     }
     .mobile-menu-icons img { width: 50px; height: auto; }
 
-    /* 選單改回置中 */
+    /* 選單樣式 */
     .offcanvas-body {
         align-items: center !important;
         padding-right: 0 !important;
@@ -397,24 +408,24 @@ img {
     .slanted-menu { width: 100% !important; clip-path: none !important; }
 
 
-    /* 2. LOGIN 標題區調整 */
+    /* 2. ★ LOGIN 標題區置中修正 (關鍵) */
     .login-title-container {
-        padding-top: 120px; /* 避開 Header */
+        padding-top: 120px; 
         gap: 10px;
+        justify-content: center !important; /* 強制置中 */
+        width: 100%;
     }
     
-    .line {
-        width: 60px; /* ★ 縮短線條，不然手機會爆版 */
-    }
+   
     
-    .login {
-        font-size: 28px;
-    }
+    .login { font-size: 28px; }
+
 
     /* 3. 表單調整 */
     .form {
-        width: 90%;       /* 手機版更寬一點 */
+        width: 90%;      
         padding: 30px 20px;
+        margin: 0 auto 40px auto; /* 上下邊距，左右置中 */
     }
 
     .label { font-size: 18px; }
@@ -429,13 +440,10 @@ img {
         margin-top: 10px;
     }
 }
-
-/* 修正 CSS Class 對應問題 (確保標題能排版) */
-/* 因為 HTML 用 login-title-container 但 CSS 原本只寫 container */
 .login-title-container {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 23px;
-    padding-top: 100px;
+    padding-top: 150px;
 }

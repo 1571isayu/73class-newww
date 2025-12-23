@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 
 <head>
     <meta charset="UTF-8">
@@ -20,11 +20,8 @@
     <script type="module" src="js/page5.js"></script>
 
     <!--favicon-->
-    <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
-    <link rel="shortcut icon" href="favicon/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
-    <link rel="manifest" href="favicon/site.webmanifest" />
+    <link rel="icon" href="favicon/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="favicon/favicon.ico" type="image/x-icon" />
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -58,8 +55,8 @@
             background-image: url('icon/star2.png') !important;
         }
     </style>
-<!-- 滑鼠拖曳特效 -->
-        <div id="cursor-star" class="star-image"></div>
+    <!-- 滑鼠拖曳特效 -->
+    <div id="cursor-star" class="star-image"></div>
     <!--header-->
     <header class="d-flex justify-content-between 
         align-items-center px-4 py-3 fixed-top main-header"><!-- 橫排 左右分散對齊 垂直置中 左右&上下留白 滑動時固定在頂 -->
@@ -114,11 +111,10 @@
 
 
     <div class="login-title-container">
-        <div class="line"></div>
-        <p class="login">LOGIN</p>
-        <div class="line"></div>
+        <hr>
+        <div>LOGIN</div>
+        <hr>
     </div>
-
     <div>
         <form class="form">
             <label for="username" class="label" id="label1">Username</label>
