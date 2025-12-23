@@ -165,7 +165,7 @@ main {
     font-family: "Konkhmer Sleokchher";
 }
 
-/* --- 收藏清單容器 --- */
+/*收藏清單*/
 .favorites-container {
     display: flex;
     flex-direction: column;
@@ -183,7 +183,7 @@ main {
     overflow: visible;
 }
 
-/* 唱片與封面包裹器 */
+/*唱片+封面*/
 .record-wrapper {
     position: relative;
     width: 200px;
@@ -193,7 +193,7 @@ main {
     cursor: pointer;
 }
 
-/* 專輯封面圖 - 移除發光，只保留縮放 */
+/*專輯封面*/
 .album-cover {
     width: 200px;
     height: 200px;
@@ -205,7 +205,7 @@ main {
     transition: transform 0.3s ease;
 }
 
-/* 專輯封面上的斜向光影質感 */
+/* 專輯封面特效*/
 .record-wrapper::after {
     content: "";
     top: 0;
@@ -215,16 +215,14 @@ main {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.1) 100%);
     z-index: 6;
     pointer-events: none;
-    /* 不擋住滑鼠 */
 }
 
-/* 黑膠唱片本體 - 加入紅色霓虹背光 */
+/*唱片*/
 .record-disk {
     top: 5px;
     left: 5px;
     width: 190px;
     height: 190px;
-    /* 結合放射狀反光與溝槽 */
     background:
         conic-gradient(from 0deg, transparent 0deg, rgba(255, 255, 255, 0.05) 45deg, transparent 90deg, rgba(255, 255, 255, 0.05) 225deg, transparent 270deg),
         radial-gradient(circle, #444 2%, #111 4%, #333 10%, #111 15%, #333 20%, #111 25%, #333 30%, #111 35%, #000 70%);
@@ -233,12 +231,11 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* 初始陰影 */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.6s ease;
 }
 
-/* 唱片中心專輯小圖 */
+/*小圖*/
 .record-center {
     width: 60px;
     height: 60px;
@@ -258,18 +255,12 @@ main {
     object-fit: cover;
 }
 
-/* --- 動態觸發效果 --- */
-
-/* 1. 封面移入時稍微放大 */
 .record-wrapper:hover .album-cover {
     transform: scale(1.03);
-    /* 這裡移除了 box-shadow，所以專輯不會發光 */
 }
 
-/* 2. 唱片滑出、旋轉、並發出紅色強光 */
 .record-wrapper:hover .record-disk {
     animation: disk-slide-rotate 4s linear infinite;
-    /* 紅色霓虹燈效果 */
     box-shadow: 0 0 25px rgba(242, 40, 90, 0.8), 0 0 50px rgba(242, 40, 90, 0.4);
 }
 
@@ -287,7 +278,7 @@ main {
     }
 }
 
-/* 歌名樣式 */
+/*歌名*/
 .favorite-name {
     flex: 1;
     margin-left: 140px;
@@ -296,7 +287,6 @@ main {
     font-family: "M PLUS Rounded 1c", sans-serif;
 }
 
-/* 愛心圖示 */
 .favorite-heart img.heart-icon {
     width: 75px;
     height: 75px;

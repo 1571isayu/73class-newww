@@ -45,7 +45,7 @@ onAuthStateChanged(auth, (user) => {
         }
 
         snapshot.forEach((docSnap) => {
-            const data = docSnap.data();
+            const data = docSnap.data();//動態生成
             const itemId = docSnap.id;
             const songImage = data.image || 'icon/default.png';
 
@@ -69,7 +69,7 @@ onAuthStateChanged(auth, (user) => {
             `;
             favoritesList.appendChild(item);
 
-            // 愛心刪除邏輯
+            // 愛心刪除
             const heartDiv = item.querySelector(".favorite-heart");
             heartDiv.addEventListener("click", async (e) => {
                 e.stopPropagation(); 
@@ -86,6 +86,7 @@ onAuthStateChanged(auth, (user) => {
         console.error("抓取收藏清單失敗:", err);
     });
 });
+
 //漢堡選單動畫
 document.addEventListener('DOMContentLoaded', function () {
     // 1. 抓取元素
