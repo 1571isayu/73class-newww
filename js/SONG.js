@@ -90,6 +90,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
+
 //抓每頁的id
 const pageId = document.body.dataset.pageId;
 
@@ -131,13 +132,25 @@ onAuthStateChanged(auth, async (user) => {
 const form = document.getElementById("commentform");
 const commentInput = document.getElementById("commentinput");
 const commentList = document.getElementById("commentList");
+const sendBtn = document.getElementById("sendBtn");
 
-if (form) {
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();//阻止刷新
-    if (!commentInput.value.trim()) return;//不空才送
+let isSubmitting = false;
 
-    //存到comments集合
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  if (isSubmitting) return;
+  if (!commentInput.value.trim()) return;
+  if (!currentUser) return;
+
+  isSubmitting = true;
+  sendBtn.disabled = true;
+
+  // 飛機動畫
+  sendBtn.classList.remove("fly");
+  void sendBtn.offsetWidth;
+  sendBtn.classList.add("fly");
+
+  try {
     await addDoc(collection(db, "comments"), {
       pageId,
       message: commentInput.value,
@@ -147,8 +160,15 @@ if (form) {
       timestamp: serverTimestamp()
     });
 
-    commentInput.value = "";//清空
-  });
+    commentInput.value = "";
+  } finally {
+    setTimeout(() => {
+      sendBtn.classList.remove("fly");
+      sendBtn.disabled = false;
+      isSubmitting = false;
+    }, 500);
+  }
+});
 
   const q = query(
     collection(db, "comments"),
@@ -193,35 +213,54 @@ if (form) {
     });
   });
 
-}
 
-//收藏列表
+
 const heart = document.querySelector(".heart1");
 
-if (heart && song) {
-  const favRef = () =>
-    doc(db, "users", currentUser.uid, "favorites", pageId);
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    window.location.href = "page5.html";
+    return;
+  }
+
+  const userDoc = await getDoc(doc(db, "users", user.uid));
+  currentUser = {
+    uid: user.uid,
+    username: userDoc.exists() ? userDoc.data().username : "匿名使用者"
+  };
+
+  if (!heart || !song) return;
+
+  const favRef = doc(db, "users", currentUser.uid, "favorites", pageId);
+
+  const snap = await getDoc(favRef);
+  heart.src = snap.exists()
+    ? "musicimg/heart3.png"
+    : "musicimg/heart1.png";
 
   heart.addEventListener("click", async () => {
     const liked = heart.src.includes("heart3.png");
-    heart.src = liked ? "musicimg/heart1.png" : "musicimg/heart3.png";
 
-    // 觸發愛心動畫
-    heart.classList.remove("animate"); // 重置動畫
-    void heart.offsetWidth; // 強制重排，保證動畫可重新觸發
+    heart.src = liked
+      ? "musicimg/heart1.png"
+      : "musicimg/heart3.png";
+
+    heart.classList.remove("animate");
+    void heart.offsetWidth;
     heart.classList.add("animate");
 
     if (liked) {
-      await deleteDoc(favRef());
+      await deleteDoc(favRef);
     } else {
-      await setDoc(favRef(), {
+      await setDoc(favRef, {
         ...song,
         createdAt: serverTimestamp()
       });
     }
   });
+});
 
-}
+
 
 //漢堡選單動畫
 document.addEventListener('DOMContentLoaded', function () {
