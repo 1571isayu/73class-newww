@@ -1,21 +1,22 @@
 * {
     cursor: none !important;
+    box-sizing: border-box;
+    /* ★ 重要：防止 padding 撐大寬度導致跑版 */
 }
 
-/* --- 大星星 (鼠標本體) --- */
+/*星星鼠標*/
 #cursor-star {
     position: fixed;
     top: 0;
     left: 0;
     width: 50px;
     height: 50px;
-    /* 層級要設很高，比 loading (11000) 和 header (1050) 還要高 */
-    z-index: 99999; 
-    display: none; /* 初始隱藏 */
+    z-index: 99999;
+    display: none;
     filter: drop-shadow(0 0 5px rgba(255, 100, 150, 0.5));
 }
 
-/* --- 尾巴小星星 --- */
+/*拖尾小星星*/
 .trail-star {
     position: absolute;
     z-index: 99998;
@@ -23,17 +24,32 @@
     animation: fall 1s ease-in forwards;
 }
 
-/* 定義掉落動畫 */
+.star-image {
+    background-image: url('../icon/star.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    pointer-events: none;
+}
+
+#cursor-star.is-hovering {
+    background-image: url('../icon/star2.png') !important;
+}
+
+/*star掉落動畫*/
 @keyframes fall {
     0% {
         transform: translate(0, 0) rotate(0deg) scale(0.8);
         opacity: 0.8;
     }
+
     100% {
         transform: translate(var(--tx), 100px) rotate(180deg) scale(0);
         opacity: 0;
     }
 }
+
 /*HEADER*/
 header {
     top: 0;
@@ -107,7 +123,6 @@ header {
     transform: rotate(-135deg);
 }
 
-
 /*側邊滑出選單*/
 .slanted-menu {
     background-color: #000;
@@ -127,6 +142,7 @@ header {
     transform: translateX(0) rotate(0deg) !important;
     visibility: visible;
 }
+
 
 .full-menu-link {
     font-family: 'Konkhmer Sleokchher', sans-serif !important;
@@ -155,11 +171,15 @@ header {
     align-items: center;
 }
 
+.mobile-menu-icons {
+    display: none;
+}
+
 main {
     padding-top: 150px;
 }
 
-/* Like 標題線條 */
+/*like標題線條*/
 .likeline {
     margin-bottom: 40px;
     display: flex;
@@ -182,32 +202,21 @@ main {
     font-family: "Konkhmer Sleokchher";
 }
 
-/*收藏清單*/
+/* 1. 收藏清單容器：限制寬度並置中 */
 .favorites-container {
     display: flex;
     flex-direction: column;
     gap: 30px;
-    padding: 20px;
-}
 
-.favorite-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    border-radius: 12px;
-    position: relative;
-    overflow: visible;
-}
+    /* ★ 關鍵修正：讓內容不要太寬，並在畫面置中 */
+    width: 80%;
+    /* 只佔螢幕寬度的 80% (左右各留 10% 空白) */
+    max-width: 1100px;
+    /* 限制最大寬度，避免在超大螢幕散太開 */
+    margin: 0 auto;
+    /* 這行會讓整個清單「水平置中」 */
 
-/*唱片+封面*/
-.record-wrapper {
-    position: relative;
-    width: 200px;
-    height: 200px;
-    margin-left: 246px;
-    flex-shrink: 0;
-    cursor: pointer;
+    padding: 20px 0;
 }
 
 /*專輯封面*/
@@ -222,7 +231,7 @@ main {
     transition: transform 0.3s ease;
 }
 
-/* 專輯封面特效*/
+/*專輯封面特效*/
 .record-wrapper::after {
     position: absolute;
     content: "";
@@ -246,7 +255,7 @@ main {
         radial-gradient(circle, #444 2%, #111 4%, #333 10%, #111 15%, #333 20%, #111 25%, #333 30%, #111 35%, #000 70%);
     border-radius: 50%;
     z-index: 1;
-    position: absolute;   
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -272,6 +281,7 @@ main {
     display: inline-block;
     text-decoration: none;
 }
+
 .record-link:hover .album-cover {
     transform: scale(1.03);
 }
@@ -306,21 +316,75 @@ main {
     }
 }
 
+/* 1. 容器設定：圖文靠左，預留圖文間距 */
+.favorite-item {
+    display: flex;
+    align-items: center;
+    /* 垂直置中 */
 
-/*歌名*/
+    /* ★ 關鍵：靠左排列 (預設就是 left，但寫出來保險) */
+    justify-content: flex-start;
+
+    /* ★ 關鍵：控制「圖片」跟「文字」之間的距離 */
+    gap: 50px;
+
+    padding: 15px 5%;
+    /* 左右留 5% 緩衝，避免貼死螢幕邊緣 */
+    border-radius: 12px;
+    position: relative;
+    overflow: visible;
+}
+
+/* 2. 唱片區塊：移除左邊巨大留白 */
+.record-wrapper {
+    position: relative;
+    width: 200px;
+    height: 200px;
+
+    /* ★ 關鍵：歸零 margin，禁止被壓縮 */
+    margin-left: 0 !important;
+    flex-shrink: 0;
+
+    cursor: pointer;
+}
+
+/* 3. 歌名：移除邊距 + 往右推愛心 + 禁止換行 */
 .favorite-name {
-    flex: 1;
-    margin-left: 140px;
+    flex: 0 1 auto;
+    /* 寬度自動 */
+
+    /* ★ 關鍵：歸零原本的 margin */
+    margin-left: 0 !important;
+
+    /* ★ 關鍵魔法：這行會把右邊的「愛心」遠遠推到最右邊 */
+    margin-right: auto !important;
+
+    /* ★ 關鍵：禁止文字被擠壓成直的 */
+    white-space: nowrap;
+
     font-size: 36px;
     color: #F3E9EB;
     font-family: "M PLUS Rounded 1c", sans-serif;
+    text-align: left;
+    transition: transform 0.6s ease !important;
 }
 
+/* 2. 當「唱片連結」被 hover 時 -> 抓「隔壁的歌名」往右移 */
+.record-link:hover+.favorite-name {
+    /* 往右移動 80px (你可以依據唱片擋住的程度調整這個數字) */
+    transform: translateX(80px);
+}
+
+/* 4. 愛心：移除右邊巨大留白 */
 .favorite-heart img.heart-icon {
     width: 75px;
     height: 75px;
     cursor: pointer;
-    margin-right: 240px;
+
+    /* ★ 關鍵：歸零 margin，禁止被壓縮 */
+    margin-right: 0 !important;
+    flex-shrink: 0;
+
     transition: transform 0.2s;
 }
 
@@ -328,149 +392,73 @@ main {
     transform: scale(1.1);
 }
 
-/* =========================================
-   [通用設定] 圖片自適應
-   ========================================= */
-img {
-    max-width: 100%;
-    height: auto;
-}
-
-/* =========================================
-   [全域修正] 漢堡按鈕與選單 Icon 預設
-   ========================================= */
-/* 1. 電腦與平板預設：隱藏選單內的 Icon (如果 HTML 有加的話) */
-.mobile-menu-icons {
-    display: none;
-}
-
-/* 2. 修復漢堡按鈕層級 */
-#hamburger-btn {
-    z-index: 99999 !important;
-    position: relative;
-}
-
-/* =========================================
-   [通用設定] 圖片自適應
-   ========================================= */
-img {
-    max-width: 100%;
-    height: auto;
-}
-
-/* =========================================
-   [全域修正] 漢堡按鈕與選單 Icon 預設
-   ========================================= */
-.mobile-menu-icons {
-    display: none;
-}
-
-#hamburger-btn {
-    z-index: 99999 !important;
-    position: relative;
-}
-
-/* 確保歌名有動畫過渡效果 (為了平板推擠動畫) */
-.favorite-name {
-    transition: transform 0.4s ease, margin 0.3s ease;
-}
-
-/* =========================================
-   RWD：平板尺寸 (螢幕寬度小於 1024px)
-   重點：推擠動畫變慢、距離變短
-   ========================================= */
+/* RWD<1024 */
 @media (max-width: 1024px) {
-
-    /* 1. 關閉鼠標特效 */
-    #cursorCanvas {
+    #cursor-star {
         display: none !important;
     }
 
-    body {
-        cursor: auto !important;
+    /* 1. 調整主內容上方留白 */
+    main {
+        padding-top: 120px;
     }
 
-    /* 2. 標題線條縮短 */
+    /* 2. 標題線條 */
     .likeline hr {
         flex: 0 0 150px;
-        margin: 0 15px;
     }
 
-    /* 3. 收藏項目排版 */
+    /* 3. 收藏清單容器 */
+    .favorites-container {
+        padding: 20px 40px;
+        /* 左右留邊距，避免愛心貼太死 */
+        gap: 20px;
+    }
+
+    /* ★ 4. 單個項目設定 */
     .favorite-item {
-        padding: 10px 0;
-        justify-content: center;
-        gap: 15px;
+        display: flex;
+        /* justify-content 不需要設定，預設就是靠左 (flex-start) */
+        align-items: center;
+        /* 垂直置中 */
+        gap: 20px;
+        /* 這是「圖」跟「文」之間的距離 */
+        padding: 15px 0;
     }
 
-    /* 唱片位置 */
+    /* 5. 唱片區塊 */
     .record-wrapper {
-        margin-left: 50px;
+        margin-left: 0 !important;
+        /* 歸零 */
     }
 
-    /* 歌名位置與動畫設定 */
+    /* ★ 6. 歌名 (重點：右邊裝彈簧) */
     .favorite-name {
-        margin-left: 20px;
+        margin: 0 !important;
+        /* 先歸零所有邊距 */
+
+        /* ★ 關鍵魔法：把右邊空間撐開，將愛心推到最右邊 */
+        margin-right: auto !important;
+
+        text-align: left;
+        /* 文字靠左 */
         font-size: 28px;
-        /* ★ 改慢一點：從 0.4s 改成 0.8s */
-        transition: transform 0.8s ease;
     }
 
-    /* ★ 改短一點：從 180px 改成 100px (只要不被擋住就好) */
-    .record-wrapper:hover~.favorite-name {
-        transform: translateX(100px);
-    }
-
-    /* 愛心位置 */
+    /* 7. 愛心按鈕 */
     .favorite-heart img.heart-icon {
-        margin-right: 50px;
+        margin-right: 0 !important;
+        /* 歸零 */
         width: 60px;
         height: 60px;
     }
-
-    /* 選單設定 (平板靠右) */
-    .mobile-menu-icons {
-        display: none !important;
-    }
-
-    .offcanvas-body {
-        flex-direction: column !important;
-        justify-content: center !important;
-        align-items: flex-end !important;
-        padding-left: 0 !important;
-        padding-right: 4rem !important;
-    }
-
-    .full-menu-link {
-        text-align: right !important;
-        padding-right: 0 !important;
-    }
 }
 
-/* =========================================
-   RWD：手機尺寸 (螢幕寬度小於 768px)
-   重點：黑膠獨佔一行、歌名愛心置中並排
-   ========================================= */
+/*RWD<768*/
 @media (max-width: 768px) {
 
-    /* 1. Header 與選單 */
     header .nav-icon {
         display: none !important;
-    }
-
-    /* 選單置中 + 顯示 Icon */
-    .offcanvas-body {
-        align-items: center !important;
-        padding-right: 0 !important;
-    }
-
-    .full-menu-link {
-        text-align: center !important;
-    }
-
-    .slanted-menu {
-        width: 100% !important;
-        clip-path: none !important;
     }
 
     .mobile-menu-icons {
@@ -486,87 +474,105 @@ img {
         height: auto;
     }
 
-    /* 2. Main 標題區塊 */
+    .full-menu-link {
+        text-align: center !important;
+        padding-right: 0 !important;
+        width: 100%;
+    }
+
+    .offcanvas-body {
+        flex-direction: column !important;
+        justify-content: center !important;
+        padding: 0 !important;
+    }
+
+    .slanted-menu {
+        width: 100% !important;
+        clip-path: none !important;
+    }
+
+    /* 2. 標題區調整 */
     main {
         padding-top: 100px;
     }
 
-    .likeline hr {
-        flex: 1;
-        margin: 0 10px;
-    }
-
     .likeline div {
         font-size: 32px;
+        /* 標題字變小 */
     }
 
-    /* 3. 收藏列表排版 (修復版) */
-    .favorite-item {
-        flex-wrap: wrap;
-        /* 允許換行 */
-        justify-content: center;
-        /* 整體內容置中 */
-        align-items: center;
-        /* 垂直置中 */
-        gap: 15px;
-        padding: 30px 0;
-        border-bottom: 1px solid rgba(242, 40, 90, 0.3);
-    }
+    /* ★ 關鍵修正 A：指定唱片屬於 'image' 區 ★ */
+    .record-link {
+        grid-area: image;
+        /* 告訴瀏覽器：我是 image */
+        justify-self: center;
+        /* 水平置中 */
 
-  
-    /* (1) 唱片：強制寬度 100% 讓它獨佔第一行 */
-    .record-wrapper {
-        flex: 0 0 100%;
-        /* 強制佔滿一行 */
-        width: 200px;
-        /* 內容寬度 */
-        margin: 0 auto 10px auto !important;
-        /* 置中，下方留點空隙 */
+        /* 確保內容正確顯示 */
         display: flex;
         justify-content: center;
-        transform: scale(0.95);
+        width: 100%;
     }
 
-    /* 手機版移除推擠動畫 */
-    .record-wrapper:hover~.favorite-name {
-        transform: none !important;
-    }
-
-    /* (2) 歌名：自動寬度 */
+    /* ★ 關鍵修正 B：指定歌名屬於 'text' 區 ★ */
     .favorite-name {
-        width: auto !important;
+        grid-area: text;
+        /* 告訴瀏覽器：我是 text */
+        justify-self: end;
+        /* 靠右對齊 (往愛心方向靠) */
+
         margin: 0 !important;
-        flex: 0 1 auto;
+        /* 清除電腦版 margin */
         font-size: 24px;
         text-align: right;
-        /* 文字靠右，靠近愛心 */
     }
 
-    /* (3) 愛心：自動寬度 */
+    /* ★ 關鍵修正 C：指定愛心屬於 'heart' 區 ★ */
     .favorite-heart {
-        width: auto !important;
+        grid-area: heart;
+        /* 告訴瀏覽器：我是 heart */
+        justify-self: start;
+        /* 靠左對齊 (往文字方向靠) */
+
+        margin: 0 !important;
+        /* 清除電腦版 margin */
         display: flex;
         align-items: center;
     }
 
     .favorite-heart img.heart-icon {
-        margin: 0 !important;
-        margin-left: 10px !important;
-        /* 與歌名拉開一點距離 */
-        width: 45px;
-        height: 45px;
+        width: 50px;
+        height: 50px;
+        margin-top: 5px;
     }
-    .record-disk {
-        width: 190px !important;       
-        height: 190px !important;
-        
-        top: 5px !important;           
-        
-        /* ★ 這裡修改：原本 5px，改大一點往右推 */
-        left: 80px !important;          
-        
-        z-index: 1 !important;         /* 藏在下面 */
-        
+
+    /* --- 3. 收藏項目佈局 (重點修正區) --- */
+    .favorite-item {
+        display: grid !important;
+
+        /* 兩欄寬度都設為 auto (只包覆內容) */
+        grid-template-columns: auto auto !important;
+
+        /* ★ 關鍵修正：原本繼承了 space-between 導致分開，現在強制置中！ */
+        justify-content: center !important;
+
+        /* 定義地圖 */
+        grid-template-areas:
+            "image image"
+            "text  heart" !important;
+
+        padding: 20px 0;
+        border-bottom: 1px solid rgba(242, 40, 90, 0.3);
+        align-items: center !important;
+
+        /* ★ 控制間距： */
+        column-gap: 15px !important;
+        /* 文字跟愛心中間固定 15px */
+        row-gap: 10px !important;
+        /* 圖片跟下方的固定間距 */
+
+        /* 防止舊屬性干擾 */
+        gap: 10px 15px !important;
     }
 
 }
