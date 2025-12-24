@@ -264,19 +264,12 @@ onAuthStateChanged(auth, async (user) => {
 
 //漢堡選單動畫
 document.addEventListener('DOMContentLoaded', function () {
-    // 1. 抓取元素
     var offcanvasElement = document.getElementById('offcanvasNavbar');
     var hamburgerIcon = document.querySelector('.hamburger-icon');
-
-    // 如果找不到元素就不要執行，避免報錯
     if (!offcanvasElement || !hamburgerIcon) return;
-
-    // 2. 當選單「開始顯示」時 -> 變成 X
     offcanvasElement.addEventListener('show.bs.offcanvas', function () {
         hamburgerIcon.classList.add('active');
     });
-
-    // 3. 當選單「開始隱藏」時 -> 變回三條線
     offcanvasElement.addEventListener('hide.bs.offcanvas', function () {
         hamburgerIcon.classList.remove('active');
     });

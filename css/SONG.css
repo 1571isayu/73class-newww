@@ -208,7 +208,7 @@ header a {
     visibility: visible;
 }
 
-.container {
+.container1 {
     padding: 3rem 0;
 }
 
@@ -573,6 +573,7 @@ footer {
     padding-left: 33px;
     font-size: 24px;
     color: #F2285A;
+    font-family: "Konkhmer Sleokchher";
 }
 
 .link {
@@ -647,17 +648,6 @@ img {
         width: 60% !important;
     }
 
-    .heart1 {
-        display: block;
-        width: 50px;
-        height: 50px;
-        position: relative;
-        z-index: 10;
-        margin: 0 auto !important;
-        margin-bottom: 20px !important;
-        transform: translateX(300px) !important;
-    }
-
     .container {
         width: 90% !important;
         margin: 40px auto;
@@ -683,7 +673,6 @@ img {
 
 /*RWD<768*/
 @media (max-width: 768px) {
-
     header .nav-icon {
         display: none !important;
     }
@@ -707,7 +696,7 @@ img {
         width: 100%;
     }
 
-    .offcanvas-body {
+    .menu-body {
         flex-direction: column !important;
         justify-content: center !important;
         padding: 0 !important;
@@ -718,20 +707,6 @@ img {
         clip-path: none !important;
     }
 
-    /* 修正選單內容排版 */
-    .offcanvas-body {
-        flex-direction: column !important;
-        justify-content: center !important;
-        padding: 0 !important;
-    }
-
-    .full-menu-link {
-        text-align: center !important;
-        padding-right: 0 !important;
-        width: 100%;
-    }
-
-    /* 3. Main 內容 */
     main {
         padding-top: 90px;
         overflow-x: hidden;
@@ -759,25 +734,17 @@ img {
         height: 100%;
     }
 
-    /* 4. ★ 愛心位置修正 (手機) */
     .heart1 {
         width: 40px;
         height: 40px;
         display: block;
         position: relative;
         z-index: 10;
-
-        /* 手機版維持靠右對齊 (因為手機螢幕小，愛心通常都在邊邊) */
         transform: none !important;
-        margin: 0 !important;
-        margin-top: -10px !important;
-        /* 負值往上拉近圖片 */
         margin-left: auto !important;
-        margin-right: 55px !important;
-        margin-bottom: 15px !important;
+        margin-right: 0 !important;
     }
 
-    /* 5. 留言與按鈕 */
     .text {
         font-size: 24px;
         text-align: center;
@@ -817,7 +784,6 @@ img {
         height: 40px;
     }
 
-    /* 6. Footer */
     footer {
         height: auto;
         flex-direction: column-reverse;
