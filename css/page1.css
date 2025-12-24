@@ -281,8 +281,6 @@ header a {
   background-color: #0e0105;
   color: #F3E9EB;
   border: none;
-  background-color: #0e0105;
-  color: #F3E9EB;
   clip-path: polygon(60px 0, 100% 0, 100% 100%, 0% 100%);
   width: 350px !important;
   transform-origin: top left;
@@ -296,22 +294,6 @@ header a {
   visibility: visible;
 }
 
-.full-menu-link {
-  font-family: 'Konkhmer Sleokchher', sans-serif;
-  font-size: 2.5rem;
-  font-weight: 900;
-  color: #F3E9EB !important;
-  text-transform: uppercase;
-  padding: 10px 0;
-  transition: 0.3s;
-  display: block;
-  text-align: right;
-}
-
-.full-menu-link:hover {
-  color: #F2285A !important;
-  padding-right: 20px;
-}
 
 .container {
   padding: 3rem 0;
@@ -345,7 +327,7 @@ header a {
   font-family: 'Konkhmer Sleokchher', sans-serif !important;
   font-size: 2.5rem !important;
   font-weight: 900 !important;
-  color: #fff !important;
+  color: #F3E9EB !important;
   text-transform: uppercase;
   padding: 10px 0;
   transition: 0.3s !important;
@@ -355,7 +337,7 @@ header a {
 }
 
 .full-menu-link:hover {
-  color: #ff004f !important;
+  color: #F2285A !important;
   padding-right: 20px !important;
 }
 

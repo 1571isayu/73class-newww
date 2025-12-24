@@ -1,21 +1,43 @@
-/* 往上跑動畫動畫 */
-.fade-up {
-    opacity: 0;
-    transform: translateY(50px);
-    /* 負往上 正往下 */
-    transition: opacity 0.6s ease-out, transform 0.8s ease-out;
-}
-
-.fade-up.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
 * {
     cursor: none !important;
 }
 
-/* --- 大星星 (鼠標本體) --- */
+body {
+    margin: 0;
+    background-image: url('../icon/back.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow-x: hidden;
+}
+
+/*捲軸外觀*/
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0e0105;
+    border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #F2285A;
+    border-radius: 10px;
+    border: 3px solid #0e0105;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #F3E9EB;
+}
+
+html {
+    scrollbar-color: #F2285A #0e0105;
+    scrollbar-width: thin;
+}
+
+/*星星鼠標*/
 #cursor-star {
     position: fixed;
     top: 0;
@@ -24,11 +46,10 @@
     height: 50px;
     z-index: 99999;
     display: none;
-    /* 初始隱藏 */
     filter: drop-shadow(0 0 5px rgba(255, 100, 150, 0.5));
 }
 
-/* --- 尾巴小星星 --- */
+/*拖尾小星星*/
 .trail-star {
     position: absolute;
     z-index: 99998;
@@ -36,7 +57,20 @@
     animation: fall 1s ease-in forwards;
 }
 
-/* 定義掉落動畫 */
+.star-image {
+    background-image: url('../icon/star.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    pointer-events: none;
+}
+
+#cursor-star.is-hovering {
+    background-image: url('../icon/star2.png') !important;
+}
+
+/*star掉落動畫*/
 @keyframes fall {
     0% {
         transform: translate(0, 0) rotate(0deg) scale(0.8);
@@ -49,7 +83,9 @@
     }
 }
 
+/*HEADER*/
 header {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -57,22 +93,51 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    box-sizing: border-box;
     padding: 0 30px;
-    z-index: 1050;
-}
-
-.icon {
-    width: 117px;
-    height: 34px;
-}
-
-.main-header {
-    z-index: 1100 !important;
-    ;
+    z-index: 1060;
     pointer-events: none;
 }
 
-/* 1. 漢堡圖示容器 */
+header a {
+    pointer-events: auto;
+}
+
+.left-icon {
+    height: 50px;
+    width: auto;
+}
+
+.right-icons {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    pointer-events: auto;
+}
+
+.like-icon {
+    height: 50px;
+    width: auto;
+}
+
+.login-icon {
+    height: 40px;
+    width: auto;
+}
+
+
+/*漢堡選單按鈕*/
+#hamburger-btn {
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    cursor: pointer;
+    z-index: 1060;
+    position: relative;
+}
+
+/*三條槓槓ㄉ容器*/
 .hamburger-icon {
     width: 40px;
     height: 30px;
@@ -80,7 +145,7 @@ header {
     cursor: pointer;
 }
 
-/* 2. 三條線的共同設定 */
+/*三條槓槓初始設定*/
 .hamburger-icon span {
     display: block;
     position: absolute;
@@ -88,18 +153,13 @@ header {
     width: 100%;
     background: #F2285A;
     border-radius: 9px;
-    /* 線條圓角 */
     opacity: 1;
-    /* 透明度 */
     left: 0;
-    /* 靠容器的左 */
     transform: rotate(0deg);
-    /* 旋轉角度 */
     transition: 0.3s ease-in-out;
-    /* 過渡動畫 */
 }
 
-/* 3. 線條初始位置 */
+/*線條初始位置*/
 .hamburger-icon span:nth-child(1) {
     top: 0px;
 }
@@ -112,7 +172,7 @@ header {
     top: 30px;
 }
 
-/* 4. 變身成 X 的狀態 (白色) */
+/*變成 X +active*/
 .hamburger-icon.active span:nth-child(1) {
     top: 10px;
     background: #F3E9EB;
@@ -130,91 +190,75 @@ header {
     transform: rotate(-135deg);
 }
 
-/* =========================================
-   同步極速版：左上角軸心甩入
-   ========================================= */
-
+/*側邊滑出選單*/
 .slanted-menu {
-    /* --- 1. 基礎外觀 (保持不變) --- */
-    background-color: #000;
-    color: #fff;
+    background-color: #0e0105 !important;
+    color: #F3E9EB;
     border: none;
     clip-path: polygon(60px 0, 100% 0, 100% 100%, 0% 100%);
     width: 350px !important;
-
-    /* --- 2. 動畫設定 (修改這裡) --- */
-
-    /* 軸心維持在左上角 */
     transform-origin: top left;
-
-    /* 預設狀態：
-       角度改成 -15deg (原本 -30deg)。
-       角度小一點，轉正的路徑就短一點，感覺會更俐落。
-    */
     transform: translateX(100%) rotate(-15deg) !important;
-
-    /* --- 3. 速度設定 (關鍵！) --- */
-    /* 時間改成 0.4s (原本 0.8s)。
-       這跟漢堡按鈕的 0.25s 很接近，加上選單面積大，視覺上會感覺是同步的。
-       Ease-out 代表「一開始很快，最後慢慢煞車」，符合點擊後的立即反應。
-    */
     transition: transform 0.3s ease-out;
-
     visibility: hidden;
 }
 
-/* --- 4. 打開時的狀態 --- */
 .offcanvas.show {
     transform: translateX(0) rotate(0deg) !important;
     visibility: visible;
 }
 
+.container {
+    padding: 3rem 0;
+}
 
-/* =========================================
-   修正後的選單與連結樣式
-   ========================================= */
+/*選單容器*/
+.menu-body {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 1rem 4rem 1rem 0 !important;
+}
 
-/* 1. 選單連結 (常態) */
+.menu-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    width: 100%;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-item {
+    display: block;
+    width: 100%;
+}
+
 .full-menu-link {
     font-family: 'Konkhmer Sleokchher', sans-serif !important;
     font-size: 2.5rem !important;
     font-weight: 900 !important;
-    color: #fff !important;
+    color: #F3E9EB !important;
     text-transform: uppercase;
     padding: 10px 0;
     transition: 0.3s !important;
-    /* 動畫時間 */
-
-    /* 讓連結變成長條塊狀，並靠右對齊 */
     display: block;
     text-align: right;
+    text-decoration: none;
 }
 
-/* 2. 選單連結 (滑鼠移上去時 :hover) */
 .full-menu-link:hover {
-    color: #ff004f !important;
-    /* 變粉紅色 */
-
-    /* 往左邊彈一下的效果 */
-    /* 因為是靠右對齊，增加右邊內距會把文字往左推 */
+    color: #F2285A !important;
     padding-right: 20px !important;
 }
 
-/* 3. 選單容器 (Offcanvas Body) */
-/* 這裡控制整個選單內容離邊框多遠 */
-.offcanvas-body {
-    /* 強制把 Bootstrap 的 ps-5 (左邊留白) 歸零 */
-    padding-left: 0 !important;
-
-    /* 改成右邊留白 (數字越大，所有文字離右邊邊框越遠) */
-    padding-right: 4rem !important;
-
-    /* 確保內容垂直置中 */
-    display: flex;
-    align-items: center;
+.mobile-menu-icons {
+    display: none;
 }
 
-/* BODY */
+/*BODY*/
 main {
     padding-top: 60px;
     text-align: center;
@@ -236,11 +280,13 @@ main hr {
 }
 
 .song-aa {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    /* 箭頭和大圖間距 */
+   display: flex;
+    justify-content: center; 
+    align-items: center;   
+    gap: 20px;               
+    max-width: 977px;      
+    margin: 0 auto;      
+    padding: 0 10px;
 }
 
 .arrow-link {
@@ -253,43 +299,44 @@ main hr {
 
 .arrow-placeholder {
     width: 49px;
-    /* 跟右邊箭頭一樣寬 */
     height: 49px;
-    /* 跟右邊箭頭一樣高 */
     visibility: hidden;
-    /* 隱藏起來，但保留空間 */
+    /*隱藏但保留空間*/
 }
-
+/*包住圖片和愛心ㄉ容器*/
+.image-container {
+    position: relative;
+    width: 100%;
+    max-width: 977px;
+    margin: 40px auto;
+    display: inline-block;
+}
+/*圖片*/
 main .dream {
-    margin-top: 40px;
-    width: 977px !important;
-    height: 549px !important;
+    width: 100%;
+    height: auto;
+    display: block;
+
     transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
+/*圖片hover特效*/
 main .dream:hover {
     transform: scale(1.05);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
 }
 
-/* --- 修改這裡：電腦版愛心設定 --- */
+/*愛心*/
 .heart1 {
-    display: flex;
-    justify-content: center;
+    position: absolute;
+    bottom: 0; 
+    right: 0;
+    margin-bottom: -70px; 
+    margin-right: 0px;
+    
     width: 65px;
     height: 65px;
-
-    /* 舊的寫法刪掉 (margin-left: 1270px;) */
-    /* 新寫法：讓它相對於中間圖片定位 */
-    margin: 0 auto;
-    /* 先水平置中 */
-
-    /* 核心技巧：從中間往右移動 460px 
-       (因為大圖寬約977px，一半是488px，設460px會剛好在右下角邊緣) */
-    transform: translateX(460px);
-
-    margin-top: 10px;
-    /* 與上方圖片的距離 */
+    z-index: 10;
 }
 
 .heart1.animate {
@@ -297,25 +344,11 @@ main .dream:hover {
 }
 
 @keyframes heartBeat {
-    0% {
-        transform: scale(1);
-    }
-
-    30% {
-        transform: scale(1.5);
-    }
-
-    50% {
-        transform: scale(1.3);
-    }
-
-    70% {
-        transform: scale(1.5);
-    }
-
-    100% {
-        transform: scale(1);
-    }
+    0% { transform: scale(1); }
+    30% { transform: scale(1.5); }
+    50% { transform: scale(1.3); }
+    70% { transform: scale(1.5); }
+    100% { transform: scale(1); }
 }
 
 main p {
@@ -336,7 +369,6 @@ main p {
 .container hr {
     border: none;
     height: 2px !important;
-    /*!important 是為了讓他成為最高層級*/
     background-color: #F2285A;
     width: 977px;
     margin: 10px auto !important;
@@ -371,6 +403,8 @@ main p {
     outline: none;
     background-color: #fff;
     color: #000;
+    resize: none;   
+    overflow: hidden;
 }
 
 .send-btn {
@@ -419,7 +453,7 @@ main p {
 
 
 
-/* 留言列表 */
+/*留言列表*/
 #commentList {
     margin-top: 40px;
     width: 977px;
@@ -435,7 +469,7 @@ main p {
     color: #fff;
 }
 
-/* 頭像 */
+/*頭像*/
 .comment-left {
     display: flex;
     align-items: center;
@@ -459,7 +493,7 @@ main p {
     /*不變形*/
 }
 
-/* 暱稱+留言 */
+/*暱稱+留言*/
 .comment-body {
     display: flex;
     flex-direction: column;
@@ -537,39 +571,31 @@ footer {
     margin-right: 20px;
 }
 
-/* =========================================
-   [通用設定] 確保圖片不會超出容器
-   ========================================= */
 img {
     max-width: 100%;
     height: auto;
 }
-
-/* =========================================
-   [最終修復版] RWD 選單邏輯
-   ========================================= */
-
-/* 1. 預設狀態 (電腦 & 平板)：隱藏選單內的 Icon */
-.mobile-menu-icons {
-    display: none;
+/* 往上跑動畫動畫 */
+.fade-up {
+    opacity: 0;
+    transform: translateY(50px);
+    /* 負往上 正往下 */
+    transition: opacity 0.6s ease-out, transform 0.8s ease-out;
 }
 
-/* 2. 修復漢堡按鈕層級 (讓叉叉永遠在黑色選單上面) */
-#hamburger-btn {
-    z-index: 99999 !important;
-    position: relative;
+.fade-up.show {
+    opacity: 1;
+    transform: translateY(0);
 }
-/* =========================================
-   RWD：平板尺寸 (1024px 以下)
-   ========================================= */
+
+
+/*RWD<1024*/
 @media (max-width: 1024px) {
 
-    /* 1. 基礎設定 */
     #cursor-star { display: none !important; }
     body { cursor: auto !important; }
     * { cursor: auto !important; }
 
-    /* 2. 中間主圖區域 */
     .song-aa {
         width: 100%;
         padding: 0 20px;
@@ -587,37 +613,27 @@ img {
     .arrow-link, .arrow-placeholder { flex-shrink: 0; }
     main hr { width: 60% !important; }
 
-    /* 3. ★ 愛心位置修正 (平板專用) */
     .heart1 {
         display: block;
         width: 50px;
         height: 50px;
         position: relative;
         z-index: 10;
-
-        /* 第一步：先讓愛心「水平置中」，跟圖片的中軸線對齊 */
         margin: 0 auto !important;
-
-        /* 第二步：設定垂直位置 (在圖片下方 10px) */
-        
         margin-bottom: 20px !important;
-
-        /* 第三步：往右移動 (關鍵！)
-           圖片最大 800px，一半是 400px。
-           愛心往右移 360px，就會剛好對齊圖片的右邊緣。
-           這樣就算平板橫放，愛心也不會跑到螢幕最右邊去。 */
         transform: translateX(300px) !important;
     }
-    /* 4. 其他修正 */
     .container { width: 90% !important; margin: 40px auto; }
     .container hr, .text, #commentList, #commentform { width: 100% !important; }
     #commentinput { width: 100% !important; flex: 1; }
+    
+  #cursor-star {
+    display: none !important;
+  }
 }
 
 
-/* =========================================
-   RWD：手機尺寸 (768px 以下)
-   ========================================= */
+/*RWD<768*/
 @media (max-width: 768px) {
 
   header .nav-icon {

@@ -1,105 +1,77 @@
-/* =========================================
-   1. 星星鼠標特效 (包含換圖功能)
-   ========================================= */
+/*星星鼠標特效*/
 document.addEventListener('DOMContentLoaded', () => {
-    const cursorStar = document.getElementById('cursor-star');
-    
-    // 防呆
-    if (!cursorStar) {
-        console.error("找不到 #cursor-star 元素");
-        return;
+  const cursorStar = document.getElementById('cursor-star');
+
+  if (!cursorStar) {
+    console.error("找不到 #cursor-star 元素");
+    return;
+  }
+
+  let lastTime = 0;
+
+  document.addEventListener('mousemove', function (e) {
+    cursorStar.style.display = 'block';
+    cursorStar.style.left = e.clientX + 'px';
+    cursorStar.style.top = e.clientY + 'px';
+    const now = Date.now();
+    if (now - lastTime > 100) {
+      createTrailStar(e.pageX, e.pageY);
+      lastTime = now;
     }
+  });
 
-    let lastTime = 0;
+  function isClickable(target) {
+    return target.closest('a') ||
+      target.closest('button') ||
+      target.closest('.nav-icon') ||
+      window.getComputedStyle(target).cursor === 'pointer';
+  }
 
-    // --- A. 滑鼠移動跟隨 (基本功能) ---
-    document.addEventListener('mousemove', function(e) {
-        // 顯示並更新大星星位置
-        cursorStar.style.display = 'block';
-        cursorStar.style.left = e.clientX + 'px';
-        cursorStar.style.top = e.clientY + 'px';
-
-        // 產生尾巴小星星 (冷卻時間 100毫秒)
-        const now = Date.now();
-        if (now - lastTime > 100) { 
-            createTrailStar(e.pageX, e.pageY);
-            lastTime = now;
-        }
-    });
-
-    // --- B. 連結換圖偵測 (新增功能) ---
-    
-    // 定義什麼是「可點擊」的元素
-    function isClickable(target) {
-        // 檢查目標本身，或是往上找它的祖先元素是否有這些特徵
-        return target.closest('a') || // 連結
-               target.closest('button') || // 按鈕
-               target.closest('.nav-icon') || // 你 header 的 icon class
-               // 或者檢查該元素的滑鼠樣式是否被設為 pointer (手型)
-               window.getComputedStyle(target).cursor === 'pointer';
+  document.addEventListener('mouseover', function (e) {
+    if (isClickable(e.target)) {
+      cursorStar.classList.add('is-hovering');
     }
+  });
 
-    // 監聽滑鼠移入事件
-    document.addEventListener('mouseover', function(e) {
-        if (isClickable(e.target)) {
-            // 如果碰到可點擊元素，加上 class 來換圖
-            cursorStar.classList.add('is-hovering');
-        }
-    });
+  document.addEventListener('mouseout', function (e) {
+    cursorStar.classList.remove('is-hovering');
+  });
+  //小星星拖尾特效
+  function createTrailStar(x, y) {
+    const star = document.createElement('div');
+    star.classList.add('trail-star', 'star-image');
+    star.style.left = x + 'px';
+    star.style.top = y + 'px';
 
-    // 監聽滑鼠移出事件
-    document.addEventListener('mouseout', function(e) {
-        // 這裡使用一個簡單的邏輯：滑鼠離開任何元素時，先移除 class。
-        // 如果它立刻又進入另一個可點擊元素，mouseover 會馬上再把它加回去，視覺上是連續的。
-        cursorStar.classList.remove('is-hovering');
-    });
+    const size = Math.random() * 15 + 10;
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
 
+    const tx = (Math.random() - 0.5) * 60;
+    star.style.setProperty('--tx', `${tx}px`);
 
-    // --- C. 產生尾巴函式 (維持原樣) ---
-    function createTrailStar(x, y) {
-        const star = document.createElement('div');
-        star.classList.add('trail-star', 'star-image');
-        
-        // (選用) 如果你希望尾巴也跟著變色，可以把下面註解打開，
-        // 但因為尾巴是隨機產生且很快消失，維持原樣通常視覺上比較不亂。
-        /*
-        if (cursorStar.classList.contains('is-hovering')) {
-             star.style.backgroundImage = "url('../star-hover.png')";
-        }
-        */
+    document.body.appendChild(star);
 
-        star.style.left = x + 'px';
-        star.style.top = y + 'px';
-        
-        const size = Math.random() * 15 + 10; 
-        star.style.width = size + 'px';
-        star.style.height = size + 'px';
-
-        const tx = (Math.random() - 0.5) * 60; 
-        star.style.setProperty('--tx', `${tx}px`);
-
-        document.body.appendChild(star);
-        
-        setTimeout(() => {
-            star.remove();
-        }, 1000);
-    }
+    setTimeout(() => {
+      star.remove();
+    }, 1000);
+  }
 });
 
 //fade up
 document.addEventListener("DOMContentLoaded", () => {
-    const fadeUpElements = document.querySelectorAll('.fade-up');
+  const fadeUpElements = document.querySelectorAll('.fade-up');
 
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('show');
-                observer.unobserve(entry.target); // 只觸發一次
-            }
-        });
-    }, { threshold: 0.5 }); // 元素 50% 進入視窗觸發
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+        observer.unobserve(entry.target); // 只觸發一次
+      }
+    });
+  }, { threshold: 0.5 }); // 元素 50% 進入視窗觸發
 
-    fadeUpElements.forEach(el => observer.observe(el));
+  fadeUpElements.forEach(el => observer.observe(el));
 });
 
 //Loading
@@ -350,36 +322,26 @@ document.addEventListener("DOMContentLoaded", () => {
   animateSmoke();
 });
 
-
-
-
-// ★ 修正重點：確保在 Loading 結束後才啟動
-// 找到你原本的 Loading 監聽器，在那裡加入啟動指令
+//loading
 window.addEventListener('load', () => {
   setTimeout(() => {
     document.getElementById('loading').style.display = 'none';
     document.getElementById('main-content').style.display = 'block';
-
-    // 當 main-content 顯示後，啟動波動圖
     initVolumeEffect();
   }, 2500);
 });
 
 //漢堡選單動畫
 document.addEventListener('DOMContentLoaded', function () {
-  // 1. 抓取元素
   var offcanvasElement = document.getElementById('offcanvasNavbar');
   var hamburgerIcon = document.querySelector('.hamburger-icon');
 
-  // 如果找不到元素就不要執行，避免報錯
   if (!offcanvasElement || !hamburgerIcon) return;
 
-  // 2. 當選單「開始顯示」時 -> 變成 X
   offcanvasElement.addEventListener('show.bs.offcanvas', function () {
     hamburgerIcon.classList.add('active');
   });
 
-  // 3. 當選單「開始隱藏」時 -> 變回三條線
   offcanvasElement.addEventListener('hide.bs.offcanvas', function () {
     hamburgerIcon.classList.remove('active');
   });
