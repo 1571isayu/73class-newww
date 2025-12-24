@@ -111,9 +111,9 @@ window.addEventListener('load', () => {
   }, 2500);
 });
 
-//第二個
+//ALBUM音符
 document.addEventListener("DOMContentLoaded", () => {
-  const blackredSection = document.querySelector('.two');
+  const blackredSection = document.querySelector('.album');
   const blackredText = document.querySelector('.blackred-text');
   const blackredImg = document.querySelector('.blackred-img');
   const blackredCanvas = document.getElementById('blackredCanvas');
@@ -212,11 +212,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-//音量波動
+//ALBUM音量波動
 function initVolumeEffect() {
   const vCanvas = document.getElementById('volumeCanvas');
   const vCtx = vCanvas.getContext('2d');
-  const blackredSection = document.querySelector('.two');
+  const blackredSection = document.querySelector('.album');
 
   let bars = [];
   const barWidth = 10;
@@ -264,10 +264,10 @@ function initVolumeEffect() {
   draw();
 }
 
-//第三個
+//LIVE特效
 document.addEventListener("DOMContentLoaded", () => {
-  const redImg = document.querySelector(".red-img");
-  const threeText = document.querySelector(".three-text");
+  const redImg = document.querySelector(".live-img");
+  const threeText = document.querySelector(".live-text");
   const smokeCanvas = document.getElementById("smokeCanvas");
   const ctx = smokeCanvas.getContext("2d");
 
