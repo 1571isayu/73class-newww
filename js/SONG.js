@@ -96,18 +96,18 @@ const pageId = document.body.dataset.pageId;
 
 //把全部資訊放在一起
 const SONG_MAP = {
-  music1: { name: "夜に駆ける", image: "songimg/song1.png", pageLink: "music1.html" },
-  music2: { name: "あの夢をなぞって", image: "songimg/song2.jpg", pageLink: "music2.html" },
-  music3: { name: "ハルジオン", image: "songimg/song3.jpg", pageLink: "music3.html" },
-  music4: { name: "たぶん", image: "songimg/song4.jpg", pageLink: "music4.html" },
-  music5: { name: "群青", image: "songimg/song5.jpg", pageLink: "music5.html" },
-  music6: { name: "ハルカ", image: "songimg/song6.jpg", pageLink: "music6.html" },
-  music7: { name: "怪物", image: "songimg/song7.jpg", pageLink: "music7.html" },
-  music8: { name: "優しい彗星", image: "songimg/song8.jpg", pageLink: "music8.html" },
-  music9: { name: "もう少しだけ", image: "songimg/song9.jpg", pageLink: "music9.html" },
-  music10: { name: "三原色", image: "songimg/song10.jpg", pageLink: "music10.html" },
-  music11: { name: "ラブレター", image: "songimg/song11.jpg", pageLink: "music11.html" },
-  music12: { name: "大正浪漫", image: "songimg/song12.jpg", pageLink: "music12.html" }
+  music1: { name: "夜に駆ける", image: "songimg/song1.png", pageLink: "MUSIC1.html" },
+  music2: { name: "あの夢をなぞって", image: "songimg/song2.jpg", pageLink: "MUSIC2.html" },
+  music3: { name: "ハルジオン", image: "songimg/song3.jpg", pageLink: "MUSIC3.html" },
+  music4: { name: "たぶん", image: "songimg/song4.jpg", pageLink: "MUSIC4.html" },
+  music5: { name: "群青", image: "songimg/song5.jpg", pageLink: "MUSIC5.html" },
+  music6: { name: "ハルカ", image: "songimg/song6.jpg", pageLink: "MUSIC6.html" },
+  music7: { name: "怪物", image: "songimg/song7.jpg", pageLink: "MUSIC7.html" },
+  music8: { name: "優しい彗星", image: "songimg/song8.jpg", pageLink: "MUSIC8.html" },
+  music9: { name: "もう少しだけ", image: "songimg/song9.jpg", pageLink: "MUSIC9.html" },
+  music10: { name: "三原色", image: "songimg/song10.jpg", pageLink: "MUSIC10.html" },
+  music11: { name: "ラブレター", image: "songimg/song11.jpg", pageLink: "MUSIC11.html" },
+  music12: { name: "大正浪漫", image: "songimg/song12.jpg", pageLink: "MUSIC12.html" }
 };
 
 const song = SONG_MAP[pageId];
